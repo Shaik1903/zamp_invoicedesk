@@ -106,3 +106,13 @@ def test_clear_invoices_removes_only_processed_invoices(client):
     b = upload(client, "01_greenleaf_clean.pdf")  # the same invoice is new again, not a duplicate
     wait_batch(client, b["batch_id"])
     assert client.get(f"/api/runs/{b['run_ids'][0]}").json()["decision"]["decision"] == "APPROVE"
+
+
+def test_responses_are_compressed_but_live_streams_are_not(client):
+    js = client.get("/app.js", headers={"Accept-Encoding": "gzip"})
+    assert js.status_code == 200 and js.headers.get("content-encoding") == "gzip"
+    assert client.get("/api/fixtures", headers={"Accept-Encoding": "gzip"}).headers.get("content-encoding") == "gzip"
+    b = upload(client, "01_greenleaf_clean.pdf")
+    wait_batch(client, b["batch_id"])
+    with client.stream("GET", f"/api/runs/{b['run_ids'][0]}/events", headers={"Accept-Encoding": "gzip"}) as s:
+        assert s.headers["content-type"].startswith("text/event-stream") and "content-encoding" not in s.headers

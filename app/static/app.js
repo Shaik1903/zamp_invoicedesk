@@ -82,8 +82,29 @@ function route() {
   window.scrollTo(0, 0);
 }
 addEventListener("hashchange", route);
+
+// Page data is drawn from memory at once and refreshed in the background, so switching pages never starts blank.
+const CACHE = {};
+function cachedApi(path, onFresh) {
+  const had = path in CACHE;
+  const req = api(path).then((d) => {
+    const changed = !had || JSON.stringify(d) !== JSON.stringify(CACHE[path]);
+    CACHE[path] = d;
+    if (had && changed && onFresh) onFresh(d);
+    return d;
+  });
+  if (!had) return req;
+  req.catch(() => {});
+  return Promise.resolve(CACHE[path]);
+}
+function prefetch() {
+  for (const p of ["/api/fixtures", "/api/assumptions", "/api/reference", "/api/runs"]) {
+    if (!(p in CACHE)) api(p).then((d) => { if (!(p in CACHE)) CACHE[p] = d; }).catch(() => {});
+  }
+}
 addEventListener("DOMContentLoaded", async () => {
   route();
+  prefetch();
   try {
     const hl = await api("/api/health");
     // Only offline mode is announced: then the answers come from the test key, and people must know that.
@@ -174,7 +195,7 @@ VIEWS.new = async (el) => {
   drop.ondrop = (e) => { e.preventDefault(); drop.classList.remove("over"); send(e.dataTransfer.files); };
 
   freshControl($("#fresh"));
-  const fx = await api("/api/fixtures");
+  const fx = await cachedApi("/api/fixtures");
   const byFile = Object.fromEntries(fx.files.map((m) => [m.file, m]));
   const demo = $("#demo");
   for (const d of fx.demo) {
@@ -214,6 +235,7 @@ function freshControl(box, done) {
     box.querySelector("[data-act=go]").onclick = async () => {
       try {
         await api("/api/invoices/clear", { method: "POST" });
+        delete CACHE["/api/runs"]; delete CACHE["/api/reference"];
         box.innerHTML = `<p class="badge ok">${I.check.replace("<svg", '<svg width="15" height="15"')}Cleared. Ready for new invoices.</p>`;
         setTimeout(idle, 4000);
         if (done) done();
@@ -543,9 +565,11 @@ VIEWS.dashboard = async (el) => {
   };
   const load = async () => {
     const d = await api("/api/runs"), js = JSON.stringify(d);
+    CACHE["/api/runs"] = d;
     if (js === lastJson) return; // nothing new: keep the page still
     lastJson = js; data = d; draw();
   };
+  if (CACHE["/api/runs"]) { data = CACHE["/api/runs"]; lastJson = JSON.stringify(data); draw(); }  // instant, then refreshed
   await load();
   const t = setInterval(() => load().catch(() => {}), 3000);
   cleanup.push(() => clearInterval(t));
@@ -580,7 +604,7 @@ const DATA_TABS = {
     $("#policy").onsubmit = async (e) => {
       e.preventDefault();
       const body = Object.fromEntries([...new FormData(e.target)].map(([k, v]) => [k, Number(v)]));
-      try { await api("/api/policy", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }); $("#pmsg").textContent = "Saved. New invoices use these values."; }
+      try { await api("/api/policy", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }); delete CACHE["/api/reference"]; $("#pmsg").textContent = "Saved. New invoices use these values."; }
       catch (err) { $("#pmsg").textContent = err.message; }
     };
   },
@@ -590,7 +614,7 @@ VIEWS.data = async (el) => {
     <header class="page-head"><div><h1>Procurement data</h1><p class="muted">What every invoice is checked against: vendors, purchase orders, goods received, what has been billed, and the tolerances.</p></div>
       <div id="reset"></div></header>
     <div class="seg-ctl" id="tabs" style="display:inline-flex;margin-bottom:16px"></div><div id="tab"></div>`));
-  const ref = await api("/api/reference");
+  let ref = await cachedApi("/api/reference", (d) => { if (el.isConnected) { ref = d; show(); } });
   let cur = "Purchase orders";
   const show = () => {
     $("#tabs").innerHTML = Object.keys(DATA_TABS).map((t) => `<button class="${t === cur ? "on" : ""}" data-t="${t}">${t}</button>`).join("");
@@ -643,7 +667,7 @@ VIEWS.tests = async (el) => {
 
 // ---------- Assumptions ----------
 VIEWS.assumptions = async (el) => {
-  const list = await api("/api/assumptions");
+  const list = await cachedApi("/api/assumptions");
   el.append(h(`
     <header class="page-head"><div><h1>Assumptions and design choices</h1><p class="muted">The judgment calls behind every decision.</p></div></header>
     <div class="card principle"><b>AI reads, code decides.</b>

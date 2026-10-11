@@ -56,3 +56,11 @@ def test_uploads_show_progress_and_ignore_a_second_drop():
     js = (STATIC / "app.js").read_text(encoding="utf-8")
     new_view = js[js.index("VIEWS.new = "):js.index("// ---------- Batch")]
     assert "upload.onprogress" in js and "uploading" in new_view and "if (uploading) return" in new_view
+
+
+def test_pages_draw_from_a_prefetched_cache():
+    # Switching pages should not start from a blank screen and wait for the server every time.
+    js = (STATIC / "app.js").read_text(encoding="utf-8")
+    assert "const CACHE = {}" in js and "function prefetch" in js and "prefetch()" in js
+    for path in ("/api/fixtures", "/api/assumptions", "/api/reference"):
+        assert f'cachedApi("{path}"' in js

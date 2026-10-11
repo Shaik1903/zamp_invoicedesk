@@ -10,6 +10,7 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
+from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import Response, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 
@@ -97,6 +98,7 @@ def create_app(db_path=None, extractor=None):
         conn.close()
 
     app = FastAPI(title="InvoiceDesk", lifespan=lifespan)
+    app.add_middleware(GZipMiddleware, minimum_size=1000)  # live-update streams (text/event-stream) are never compressed
 
     @app.get("/api/health")
     def health():
