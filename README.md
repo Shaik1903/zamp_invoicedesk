@@ -6,7 +6,7 @@ InvoiceDesk is an accounts-payable assistant built for the Zamp AI Solutions Ass
 
 | | |
 |---|---|
-| **Live app** | _link added after deployment_ |
+| **Live app** | **https://invoicedesk-61918052835.asia-south1.run.app** |
 | **48-second trailer** | _link added after upload_ |
 | **Original proposal** (Day 1, before the build) | [docs/InvoiceDesk_proposal.pdf](docs/InvoiceDesk_proposal.pdf) |
 
@@ -135,19 +135,24 @@ python scripts/make_fixtures.py    # regenerate the 67 synthetic invoices
 
 On Windows, prefix the scripts with `PYTHONIOENCODING=utf-8` (or `set PYTHONIOENCODING=utf-8`).
 
-## Deploy (Render)
+## Deploy
 
-`render.yaml` is a Render Blueprint, so deploying is a few clicks:
+### Google Cloud Run (how the live app runs)
 
-1. Push this repo to GitHub.
-2. In [Render](https://dashboard.render.com): **New → Blueprint**, then choose the repo.
-3. When asked, paste your `GEMINI_API_KEY`. The other settings come from `render.yaml`.
-4. Wait for the build, then open the URL. `/api/health` shows the model in use.
+The `Dockerfile` builds the app; Cloud Run runs one always-on instance in Mumbai, so nobody ever waits for a cold start.
 
-Notes:
-- **Cold starts:** on the free plan the service sleeps after 15 minutes idle, and the first request then takes about a minute.
-- **Data resets:** the database is a local SQLite file, so a restart resets the data to the starting state. That's fine for a demo.
-- **Cost:** the 67 test invoices are pre-read in `data/extraction_cache.json`, so demo runs cost nothing.
+```bash
+gcloud run deploy invoicedesk --source . --region=asia-south1 --allow-unauthenticated   --cpu=1 --memory=2Gi --min-instances=1 --max-instances=1 --no-cpu-throttling --cpu-boost   --concurrency=250 --timeout=3600 --env-vars-file=env.yaml     # env.yaml holds GEMINI_API_KEY (never committed)
+```
+
+- **Always on:** `--min-instances=1` keeps it warm; `--no-cpu-throttling` keeps batches running between clicks.
+- **One instance on purpose:** batches and their live views share the server's memory, so `--max-instances=1`.
+- **Data resets on redeploy:** the database is a local SQLite file, which is fine for a demo.
+- **Measured on this setup:** all 67 test invoices decided in 3.4 s; fully explained and highlighted in about 20 s.
+
+### Render (alternative)
+
+`render.yaml` is a Render Blueprint: **New → Blueprint**, pick the repo, paste `GEMINI_API_KEY`. Use a paid instance for demos. The free plan sleeps after 15 minutes and has about a tenth of a CPU (the full inbox took about 43 s there).
 
 ## Configuration
 
