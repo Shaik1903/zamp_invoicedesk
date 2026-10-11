@@ -536,7 +536,8 @@ VIEWS.dashboard = async (el) => {
       <div class="card kpi"><small>Invoices processed</small><b>${k.runs}</b><div class="d">${k.approved} approved, ${k.held} on hold, ${k.rejected} rejected</div>${spark(tail.map((p) => p.cnt), "#4f46e5")}</div>
       <div class="card kpi"><small>Touchless approvals</small><b>${Math.round(k.touchless_rate * 100)}%</b><div class="d">approved with no human touch</div>${spark(tail.map((p) => p.rate), "#0e9f6e")}</div>
       <div class="card kpi"><small>Clerk hours saved</small><b>${k.hours_saved} h</b><div class="d">approved invoices nobody had to key in</div>${spark(tail.map((p) => p.appr), "#7c3aed")}</div>
-      <div class="card kpi"><small>Average time per invoice</small><b>${k.avg_seconds}s</b><div class="d">upload to decision, queue included</div>${spark(tail.map((p) => p.secs), "#9aa1ae")}</div>`;
+      <div class="card kpi"><small>Time to decision</small><b>${k.avg_seconds}s</b><div class="d">average per invoice, from upload, queue included</div>${spark(tail.map((p) => p.secs), "#9aa1ae")}</div>
+      <div class="card kpi"><small>Throughput</small><b>${k.per_minute}/min</b><div class="d">invoices decided per minute in a batch</div></div>`;
     const total = k.runs || 0, C = 2 * Math.PI * 15.9;
     let off = 0;
     const arcs = total ? [["APPROVE", k.approved], ["HOLD", k.held], ["REJECT", k.rejected]].filter(([, v]) => v).map(([dd, v]) => {

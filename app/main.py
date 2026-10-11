@@ -187,7 +187,7 @@ def create_app(db_path=None, extractor=None):
                          "total": (r.get("money") or {}).get("total"), "decision": d.get("decision"),
                          "code": (d.get("primary") or {}).get("code"), "title": (d.get("primary") or {}).get("title"),
                          "at_risk": d.get("amount_at_risk") or 0,
-                         "seconds": round(r["finished"] - r["created"], 1) if r.get("finished") else None})
+                         "seconds": round(r["decided_at"] - r["created"], 1) if r.get("decided_at") else None})
         return {"runs": rows, "kpis": db.kpis(S["conn"])}
 
     @app.get("/api/reference")

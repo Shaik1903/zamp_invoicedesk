@@ -163,11 +163,18 @@ def kpis(conn):
     runs = [r for r in list_runs(conn, 100000) if r.get("decision")]
     dec = [r["decision"]["decision"] for r in runs]
     n = len(runs)
-    secs = [r["finished"] - r["created"] for r in runs if r.get("finished")]
+    secs = [r["decided_at"] - r["created"] for r in runs if r.get("decided_at")]
+    span = {}                                                  # batch -> (upload, last decision), as the batch page times it
+    for r in runs:
+        if r.get("decided_at"):
+            a, b = span.get(r["batch_id"], (r["created"], r["decided_at"]))
+            span[r["batch_id"]] = (min(a, r["created"]), max(b, r["decided_at"]))
+    busy = sum(b - a for a, b in span.values())
     approved = dec.count("APPROVE")
     minutes = (get_policy(conn) or {}).get("clerk_minutes_per_invoice", 12)
     return {"runs": n, "approved": approved, "held": dec.count("HOLD"), "rejected": dec.count("REJECT"),
             "touchless_rate": round(approved / n, 3) if n else 0.0,
             "avg_seconds": round(sum(secs) / len(secs), 1) if secs else 0.0,
+            "per_minute": round(len(secs) / busy * 60, 1) if busy > 0 else 0.0,
             "dollars_stopped": round(sum(r["decision"].get("amount_at_risk") or 0 for r in runs), 2),
             "hours_saved": round(approved * minutes / 60, 1)}

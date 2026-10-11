@@ -64,7 +64,14 @@ def test_kpis_on_empty_and_after_runs():
     conn = world()
     assert db.kpis(conn)["runs"] == 0
     db.save_run(conn, {"id": "r1", "batch_id": "b", "seq": 0, "filename": "a", "sha256": "s", "mime": "m", "created": 0.0,
-                       "finished": 3.0, "phase": "done", "summary": "",
+                       "decided_at": 2.0, "finished": 3.0, "phase": "done", "summary": "",
                        "decision": {"decision": "REJECT", "amount_at_risk": 100.0}, "money": {"total": 100.0}})
     k = db.kpis(conn)
-    assert k["runs"] == 1 and k["rejected"] == 1 and k["dollars_stopped"] == 100.0 and k["avg_seconds"] == 3.0
+    # Time is upload to decision (the write-up after it doesn't count), the same clock as the batch page.
+    assert k["runs"] == 1 and k["rejected"] == 1 and k["dollars_stopped"] == 100.0 and k["avg_seconds"] == 2.0
+    db.save_run(conn, {"id": "r2", "batch_id": "b", "seq": 1, "created": 0.0, "decided_at": 4.0, "finished": 9.0,
+                       "decision": {"decision": "APPROVE"}})
+    db.save_run(conn, {"id": "r3", "batch_id": "c", "seq": 0, "created": 100.0, "decided_at": 102.0,
+                       "decision": {"decision": "APPROVE"}})
+    # Throughput: 3 invoices decided over 4 s (batch b) + 2 s (batch c) of batch time = 30 per minute.
+    assert db.kpis(conn)["per_minute"] == 30.0
