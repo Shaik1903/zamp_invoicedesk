@@ -86,14 +86,30 @@ addEventListener("DOMContentLoaded", async () => {
   route();
   try {
     const hl = await api("/api/health");
-    $("#engine").innerHTML = hl.offline ? `<span class="engine off"><span class="live"></span>Offline mode: answers come from the test key, not AI</span>`
-      : `<span class="engine"><span class="live"></span>AI reader · ${esc(hl.model)}</span>`;
+    // Only offline mode is announced: then the answers come from the test key, and people must know that.
+    $("#engine").innerHTML = hl.offline ? `<span class="engine off"><span class="live"></span>Offline mode: answers come from the test key, not AI</span>` : "";
   } catch { /* health is informational */ }
 });
 
-async function startBatch(form) {
+// fetch() cannot report upload progress; XMLHttpRequest can, so uploads of real files go through here.
+function postForm(url, form, onProgress) {
+  return new Promise((resolve, reject) => {
+    const x = new XMLHttpRequest();
+    x.open("POST", url);
+    x.upload.onprogress = (e) => { if (e.lengthComputable) onProgress(e.loaded, e.total, false); };
+    x.upload.onload = () => onProgress(1, 1, true);
+    x.onload = () => {
+      let body = {};
+      try { body = JSON.parse(x.responseText); } catch { /* not JSON */ }
+      if (x.status >= 200 && x.status < 300) resolve(body); else reject(new Error(body.detail || x.statusText || "Upload failed"));
+    };
+    x.onerror = () => reject(new Error("Upload failed. Check your connection and try again."));
+    x.send(form);
+  });
+}
+async function startBatch(form, onProgress) {
   form.append("reextract", $("#reextract")?.checked ? "true" : "false");
-  const r = await api("/api/batches", { method: "POST", body: form });
+  const r = onProgress ? await postForm("/api/batches", form, onProgress) : await api("/api/batches", { method: "POST", body: form });
   location.hash = r.run_ids.length === 1 ? `#/run/${r.run_ids[0]}` : `#/batch/${r.batch_id}`;
 }
 
@@ -115,8 +131,10 @@ VIEWS.new = async (el) => {
       <div class="drop-side">
         <section class="drop" id="drop" tabindex="0" role="button" aria-label="Upload invoices">
           <input type="file" id="pick" multiple accept=".pdf,.jpg,.jpeg,.png" hidden>
-          <span class="drop-icon" aria-hidden="true">${I.upload.replace("<svg", '<svg width="24" height="24"')}</span><b>Drop invoices here</b>
-          <span class="muted">or click to choose files. PDF, JPG or PNG, up to 100 at once.</span>
+          <div class="drop-body" id="dropBody">
+            <span class="drop-icon" aria-hidden="true">${I.upload.replace("<svg", '<svg width="24" height="24"')}</span><b>Drop invoices here</b>
+            <span class="muted">or click to choose files. PDF, JPG or PNG, up to 100 at once.</span>
+          </div>
         </section>
         <label class="check-opt"><input type="checkbox" id="reextract"> Read again with AI instead of using cached results</label>
         <div id="fresh"></div>
@@ -125,14 +143,31 @@ VIEWS.new = async (el) => {
     <h2>Prepared demo runs</h2><div class="cards" id="demo"></div>
     <h2>Run any test scenario</h2>
     <div class="card any"><select id="any" aria-label="Test scenario"></select><button class="btn primary" id="runAny">Run scenario ${I.arrow}</button></div>`));
-  const drop = $("#drop"), pick = $("#pick");
-  const send = async (files) => {
-    if (!files.length) return;
-    const f = new FormData(); [...files].forEach((x) => f.append("files", x, x.name));
-    try { await startBatch(f); } catch (e) { toast(el, e.message); }
+  const drop = $("#drop"), pick = $("#pick"), body = $("#dropBody"), idle = body.innerHTML;
+  const mb = (b) => (b / 1048576).toFixed(1);
+  // While files upload, the drop zone shows progress and ignores new drops: without it the page looks frozen.
+  let uploading = false;
+  const progress = (n, loaded, total, sent) => {
+    const pct = total ? Math.round((loaded / total) * 100) : 0;
+    body.innerHTML = `<span class="spin" style="width:28px;height:28px;border-width:3px"></span>
+      <b>${sent ? "Starting the batch..." : `Uploading ${n} invoice${n > 1 ? "s" : ""}...`}</b>
+      <span class="muted">${sent ? "Files received. Opening the live view." : `${mb(loaded)} of ${mb(total)} MB · ${pct}%`}</span>
+      <span class="upbar"><span style="width:${sent ? 100 : pct}%"></span></span>`;
   };
-  drop.onclick = () => pick.click();
-  drop.onkeydown = (e) => { if (e.key === "Enter" || e.key === " ") pick.click(); };
+  const send = async (files) => {
+    if (uploading) return;
+    if (!files.length) return;
+    uploading = true;
+    drop.classList.add("busy");
+    const total = [...files].reduce((a, x) => a + x.size, 0);
+    progress(files.length, 0, total, false);
+    const f = new FormData(); [...files].forEach((x) => f.append("files", x, x.name));
+    try { await startBatch(f, (loaded, t, sent) => progress(files.length, sent ? total : loaded, sent ? total : t, sent)); }
+    catch (e) { toast(el, e.message); }
+    finally { uploading = false; drop.classList.remove("busy"); body.innerHTML = idle; pick.value = ""; }
+  };
+  drop.onclick = () => { if (!uploading) pick.click(); };
+  drop.onkeydown = (e) => { if (!uploading && (e.key === "Enter" || e.key === " ")) pick.click(); };
   pick.onchange = () => send(pick.files);
   drop.ondragover = (e) => { e.preventDefault(); drop.classList.add("over"); };
   drop.ondragleave = () => drop.classList.remove("over");

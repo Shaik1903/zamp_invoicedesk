@@ -49,3 +49,10 @@ def test_batch_tiles_update_in_place_instead_of_being_rebuilt():
     js = (STATIC / "app.js").read_text(encoding="utf-8")
     batch_view = js[js.index("VIEWS.batch = "):js.index("// ---------- Live run")]
     assert '$("#tiles").innerHTML' not in batch_view and "tileHtml.get(" in batch_view
+
+
+def test_uploads_show_progress_and_ignore_a_second_drop():
+    # Uploading a dozen invoices takes seconds on a slow link; without feedback the page looks frozen and people drop again.
+    js = (STATIC / "app.js").read_text(encoding="utf-8")
+    new_view = js[js.index("VIEWS.new = "):js.index("// ---------- Batch")]
+    assert "upload.onprogress" in js and "uploading" in new_view and "if (uploading) return" in new_view
