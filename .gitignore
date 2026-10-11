@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+data/*.db
+data/*.db-*
+.pytest_cache/
+.superpowers/
+data/eval_report.json
+fixtures/samples/

@@ -1,0 +1,5579 @@
+{
+  "reason_codes": {
+    "PO_OVERRUN": "Billed-to-date plus this invoice exceeds the PO total beyond tolerance",
+    "PO_INVALID": "Printed PO does not exist, is closed, or belongs to another vendor",
+    "PO_NOT_IDENTIFIED": "No PO printed and line-item inference is ambiguous",
+    "PO_INFERRED": "(note) PO not printed or mistyped; inferred from vendor + line items",
+    "PO_FROM_ANNOTATION": "(note) PO taken from a handwritten annotation and confirmed by line items",
+    "PRICE_VARIANCE": "A unit price exceeds the PO price by more than the price tolerance",
+    "PRICE_VARIANCE_WITHIN_TOLERANCE": "(note) Unit price differs from PO but within tolerance",
+    "QTY_NOT_RECEIVED": "Billed quantity exceeds goods received",
+    "PARTIAL_DELIVERY": "(note) Billed qty equals received qty, less than ordered",
+    "UNMATCHED_LINE": "A charge or item not on the PO, above tolerance (fees, substitutions)",
+    "UNMATCHED_LINE_WITHIN_TOLERANCE": "(note) Small unplanned charge within the total tolerance",
+    "UNMATCHED_CREDIT_LINE": "(note) Negative line not on PO; reduces the amount payable",
+    "BUNDLED_LINES": "(note) Single lump-sum line matched to an itemised PO by total",
+    "RECURRING_CHARGE_NOT_DUPLICATE": "(note) Same amount as a prior invoice but a different service period",
+    "DUPLICATE": "Same vendor + normalised invoice number already in the ledger",
+    "PROBABLE_DUPLICATE": "Same vendor, near-identical amount, date and lines under a different number",
+    "STAMP_IGNORED": "(note) PAID/RECEIVED stamps are not trusted; the ledger decides",
+    "BANK_DETAILS_CHANGED": "Remit-to bank account differs from the vendor master",
+    "TAX_ID_MISMATCH": "Printed tax ID differs from the vendor master",
+    "VENDOR_ALIAS_MATCHED": "(note) Vendor matched via alias / tax ID, not exact name",
+    "VENDOR_BLOCKED": "Vendor is blocked in the vendor master",
+    "VENDOR_NOT_FOUND": "Vendor not in the vendor master; onboarding required",
+    "CURRENCY_NOT_SUPPORTED": "Invoice currency is not USD",
+    "MISSING_INVOICE_NUMBER": "No invoice number; duplicate check is unsafe",
+    "DATE_DEFAULTED": "(note) No invoice date; received date used",
+    "TOTAL_COMPUTED": "(note) No total printed; computed from lines",
+    "ARITHMETIC_MISMATCH": "Line items, tax and total do not reconcile",
+    "TAX_MISMATCH": "Tax amount does not match the stated tax rate",
+    "TAX_INCLUSIVE_PRICES": "(note) Prices include tax; tax backed out before PO comparison",
+    "INVALID_DATE": "Invoice dated in the future",
+    "NOT_ADDRESSED_TO_US": "Bill-to is a different company",
+    "CREDIT_NOTE": "Document is a credit note/memo; apply, do not pay",
+    "NOT_AN_INVOICE": "Document is a quote, statement or other non-invoice",
+    "MULTIPLE_DOCUMENTS": "File contains more than one invoice",
+    "LOW_CONFIDENCE_EXTRACTION": "Key fields could not be read with confidence",
+    "UNREADABLE_FILE": "File is encrypted, corrupted or not a readable document"
+  },
+  "files": [
+    {
+      "id": 1,
+      "file": "01_greenleaf_clean.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "happy_path",
+      "title": "Clean produce invoice",
+      "scenario": "Text PDF, PO printed, every line matches the PO price and goods receipt.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": []
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": []
+        }
+      },
+      "vendor": "GreenLeaf Produce Co.",
+      "vendor_id": "V001",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "GreenLeaf Produce Co.",
+        "vendor_id": "V001",
+        "vendor_tax_id_printed": "36-4418207",
+        "invoice_number": "INV-GL-2228",
+        "invoice_date": "2026-09-29",
+        "due_date": "2026-10-14",
+        "po_number_printed": "PO-1101",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "300458817",
+        "remit_bank_routing": "071925334",
+        "line_items": [
+          {
+            "sku": "GL-1502",
+            "description": "Cilantro 30 bunch",
+            "qty": 9,
+            "unit_price": 24.9,
+            "amount": 224.1
+          },
+          {
+            "sku": "GL-1205",
+            "description": "Yellow onions, 50 lb sack",
+            "qty": 2,
+            "unit_price": 27.4,
+            "amount": 54.8
+          },
+          {
+            "sku": "GL-1610",
+            "description": "Russet potatoes 50 lb",
+            "qty": 6,
+            "unit_price": 29.8,
+            "amount": 178.8
+          },
+          {
+            "sku": "GL-2011",
+            "description": "Micro greens mix 2 lb",
+            "qty": 10,
+            "unit_price": 48.0,
+            "amount": 480.0
+          },
+          {
+            "sku": "GL-1102",
+            "description": "Roma tomatoes, 25 lb case",
+            "qty": 1,
+            "unit_price": 31.5,
+            "amount": 31.5
+          },
+          {
+            "sku": "GL-1140",
+            "description": "Romaine hearts 3ct x 12",
+            "qty": 9,
+            "unit_price": 38.75,
+            "amount": 348.75
+          }
+        ],
+        "subtotal": 1317.95,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 1317.95,
+        "total_true": 1317.95,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 2,
+      "file": "02_packright_clean.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "happy_path",
+      "title": "Clean packaging invoice, tax itemised",
+      "scenario": "QuickBooks-style layout; 10.25% sales tax shown as a separate line.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": []
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": []
+        }
+      },
+      "vendor": "PackRight Packaging LLC",
+      "vendor_id": "V002",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "PackRight Packaging LLC",
+        "vendor_id": "V002",
+        "vendor_tax_id_printed": "27-3390514",
+        "invoice_number": "PR-104871",
+        "invoice_date": "2026-09-24",
+        "due_date": "2026-10-24",
+        "po_number_printed": "PO-1102",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "5520147736",
+        "remit_bank_routing": "071904779",
+        "line_items": [
+          {
+            "sku": "NAP-D",
+            "description": "Dinner napkin 2-ply kraft (3000/cs)",
+            "qty": 3,
+            "unit_price": 52.6,
+            "amount": 157.8
+          },
+          {
+            "sku": "KB-08",
+            "description": "Kraft fold-top takeout box #8 (200/cs)",
+            "qty": 5,
+            "unit_price": 46.8,
+            "amount": 234.0
+          },
+          {
+            "sku": "CUP-16",
+            "description": "16 oz PET cold cup (1000/cs)",
+            "qty": 3,
+            "unit_price": 88.4,
+            "amount": 265.2
+          },
+          {
+            "sku": "FOIL-18",
+            "description": "Aluminum foil roll 18in x 500ft",
+            "qty": 10,
+            "unit_price": 32.7,
+            "amount": 327.0
+          },
+          {
+            "sku": "STR-W",
+            "description": "Wrapped paper straws (3200/cs)",
+            "qty": 8,
+            "unit_price": 63.9,
+            "amount": 511.2
+          }
+        ],
+        "subtotal": 1495.2,
+        "tax": 153.26,
+        "prices_include_tax": false,
+        "total_printed": 1648.46,
+        "total_true": 1648.46,
+        "service_period": null,
+        "tax_rate_printed": 0.1025,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 3,
+      "file": "03_sparkle_clean.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "happy_path",
+      "title": "Clean cleaning-services invoice",
+      "scenario": "Letterhead-style services invoice; services are treated as received.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": []
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": []
+        }
+      },
+      "vendor": "Sparkle Commercial Cleaning Inc.",
+      "vendor_id": "V003",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Sparkle Commercial Cleaning Inc.",
+        "vendor_id": "V003",
+        "vendor_tax_id_printed": "81-2204613",
+        "invoice_number": "SCC-2026-0412",
+        "invoice_date": "2026-09-30",
+        "due_date": "2026-10-30",
+        "po_number_printed": "PO-1103",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "7730018842",
+        "remit_bank_routing": "071923903",
+        "line_items": [
+          {
+            "sku": "SVC-N",
+            "description": "Nightly janitorial service - September 2026",
+            "qty": 1,
+            "unit_price": 1850.0,
+            "amount": 1850.0
+          },
+          {
+            "sku": "SVC-HD",
+            "description": "Kitchen hood degrease (quarterly)",
+            "qty": 1,
+            "unit_price": 640.0,
+            "amount": 640.0
+          }
+        ],
+        "subtotal": 2490.0,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 2490.0,
+        "total_true": 2490.0,
+        "service_period": "September 2026",
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 4,
+      "file": "04_northgate_blanket_within_balance.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "happy_path",
+      "title": "Third invoice on a split blanket PO, within balance",
+      "scenario": "PO-1043 is $50,000 with $38,000 already billed (NG-0301, NG-0302). This $9,000 invoice fits.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": []
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": []
+        }
+      },
+      "vendor": "Northgate Kitchen Equipment Rentals",
+      "vendor_id": "V004",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Northgate Kitchen Equipment Rentals",
+        "vendor_id": "V004",
+        "vendor_tax_id_printed": "46-1187320",
+        "invoice_number": "NG-0303",
+        "invoice_date": "2026-10-01",
+        "due_date": "2026-10-31",
+        "po_number_printed": "PO-1043",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "4410276650",
+        "remit_bank_routing": "071921891",
+        "line_items": [
+          {
+            "sku": "RNT-COMBI",
+            "description": "Combi oven rental - October 2026",
+            "qty": 1,
+            "unit_price": 4200.0,
+            "amount": 4200.0
+          },
+          {
+            "sku": "RNT-WIC",
+            "description": "Walk-in cooler rental - October 2026",
+            "qty": 1,
+            "unit_price": 3100.0,
+            "amount": 3100.0
+          },
+          {
+            "sku": "RNT-DISH",
+            "description": "Dish machine rental - October 2026",
+            "qty": 1,
+            "unit_price": 1700.0,
+            "amount": 1700.0
+          }
+        ],
+        "subtotal": 9000.0,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 9000.0,
+        "total_true": 9000.0,
+        "service_period": "October 2026",
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 5,
+      "file": "05_bluewave_recurring_retainer_october.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "edge_matching",
+      "title": "Recurring retainer: identical amount is NOT a duplicate",
+      "scenario": "Same vendor, same $3,600, same lines as September's BW-2026-09, 30 days apart. Service period differs (October vs September), so it is a new charge, not a duplicate.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": [
+            "RECURRING_CHARGE_NOT_DUPLICATE"
+          ]
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": [
+            "RECURRING_CHARGE_NOT_DUPLICATE"
+          ]
+        }
+      },
+      "vendor": "Bluewave IT Services",
+      "vendor_id": "V005",
+      "similar_to": "BW-2026-09",
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Bluewave IT Services",
+        "vendor_id": "V005",
+        "vendor_tax_id_printed": "83-0912455",
+        "invoice_number": "BW-2026-10",
+        "invoice_date": "2026-10-01",
+        "due_date": "2026-10-16",
+        "po_number_printed": "PO-1044",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "882014550",
+        "remit_bank_routing": "071000999",
+        "line_items": [
+          {
+            "sku": "MS-RET",
+            "description": "Managed IT support retainer - October 2026",
+            "qty": 1,
+            "unit_price": 2400.0,
+            "amount": 2400.0
+          },
+          {
+            "sku": "POS-SUP",
+            "description": "POS support & monitoring - October 2026",
+            "qty": 1,
+            "unit_price": 650.0,
+            "amount": 650.0
+          },
+          {
+            "sku": "M365",
+            "description": "Microsoft 365 Business licences",
+            "qty": 44,
+            "unit_price": 12.5,
+            "amount": 550.0
+          }
+        ],
+        "subtotal": 3600.0,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 3600.0,
+        "total_true": 3600.0,
+        "service_period": "October 2026",
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 6,
+      "file": "06_lakeshore_weekly_multipage.pdf",
+      "kind": "digital_pdf",
+      "quality": [
+        "multi_page",
+        "catch_weight_decimals"
+      ],
+      "category": "happy_path",
+      "title": "Two-page consolidated meat invoice",
+      "scenario": "38 catch-weight lines across five deliveries; table spans two pages, totals on page 2.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": []
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": []
+        }
+      },
+      "vendor": "Lakeshore Meats & Provisions",
+      "vendor_id": "V007",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Lakeshore Meats & Provisions",
+        "vendor_id": "V007",
+        "vendor_tax_id_printed": "36-2981144",
+        "invoice_number": "LM 558213",
+        "invoice_date": "2026-09-30",
+        "due_date": "2026-10-21",
+        "po_number_printed": "PO-1104",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "2209814451",
+        "remit_bank_routing": "086300999",
+        "line_items": [
+          {
+            "sku": "10442",
+            "description": "Beef tenderloin PSMO, Choice (dlv 09/14)",
+            "qty": 58.8,
+            "unit_price": 18.95,
+            "amount": 1114.26
+          },
+          {
+            "sku": "60015",
+            "description": "Ground beef 80/20 10 lb (dlv 09/14)",
+            "qty": 1,
+            "unit_price": 48.9,
+            "amount": 48.9
+          },
+          {
+            "sku": "10457",
+            "description": "Beef short rib boneless, Choice (dlv 09/14)",
+            "qty": 36.9,
+            "unit_price": 12.4,
+            "amount": 457.56
+          },
+          {
+            "sku": "20131",
+            "description": "Chicken breast airline 8 oz (dlv 09/14)",
+            "qty": 14.9,
+            "unit_price": 5.8,
+            "amount": 86.42
+          },
+          {
+            "sku": "10480",
+            "description": "Ribeye lip-on, Choice (dlv 09/14)",
+            "qty": 29.8,
+            "unit_price": 13.75,
+            "amount": 409.75
+          },
+          {
+            "sku": "20160",
+            "description": "Whole chicken 3.5 lb (dlv 09/14)",
+            "qty": 36.1,
+            "unit_price": 2.45,
+            "amount": 88.45
+          },
+          {
+            "sku": "40102",
+            "description": "Lamb rack frenched 8-bone (dlv 09/14)",
+            "qty": 37.7,
+            "unit_price": 21.3,
+            "amount": 803.01
+          },
+          {
+            "sku": "50091",
+            "description": "Italian sausage links 10 lb (dlv 09/14)",
+            "qty": 5,
+            "unit_price": 42.75,
+            "amount": 213.75
+          },
+          {
+            "sku": "20160",
+            "description": "Whole chicken 3.5 lb (dlv 09/17)",
+            "qty": 36.5,
+            "unit_price": 2.45,
+            "amount": 89.43
+          },
+          {
+            "sku": "60022",
+            "description": "Duck breast, Magret (dlv 09/17)",
+            "qty": 11.3,
+            "unit_price": 14.6,
+            "amount": 164.98
+          },
+          {
+            "sku": "20118",
+            "description": "Chicken thigh boneless skinless (dlv 09/17)",
+            "qty": 11.1,
+            "unit_price": 3.65,
+            "amount": 40.52
+          },
+          {
+            "sku": "10457",
+            "description": "Beef short rib boneless, Choice (dlv 09/17)",
+            "qty": 18.7,
+            "unit_price": 12.4,
+            "amount": 231.88
+          },
+          {
+            "sku": "60015",
+            "description": "Ground beef 80/20 10 lb (dlv 09/17)",
+            "qty": 6,
+            "unit_price": 48.9,
+            "amount": 293.4
+          },
+          {
+            "sku": "20131",
+            "description": "Chicken breast airline 8 oz (dlv 09/17)",
+            "qty": 35.6,
+            "unit_price": 5.8,
+            "amount": 206.48
+          },
+          {
+            "sku": "30244",
+            "description": "Pork shoulder bone-in (dlv 09/17)",
+            "qty": 48.4,
+            "unit_price": 2.95,
+            "amount": 142.78
+          },
+          {
+            "sku": "10442",
+            "description": "Beef tenderloin PSMO, Choice (dlv 09/17)",
+            "qty": 32.2,
+            "unit_price": 18.95,
+            "amount": 610.19
+          },
+          {
+            "sku": "50077",
+            "description": "Bacon thick-cut applewood 15 lb (dlv 09/21)",
+            "qty": 3,
+            "unit_price": 68.5,
+            "amount": 205.5
+          },
+          {
+            "sku": "30244",
+            "description": "Pork shoulder bone-in (dlv 09/21)",
+            "qty": 35.3,
+            "unit_price": 2.95,
+            "amount": 104.14
+          },
+          {
+            "sku": "30210",
+            "description": "Pork belly skin-off (dlv 09/21)",
+            "qty": 53.5,
+            "unit_price": 5.25,
+            "amount": 280.88
+          },
+          {
+            "sku": "20131",
+            "description": "Chicken breast airline 8 oz (dlv 09/21)",
+            "qty": 45.9,
+            "unit_price": 5.8,
+            "amount": 266.22
+          },
+          {
+            "sku": "20118",
+            "description": "Chicken thigh boneless skinless (dlv 09/21)",
+            "qty": 23.0,
+            "unit_price": 3.65,
+            "amount": 83.95
+          },
+          {
+            "sku": "60022",
+            "description": "Duck breast, Magret (dlv 09/21)",
+            "qty": 59.0,
+            "unit_price": 14.6,
+            "amount": 861.4
+          },
+          {
+            "sku": "10457",
+            "description": "Beef short rib boneless, Choice (dlv 09/21)",
+            "qty": 14.1,
+            "unit_price": 12.4,
+            "amount": 174.84
+          },
+          {
+            "sku": "70300",
+            "description": "Salmon fillet, skin-on (dlv 09/21)",
+            "qty": 29.7,
+            "unit_price": 11.85,
+            "amount": 351.95
+          },
+          {
+            "sku": "10480",
+            "description": "Ribeye lip-on, Choice (dlv 09/24)",
+            "qty": 37.0,
+            "unit_price": 13.75,
+            "amount": 508.75
+          },
+          {
+            "sku": "30244",
+            "description": "Pork shoulder bone-in (dlv 09/24)",
+            "qty": 49.0,
+            "unit_price": 2.95,
+            "amount": 144.55
+          },
+          {
+            "sku": "20118",
+            "description": "Chicken thigh boneless skinless (dlv 09/24)",
+            "qty": 50.6,
+            "unit_price": 3.65,
+            "amount": 184.69
+          },
+          {
+            "sku": "50077",
+            "description": "Bacon thick-cut applewood 15 lb (dlv 09/24)",
+            "qty": 3,
+            "unit_price": 68.5,
+            "amount": 205.5
+          },
+          {
+            "sku": "40102",
+            "description": "Lamb rack frenched 8-bone (dlv 09/24)",
+            "qty": 44.2,
+            "unit_price": 21.3,
+            "amount": 941.46
+          },
+          {
+            "sku": "10442",
+            "description": "Beef tenderloin PSMO, Choice (dlv 09/24)",
+            "qty": 38.9,
+            "unit_price": 18.95,
+            "amount": 737.16
+          },
+          {
+            "sku": "10457",
+            "description": "Beef short rib boneless, Choice (dlv 09/24)",
+            "qty": 38.2,
+            "unit_price": 12.4,
+            "amount": 473.68
+          },
+          {
+            "sku": "60015",
+            "description": "Ground beef 80/20 10 lb (dlv 09/24)",
+            "qty": 4,
+            "unit_price": 48.9,
+            "amount": 195.6
+          },
+          {
+            "sku": "10457",
+            "description": "Beef short rib boneless, Choice (dlv 09/28)",
+            "qty": 46.0,
+            "unit_price": 12.4,
+            "amount": 570.4
+          },
+          {
+            "sku": "20160",
+            "description": "Whole chicken 3.5 lb (dlv 09/28)",
+            "qty": 24.1,
+            "unit_price": 2.45,
+            "amount": 59.05
+          },
+          {
+            "sku": "30210",
+            "description": "Pork belly skin-off (dlv 09/28)",
+            "qty": 38.1,
+            "unit_price": 5.25,
+            "amount": 200.03
+          },
+          {
+            "sku": "50077",
+            "description": "Bacon thick-cut applewood 15 lb (dlv 09/28)",
+            "qty": 6,
+            "unit_price": 68.5,
+            "amount": 411.0
+          },
+          {
+            "sku": "10480",
+            "description": "Ribeye lip-on, Choice (dlv 09/28)",
+            "qty": 50.7,
+            "unit_price": 13.75,
+            "amount": 697.13
+          },
+          {
+            "sku": "10442",
+            "description": "Beef tenderloin PSMO, Choice (dlv 09/28)",
+            "qty": 22.8,
+            "unit_price": 18.95,
+            "amount": 432.06
+          }
+        ],
+        "subtotal": 13091.7,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 13091.7,
+        "total_true": 13091.7,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 7,
+      "file": "07_dairy_delivery_ticket.pdf",
+      "kind": "digital_pdf",
+      "quality": [
+        "narrow_receipt_format"
+      ],
+      "category": "happy_path",
+      "title": "Narrow delivery-ticket style invoice",
+      "scenario": "Thermal-printer style ticket (3.4in wide) in monospace; invoice number is the ticket number.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": []
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": []
+        }
+      },
+      "vendor": "Midwest Dairy Cooperative",
+      "vendor_id": "V008",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Midwest Dairy Cooperative",
+        "vendor_id": "V008",
+        "vendor_tax_id_printed": null,
+        "invoice_number": "77812",
+        "invoice_date": "2026-10-02",
+        "due_date": "2026-10-16",
+        "po_number_printed": "PO-1105",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "6630192207",
+        "remit_bank_routing": "075900999",
+        "line_items": [
+          {
+            "sku": "MOZ-5",
+            "description": "Fresh mozzarella 5 lb",
+            "qty": 4,
+            "unit_price": 27.4,
+            "amount": 109.6
+          },
+          {
+            "sku": "PRM-W",
+            "description": "Parmesan wedge",
+            "qty": 11,
+            "unit_price": 15.9,
+            "amount": 174.9
+          },
+          {
+            "sku": "BTR-36",
+            "description": "Butter unsalted 36 x 1 lb",
+            "qty": 3,
+            "unit_price": 142.2,
+            "amount": 426.6
+          },
+          {
+            "sku": "WM-G",
+            "description": "Whole milk 1 gal",
+            "qty": 9,
+            "unit_price": 4.15,
+            "amount": 37.35
+          },
+          {
+            "sku": "EGG-15",
+            "description": "Large eggs 15 dz",
+            "qty": 2,
+            "unit_price": 46.5,
+            "amount": 93.0
+          },
+          {
+            "sku": "HC-Q",
+            "description": "Heavy cream 40% qt",
+            "qty": 5,
+            "unit_price": 5.6,
+            "amount": 28.0
+          }
+        ],
+        "subtotal": 869.45,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 869.45,
+        "total_true": 869.45,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 8,
+      "file": "08_beverage_clean.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "happy_path",
+      "title": "Clean beverage distributor invoice",
+      "scenario": "Distributor layout with ordered vs shipped columns, all shipped in full.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": []
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": []
+        }
+      },
+      "vendor": "Great Lakes Beverage Distributors",
+      "vendor_id": "V009",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Great Lakes Beverage Distributors",
+        "vendor_id": "V009",
+        "vendor_tax_id_printed": "36-4790031",
+        "invoice_number": "GLBD-90231",
+        "invoice_date": "2026-09-26",
+        "due_date": "2026-10-26",
+        "po_number_printed": "PO-1106",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "1530077742",
+        "remit_bank_routing": "071904999",
+        "line_items": [
+          {
+            "sku": "CS-GB",
+            "description": "Ginger beer 24 x 12 oz",
+            "qty": 8,
+            "unit_price": 33.9,
+            "amount": 271.2
+          },
+          {
+            "sku": "CS-SPK",
+            "description": "Sparkling water 24 x 500 ml",
+            "qty": 2,
+            "unit_price": 21.6,
+            "amount": 43.2
+          },
+          {
+            "sku": "CS-COLA",
+            "description": "Cola 24 x 12 oz glass",
+            "qty": 3,
+            "unit_price": 31.2,
+            "amount": 93.6
+          },
+          {
+            "sku": "SP-VOD",
+            "description": "Vodka 6 x 1 L",
+            "qty": 8,
+            "unit_price": 132.0,
+            "amount": 1056.0
+          },
+          {
+            "sku": "WN-CS",
+            "description": "Cabernet sauvignon 12 x 750 ml",
+            "qty": 7,
+            "unit_price": 164.4,
+            "amount": 1150.8
+          }
+        ],
+        "subtotal": 2614.8,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 2614.8,
+        "total_true": 2614.8,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 9,
+      "file": "09_pest_clean.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "happy_path",
+      "title": "Clean pest-control invoice",
+      "scenario": "Modern minimal layout with a large 'amount due' figure.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": []
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": []
+        }
+      },
+      "vendor": "Prairie Pest Control",
+      "vendor_id": "V011",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Prairie Pest Control",
+        "vendor_id": "V011",
+        "vendor_tax_id_printed": "20-8834716",
+        "invoice_number": "PPC-3391",
+        "invoice_date": "2026-09-25",
+        "due_date": "2026-10-25",
+        "po_number_printed": "PO-1107",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "3381109924",
+        "remit_bank_routing": "071901604",
+        "line_items": [
+          {
+            "sku": "PC-MO",
+            "description": "Monthly pest control service - Fulton Market",
+            "qty": 1,
+            "unit_price": 145.0,
+            "amount": 145.0
+          },
+          {
+            "sku": "PC-FL",
+            "description": "Fly light unit service",
+            "qty": 2,
+            "unit_price": 65.0,
+            "amount": 130.0
+          }
+        ],
+        "subtotal": 275.0,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 275.0,
+        "total_true": 275.0,
+        "service_period": "September 2026",
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 10,
+      "file": "10_greenleaf_name_variant.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "edge_matching",
+      "title": "Vendor name printed differently",
+      "scenario": "Printed as 'Greenleaf Produce Company' with a reformatted address; same tax ID and bank. Must match vendor V001 by tax ID / alias, not by exact name.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": [
+            "VENDOR_ALIAS_MATCHED"
+          ]
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": [
+            "VENDOR_ALIAS_MATCHED"
+          ]
+        }
+      },
+      "vendor": "Greenleaf Produce Company",
+      "vendor_id": "V001",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Greenleaf Produce Company",
+        "vendor_id": "V001",
+        "vendor_tax_id_printed": "36-4418207",
+        "invoice_number": "INV-GL-2219",
+        "invoice_date": "2026-09-19",
+        "due_date": "2026-10-04",
+        "po_number_printed": "PO-1108",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "300458817",
+        "remit_bank_routing": "071925334",
+        "line_items": [
+          {
+            "sku": "GL-1820",
+            "description": "Red bell peppers 11 lb",
+            "qty": 5,
+            "unit_price": 34.25,
+            "amount": 171.25
+          },
+          {
+            "sku": "GL-1420",
+            "description": "Lemons 165ct",
+            "qty": 12,
+            "unit_price": 44.2,
+            "amount": 530.4
+          },
+          {
+            "sku": "GL-1205",
+            "description": "Yellow onions, 50 lb sack",
+            "qty": 7,
+            "unit_price": 27.4,
+            "amount": 191.8
+          },
+          {
+            "sku": "GL-1610",
+            "description": "Russet potatoes 50 lb",
+            "qty": 6,
+            "unit_price": 29.8,
+            "amount": 178.8
+          },
+          {
+            "sku": "GL-2203",
+            "description": "Jalapenos 10 lb",
+            "qty": 11,
+            "unit_price": 18.7,
+            "amount": 205.7
+          }
+        ],
+        "subtotal": 1277.95,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 1277.95,
+        "total_true": 1277.95,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 11,
+      "file": "11_packright_unit_price_rounding.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "edge_matching",
+      "title": "Fractional unit price (display rounding)",
+      "scenario": "2,400 cups at $0.4167 = $1,000.08. Qty x price must reconcile with sub-cent unit prices without raising a false arithmetic error.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": []
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": []
+        }
+      },
+      "vendor": "PackRight Packaging LLC",
+      "vendor_id": "V002",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "PackRight Packaging LLC",
+        "vendor_id": "V002",
+        "vendor_tax_id_printed": "27-3390514",
+        "invoice_number": "PR-104902",
+        "invoice_date": "2026-09-27",
+        "due_date": "2026-10-27",
+        "po_number_printed": "PO-1109",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "5520147736",
+        "remit_bank_routing": "071904779",
+        "line_items": [
+          {
+            "sku": "PCUP-2",
+            "description": "Portion cup 2 oz w/ lid, each",
+            "qty": 2400,
+            "unit_price": 0.4167,
+            "amount": 1000.08
+          },
+          {
+            "sku": "TISS-12",
+            "description": "Deli tissue sheets 12x12 (5000/cs)",
+            "qty": 4,
+            "unit_price": 27.8,
+            "amount": 111.2
+          }
+        ],
+        "subtotal": 1111.28,
+        "tax": 113.91,
+        "prices_include_tax": false,
+        "total_printed": 1225.19,
+        "total_true": 1225.19,
+        "service_period": null,
+        "tax_rate_printed": 0.1025,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 12,
+      "file": "12_lakeshore_partial_delivery.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "edge_matching",
+      "title": "Partial delivery billed correctly",
+      "scenario": "Ordered 40 lb tenderloin and 30 lb pork belly, shipped and billed 30 and 18. Billed qty equals received qty, so it is payable; the PO stays open for the balance.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": [
+            "PARTIAL_DELIVERY"
+          ]
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": [
+            "PARTIAL_DELIVERY"
+          ]
+        }
+      },
+      "vendor": "Lakeshore Meats & Provisions",
+      "vendor_id": "V007",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Lakeshore Meats & Provisions",
+        "vendor_id": "V007",
+        "vendor_tax_id_printed": "36-2981144",
+        "invoice_number": "LM 558377",
+        "invoice_date": "2026-10-02",
+        "due_date": "2026-10-23",
+        "po_number_printed": "PO-1110",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "2209814451",
+        "remit_bank_routing": "086300999",
+        "line_items": [
+          {
+            "sku": "10442",
+            "description": "Beef tenderloin PSMO, Choice",
+            "qty": 30,
+            "unit_price": 18.95,
+            "amount": 568.5
+          },
+          {
+            "sku": "20118",
+            "description": "Chicken thigh boneless skinless",
+            "qty": 60,
+            "unit_price": 3.65,
+            "amount": 219.0
+          },
+          {
+            "sku": "30210",
+            "description": "Pork belly skin-off",
+            "qty": 18,
+            "unit_price": 5.25,
+            "amount": 94.5
+          }
+        ],
+        "subtotal": 882.0,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 882.0,
+        "total_true": 882.0,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 13,
+      "file": "13_beverage_promo_credit_line.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "edge_matching",
+      "title": "Negative promotional line not on the PO",
+      "scenario": "A -$84.00 allowance line has no PO line. Credits reduce what we pay, so they are accepted with a note.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": [
+            "UNMATCHED_CREDIT_LINE"
+          ]
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": [
+            "UNMATCHED_CREDIT_LINE"
+          ]
+        }
+      },
+      "vendor": "Great Lakes Beverage Distributors",
+      "vendor_id": "V009",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Great Lakes Beverage Distributors",
+        "vendor_id": "V009",
+        "vendor_tax_id_printed": "36-4790031",
+        "invoice_number": "GLBD-90377",
+        "invoice_date": "2026-09-30",
+        "due_date": "2026-10-30",
+        "po_number_printed": "PO-1111",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "1530077742",
+        "remit_bank_routing": "071904999",
+        "line_items": [
+          {
+            "sku": "WN-CS",
+            "description": "Cabernet sauvignon 12 x 750 ml",
+            "qty": 4,
+            "unit_price": 164.4,
+            "amount": 657.6
+          },
+          {
+            "sku": "CS-COLA",
+            "description": "Cola 24 x 12 oz glass",
+            "qty": 4,
+            "unit_price": 31.2,
+            "amount": 124.8
+          },
+          {
+            "sku": "CS-SPK",
+            "description": "Sparkling water 24 x 500 ml",
+            "qty": 5,
+            "unit_price": 21.6,
+            "amount": 108.0
+          },
+          {
+            "sku": "KEG-IPA",
+            "description": "House IPA 1/2 bbl keg",
+            "qty": 5,
+            "unit_price": 189.0,
+            "amount": 945.0
+          },
+          {
+            "sku": "PROMO",
+            "description": "Promotional allowance - Q3 volume program",
+            "qty": 1,
+            "unit_price": -84.0,
+            "amount": -84.0
+          }
+        ],
+        "subtotal": 1751.4,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 1751.4,
+        "total_true": 1751.4,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 14,
+      "file": "14_greenleaf_scan_clean.pdf",
+      "kind": "scanned_pdf",
+      "quality": [
+        "200dpi",
+        "grayscale",
+        "skew 0.8deg"
+      ],
+      "category": "happy_path",
+      "title": "Office-scanner scan of a clean invoice",
+      "scenario": "No text layer; must be read from the image.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": []
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": []
+        }
+      },
+      "vendor": "GreenLeaf Produce Co.",
+      "vendor_id": "V001",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "GreenLeaf Produce Co.",
+        "vendor_id": "V001",
+        "vendor_tax_id_printed": "36-4418207",
+        "invoice_number": "INV-GL-2226",
+        "invoice_date": "2026-09-27",
+        "due_date": "2026-10-12",
+        "po_number_printed": "PO-1112",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "300458817",
+        "remit_bank_routing": "071925334",
+        "line_items": [
+          {
+            "sku": "GL-1102",
+            "description": "Roma tomatoes, 25 lb case",
+            "qty": 5,
+            "unit_price": 31.5,
+            "amount": 157.5
+          },
+          {
+            "sku": "GL-1733",
+            "description": "Baby spinach 4 lb",
+            "qty": 1,
+            "unit_price": 21.6,
+            "amount": 21.6
+          },
+          {
+            "sku": "GL-1905",
+            "description": "Limes 200ct",
+            "qty": 3,
+            "unit_price": 41.1,
+            "amount": 123.3
+          },
+          {
+            "sku": "GL-1205",
+            "description": "Yellow onions, 50 lb sack",
+            "qty": 7,
+            "unit_price": 27.4,
+            "amount": 191.8
+          },
+          {
+            "sku": "GL-1420",
+            "description": "Lemons 165ct",
+            "qty": 9,
+            "unit_price": 44.2,
+            "amount": 397.8
+          }
+        ],
+        "subtotal": 892.0,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 892.0,
+        "total_true": 892.0,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 15,
+      "file": "15_packright_scan_skewed.pdf",
+      "kind": "scanned_pdf",
+      "quality": [
+        "skew 3.6deg",
+        "noise",
+        "grayscale"
+      ],
+      "category": "happy_path",
+      "title": "Crooked scan with noise",
+      "scenario": "Fed into the scanner at an angle; speckle noise.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": []
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": []
+        }
+      },
+      "vendor": "PackRight Packaging LLC",
+      "vendor_id": "V002",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "PackRight Packaging LLC",
+        "vendor_id": "V002",
+        "vendor_tax_id_printed": "27-3390514",
+        "invoice_number": "PR-104890",
+        "invoice_date": "2026-09-26",
+        "due_date": "2026-10-26",
+        "po_number_printed": "PO-1113",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "5520147736",
+        "remit_bank_routing": "071904779",
+        "line_items": [
+          {
+            "sku": "BAG-12",
+            "description": "Paper SOS bag #12 (500/bdl)",
+            "qty": 4,
+            "unit_price": 36.15,
+            "amount": 144.6
+          },
+          {
+            "sku": "TISS-12",
+            "description": "Deli tissue sheets 12x12 (5000/cs)",
+            "qty": 2,
+            "unit_price": 27.8,
+            "amount": 55.6
+          },
+          {
+            "sku": "CUT-K",
+            "description": "Compostable cutlery kit (250/cs)",
+            "qty": 9,
+            "unit_price": 44.6,
+            "amount": 401.4
+          },
+          {
+            "sku": "SOUP-12",
+            "description": "Paper soup cup 12 oz w/ lid (500/cs)",
+            "qty": 8,
+            "unit_price": 71.2,
+            "amount": 569.6
+          }
+        ],
+        "subtotal": 1171.2,
+        "tax": 120.05,
+        "prices_include_tax": false,
+        "total_printed": 1291.25,
+        "total_true": 1291.25,
+        "service_period": null,
+        "tax_rate_printed": 0.1025,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 16,
+      "file": "16_sparkle_fax.pdf",
+      "kind": "fax_pdf",
+      "quality": [
+        "100dpi",
+        "bitonal",
+        "transmission streaks",
+        "fax header"
+      ],
+      "category": "happy_path",
+      "title": "Faxed invoice",
+      "scenario": "Black-and-white 100 dpi fax with streaks and a fax header line.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": []
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": []
+        }
+      },
+      "vendor": "Sparkle Commercial Cleaning Inc.",
+      "vendor_id": "V003",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Sparkle Commercial Cleaning Inc.",
+        "vendor_id": "V003",
+        "vendor_tax_id_printed": "81-2204613",
+        "invoice_number": "SCC-2026-0419",
+        "invoice_date": "2026-09-30",
+        "due_date": "2026-10-30",
+        "po_number_printed": "PO-1114",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "7730018842",
+        "remit_bank_routing": "071923903",
+        "line_items": [
+          {
+            "sku": "SVC-N",
+            "description": "Nightly janitorial service - September 2026",
+            "qty": 1,
+            "unit_price": 1850.0,
+            "amount": 1850.0
+          },
+          {
+            "sku": "SVC-FW",
+            "description": "Floor strip & wax, dining room",
+            "qty": 1,
+            "unit_price": 425.0,
+            "amount": 425.0
+          }
+        ],
+        "subtotal": 2275.0,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 2275.0,
+        "total_true": 2275.0,
+        "service_period": "September 2026",
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 17,
+      "file": "17_dairy_phone_photo.jpg",
+      "kind": "photo_jpg",
+      "quality": [
+        "phone photo",
+        "perspective",
+        "shadow",
+        "wood table background"
+      ],
+      "category": "happy_path",
+      "title": "Phone photo of a delivery ticket (JPG)",
+      "scenario": "Driver's ticket photographed on a table at an angle and emailed as a .jpg.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": []
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": []
+        }
+      },
+      "vendor": "Midwest Dairy Cooperative",
+      "vendor_id": "V008",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Midwest Dairy Cooperative",
+        "vendor_id": "V008",
+        "vendor_tax_id_printed": null,
+        "invoice_number": "77903",
+        "invoice_date": "2026-10-03",
+        "due_date": "2026-10-17",
+        "po_number_printed": "PO-1115",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "6630192207",
+        "remit_bank_routing": "075900999",
+        "line_items": [
+          {
+            "sku": "MOZ-5",
+            "description": "Fresh mozzarella 5 lb",
+            "qty": 12,
+            "unit_price": 27.4,
+            "amount": 328.8
+          },
+          {
+            "sku": "EGG-15",
+            "description": "Large eggs 15 dz",
+            "qty": 8,
+            "unit_price": 46.5,
+            "amount": 372.0
+          },
+          {
+            "sku": "SC-5",
+            "description": "Sour cream 5 lb",
+            "qty": 2,
+            "unit_price": 11.3,
+            "amount": 22.6
+          },
+          {
+            "sku": "WM-G",
+            "description": "Whole milk 1 gal",
+            "qty": 5,
+            "unit_price": 4.15,
+            "amount": 20.75
+          },
+          {
+            "sku": "PRM-W",
+            "description": "Parmesan wedge",
+            "qty": 3,
+            "unit_price": 15.9,
+            "amount": 47.7
+          }
+        ],
+        "subtotal": 791.85,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 791.85,
+        "total_true": 791.85,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 18,
+      "file": "18_pest_phone_photo_pdf.pdf",
+      "kind": "photo_pdf",
+      "quality": [
+        "phone photo",
+        "perspective",
+        "wooden desk with pen, laptop, mug"
+      ],
+      "category": "happy_path",
+      "title": "Phone photo saved as PDF",
+      "scenario": "Scanner-app PDF of a photo: one image, no text layer.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": []
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": []
+        }
+      },
+      "vendor": "Prairie Pest Control",
+      "vendor_id": "V011",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Prairie Pest Control",
+        "vendor_id": "V011",
+        "vendor_tax_id_printed": "20-8834716",
+        "invoice_number": "PPC-3402",
+        "invoice_date": "2026-09-29",
+        "due_date": "2026-10-29",
+        "po_number_printed": "PO-1116",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "3381109924",
+        "remit_bank_routing": "071901604",
+        "line_items": [
+          {
+            "sku": "PC-MO",
+            "description": "Monthly pest control service - Wicker Park",
+            "qty": 1,
+            "unit_price": 145.0,
+            "amount": 145.0
+          },
+          {
+            "sku": "PC-RS",
+            "description": "Rodent bait station replacement",
+            "qty": 4,
+            "unit_price": 18.5,
+            "amount": 74.0
+          }
+        ],
+        "subtotal": 219.0,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 219.0,
+        "total_true": 219.0,
+        "service_period": "September 2026",
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 19,
+      "file": "19_beverage_scan_rotated.pdf",
+      "kind": "scanned_pdf",
+      "quality": [
+        "rotated 90deg",
+        "grayscale"
+      ],
+      "category": "happy_path",
+      "title": "Page scanned sideways",
+      "scenario": "Whole page rotated 90 degrees in the scan.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": []
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": []
+        }
+      },
+      "vendor": "Great Lakes Beverage Distributors",
+      "vendor_id": "V009",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Great Lakes Beverage Distributors",
+        "vendor_id": "V009",
+        "vendor_tax_id_printed": "36-4790031",
+        "invoice_number": "GLBD-90288",
+        "invoice_date": "2026-09-28",
+        "due_date": "2026-10-28",
+        "po_number_printed": "PO-1117",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "1530077742",
+        "remit_bank_routing": "071904999",
+        "line_items": [
+          {
+            "sku": "CS-COLA",
+            "description": "Cola 24 x 12 oz glass",
+            "qty": 3,
+            "unit_price": 31.2,
+            "amount": 93.6
+          },
+          {
+            "sku": "SP-VOD",
+            "description": "Vodka 6 x 1 L",
+            "qty": 5,
+            "unit_price": 132.0,
+            "amount": 660.0
+          },
+          {
+            "sku": "CS-SPK",
+            "description": "Sparkling water 24 x 500 ml",
+            "qty": 1,
+            "unit_price": 21.6,
+            "amount": 21.6
+          },
+          {
+            "sku": "KEG-IPA",
+            "description": "House IPA 1/2 bbl keg",
+            "qty": 1,
+            "unit_price": 189.0,
+            "amount": 189.0
+          }
+        ],
+        "subtotal": 964.2,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 964.2,
+        "total_true": 964.2,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 20,
+      "file": "20_lakeshore_scan_multipage.pdf",
+      "kind": "scanned_pdf",
+      "quality": [
+        "multi_page",
+        "grayscale",
+        "skew"
+      ],
+      "category": "happy_path",
+      "title": "Two-page scanned invoice",
+      "scenario": "Totals only on page 2; both pages must be read together.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": []
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": []
+        }
+      },
+      "vendor": "Lakeshore Meats & Provisions",
+      "vendor_id": "V007",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Lakeshore Meats & Provisions",
+        "vendor_id": "V007",
+        "vendor_tax_id_printed": "36-2981144",
+        "invoice_number": "LM 558240",
+        "invoice_date": "2026-09-30",
+        "due_date": "2026-10-21",
+        "po_number_printed": "PO-1118",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "2209814451",
+        "remit_bank_routing": "086300999",
+        "line_items": [
+          {
+            "sku": "10442",
+            "description": "Beef tenderloin PSMO, Choice (dlv 09/15)",
+            "qty": 40.1,
+            "unit_price": 18.95,
+            "amount": 759.9
+          },
+          {
+            "sku": "60015",
+            "description": "Ground beef 80/20 10 lb (dlv 09/15)",
+            "qty": 5,
+            "unit_price": 48.9,
+            "amount": 244.5
+          },
+          {
+            "sku": "20118",
+            "description": "Chicken thigh boneless skinless (dlv 09/15)",
+            "qty": 20.7,
+            "unit_price": 3.65,
+            "amount": 75.56
+          },
+          {
+            "sku": "50091",
+            "description": "Italian sausage links 10 lb (dlv 09/15)",
+            "qty": 3,
+            "unit_price": 42.75,
+            "amount": 128.25
+          },
+          {
+            "sku": "10457",
+            "description": "Beef short rib boneless, Choice (dlv 09/15)",
+            "qty": 43.3,
+            "unit_price": 12.4,
+            "amount": 536.92
+          },
+          {
+            "sku": "30244",
+            "description": "Pork shoulder bone-in (dlv 09/15)",
+            "qty": 29.5,
+            "unit_price": 2.95,
+            "amount": 87.03
+          },
+          {
+            "sku": "20160",
+            "description": "Whole chicken 3.5 lb (dlv 09/15)",
+            "qty": 24.5,
+            "unit_price": 2.45,
+            "amount": 60.03
+          },
+          {
+            "sku": "50077",
+            "description": "Bacon thick-cut applewood 15 lb (dlv 09/15)",
+            "qty": 1,
+            "unit_price": 68.5,
+            "amount": 68.5
+          },
+          {
+            "sku": "20160",
+            "description": "Whole chicken 3.5 lb (dlv 09/19)",
+            "qty": 10.0,
+            "unit_price": 2.45,
+            "amount": 24.5
+          },
+          {
+            "sku": "50077",
+            "description": "Bacon thick-cut applewood 15 lb (dlv 09/19)",
+            "qty": 3,
+            "unit_price": 68.5,
+            "amount": 205.5
+          },
+          {
+            "sku": "10480",
+            "description": "Ribeye lip-on, Choice (dlv 09/19)",
+            "qty": 34.9,
+            "unit_price": 13.75,
+            "amount": 479.88
+          },
+          {
+            "sku": "70300",
+            "description": "Salmon fillet, skin-on (dlv 09/19)",
+            "qty": 24.7,
+            "unit_price": 11.85,
+            "amount": 292.7
+          },
+          {
+            "sku": "60022",
+            "description": "Duck breast, Magret (dlv 09/19)",
+            "qty": 33.0,
+            "unit_price": 14.6,
+            "amount": 481.8
+          },
+          {
+            "sku": "30210",
+            "description": "Pork belly skin-off (dlv 09/19)",
+            "qty": 26.1,
+            "unit_price": 5.25,
+            "amount": 137.03
+          },
+          {
+            "sku": "10457",
+            "description": "Beef short rib boneless, Choice (dlv 09/19)",
+            "qty": 14.0,
+            "unit_price": 12.4,
+            "amount": 173.6
+          },
+          {
+            "sku": "60015",
+            "description": "Ground beef 80/20 10 lb (dlv 09/19)",
+            "qty": 5,
+            "unit_price": 48.9,
+            "amount": 244.5
+          },
+          {
+            "sku": "30244",
+            "description": "Pork shoulder bone-in (dlv 09/22)",
+            "qty": 39.7,
+            "unit_price": 2.95,
+            "amount": 117.12
+          },
+          {
+            "sku": "20118",
+            "description": "Chicken thigh boneless skinless (dlv 09/22)",
+            "qty": 33.2,
+            "unit_price": 3.65,
+            "amount": 121.18
+          },
+          {
+            "sku": "70300",
+            "description": "Salmon fillet, skin-on (dlv 09/22)",
+            "qty": 16.2,
+            "unit_price": 11.85,
+            "amount": 191.97
+          },
+          {
+            "sku": "50091",
+            "description": "Italian sausage links 10 lb (dlv 09/22)",
+            "qty": 3,
+            "unit_price": 42.75,
+            "amount": 128.25
+          },
+          {
+            "sku": "10442",
+            "description": "Beef tenderloin PSMO, Choice (dlv 09/22)",
+            "qty": 41.4,
+            "unit_price": 18.95,
+            "amount": 784.53
+          },
+          {
+            "sku": "60022",
+            "description": "Duck breast, Magret (dlv 09/22)",
+            "qty": 19.9,
+            "unit_price": 14.6,
+            "amount": 290.54
+          },
+          {
+            "sku": "30210",
+            "description": "Pork belly skin-off (dlv 09/22)",
+            "qty": 14.7,
+            "unit_price": 5.25,
+            "amount": 77.18
+          },
+          {
+            "sku": "20160",
+            "description": "Whole chicken 3.5 lb (dlv 09/22)",
+            "qty": 27.1,
+            "unit_price": 2.45,
+            "amount": 66.4
+          },
+          {
+            "sku": "50091",
+            "description": "Italian sausage links 10 lb (dlv 09/26)",
+            "qty": 4,
+            "unit_price": 42.75,
+            "amount": 171.0
+          },
+          {
+            "sku": "30244",
+            "description": "Pork shoulder bone-in (dlv 09/26)",
+            "qty": 34.9,
+            "unit_price": 2.95,
+            "amount": 102.96
+          },
+          {
+            "sku": "60022",
+            "description": "Duck breast, Magret (dlv 09/26)",
+            "qty": 14.8,
+            "unit_price": 14.6,
+            "amount": 216.08
+          },
+          {
+            "sku": "20131",
+            "description": "Chicken breast airline 8 oz (dlv 09/26)",
+            "qty": 26.2,
+            "unit_price": 5.8,
+            "amount": 151.96
+          },
+          {
+            "sku": "60015",
+            "description": "Ground beef 80/20 10 lb (dlv 09/26)",
+            "qty": 3,
+            "unit_price": 48.9,
+            "amount": 146.7
+          },
+          {
+            "sku": "70300",
+            "description": "Salmon fillet, skin-on (dlv 09/26)",
+            "qty": 34.5,
+            "unit_price": 11.85,
+            "amount": 408.83
+          },
+          {
+            "sku": "20160",
+            "description": "Whole chicken 3.5 lb (dlv 09/26)",
+            "qty": 44.6,
+            "unit_price": 2.45,
+            "amount": 109.27
+          },
+          {
+            "sku": "40102",
+            "description": "Lamb rack frenched 8-bone (dlv 09/26)",
+            "qty": 36.8,
+            "unit_price": 21.3,
+            "amount": 783.84
+          }
+        ],
+        "subtotal": 7868.01,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 7868.01,
+        "total_true": 7868.01,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 21,
+      "file": "21_handyman_handwritten_scan.pdf",
+      "kind": "handwritten_scan",
+      "quality": [
+        "handwritten",
+        "carbon-book form",
+        "scan"
+      ],
+      "category": "happy_path",
+      "title": "Handwritten carbon-book invoice",
+      "scenario": "Small vendor fills a pre-printed invoice book by hand.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": []
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": []
+        }
+      },
+      "vendor": "Tony's Handyman & Repair",
+      "vendor_id": "V010",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Tony's Handyman & Repair",
+        "vendor_id": "V010",
+        "vendor_tax_id_printed": null,
+        "invoice_number": "0147",
+        "invoice_date": "2026-10-02",
+        "due_date": "2026-10-02",
+        "po_number_printed": "PO-1119",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "6011842239",
+        "remit_bank_routing": "071000999",
+        "line_items": [
+          {
+            "sku": "LAB",
+            "description": "Labor - walk-in door hinge",
+            "qty": 3,
+            "unit_price": 95.0,
+            "amount": 285.0
+          },
+          {
+            "sku": "PRT-H",
+            "description": "Hinge kit, heavy duty",
+            "qty": 1,
+            "unit_price": 186.0,
+            "amount": 186.0
+          },
+          {
+            "sku": "PRT-G",
+            "description": "Door gasket 30x78",
+            "qty": 1,
+            "unit_price": 169.0,
+            "amount": 169.0
+          }
+        ],
+        "subtotal": 640.0,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 640.0,
+        "total_true": 640.0,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 22,
+      "file": "22_greenleaf_scan_stamped.pdf",
+      "kind": "scanned_pdf",
+      "quality": [
+        "RECEIVED stamp",
+        "handwritten initials",
+        "grayscale"
+      ],
+      "category": "happy_path",
+      "title": "Scan with receiving stamp and initials",
+      "scenario": "Kitchen manager stamped RECEIVED and initialled it before forwarding. Stamps/notes are not invoice data.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": []
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": []
+        }
+      },
+      "vendor": "GreenLeaf Produce Co.",
+      "vendor_id": "V001",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "GreenLeaf Produce Co.",
+        "vendor_id": "V001",
+        "vendor_tax_id_printed": "36-4418207",
+        "invoice_number": "INV-GL-2229",
+        "invoice_date": "2026-09-30",
+        "due_date": "2026-10-15",
+        "po_number_printed": "PO-1120",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "300458817",
+        "remit_bank_routing": "071925334",
+        "line_items": [
+          {
+            "sku": "GL-1733",
+            "description": "Baby spinach 4 lb",
+            "qty": 6,
+            "unit_price": 21.6,
+            "amount": 129.6
+          },
+          {
+            "sku": "GL-1420",
+            "description": "Lemons 165ct",
+            "qty": 8,
+            "unit_price": 44.2,
+            "amount": 353.6
+          },
+          {
+            "sku": "GL-1311",
+            "description": "Hass avocados 48ct",
+            "qty": 12,
+            "unit_price": 62.0,
+            "amount": 744.0
+          },
+          {
+            "sku": "GL-1905",
+            "description": "Limes 200ct",
+            "qty": 6,
+            "unit_price": 41.1,
+            "amount": 246.6
+          }
+        ],
+        "subtotal": 1473.8,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 1473.8,
+        "total_true": 1473.8,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [
+          "RECEIVED  OCT 01 2026"
+        ],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 23,
+      "file": "23_northgate_scan_coffee_stain.pdf",
+      "kind": "scanned_pdf",
+      "quality": [
+        "coffee stain",
+        "fold crease across line items",
+        "colour scan"
+      ],
+      "category": "happy_path",
+      "title": "Stained, folded invoice scan",
+      "scenario": "Coffee ring over the header and a fold crease across the table.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": []
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": []
+        }
+      },
+      "vendor": "Northgate Kitchen Equipment Rentals",
+      "vendor_id": "V004",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Northgate Kitchen Equipment Rentals",
+        "vendor_id": "V004",
+        "vendor_tax_id_printed": "46-1187320",
+        "invoice_number": "NG-0298",
+        "invoice_date": "2026-09-27",
+        "due_date": "2026-10-27",
+        "po_number_printed": "PO-1121",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "4410276650",
+        "remit_bank_routing": "071921891",
+        "line_items": [
+          {
+            "sku": "RNT-FRY",
+            "description": "Countertop fryer rental (catering event)",
+            "qty": 2,
+            "unit_price": 380.0,
+            "amount": 760.0
+          },
+          {
+            "sku": "DEL",
+            "description": "Delivery & pickup",
+            "qty": 1,
+            "unit_price": 90.0,
+            "amount": 90.0
+          }
+        ],
+        "subtotal": 850.0,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 850.0,
+        "total_true": 850.0,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 24,
+      "file": "24_greenleaf_no_po_handwritten_note.pdf",
+      "kind": "scanned_pdf",
+      "quality": [
+        "handwritten annotation",
+        "grayscale"
+      ],
+      "category": "edge_matching",
+      "title": "PO number written in pen by staff",
+      "scenario": "Vendor printed no PO; the receiving manager wrote 'PO-1046' on it before scanning. Handwritten PO must be used, then confirmed against PO-1046's lines.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": [
+            "PO_FROM_ANNOTATION"
+          ]
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": [
+            "PO_FROM_ANNOTATION"
+          ]
+        }
+      },
+      "vendor": "GreenLeaf Produce Co.",
+      "vendor_id": "V001",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "GreenLeaf Produce Co.",
+        "vendor_id": "V001",
+        "vendor_tax_id_printed": "36-4418207",
+        "invoice_number": "INV-GL-2233",
+        "invoice_date": "2026-10-03",
+        "due_date": "2026-10-18",
+        "po_number_printed": null,
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "300458817",
+        "remit_bank_routing": "071925334",
+        "line_items": [
+          {
+            "sku": "GL-1610",
+            "description": "Russet potatoes 50 lb",
+            "qty": 10,
+            "unit_price": 29.8,
+            "amount": 298.0
+          },
+          {
+            "sku": "GL-1820",
+            "description": "Red bell peppers 11 lb",
+            "qty": 6,
+            "unit_price": 34.25,
+            "amount": 205.5
+          },
+          {
+            "sku": "GL-1905",
+            "description": "Limes 200ct",
+            "qty": 4,
+            "unit_price": 41.1,
+            "amount": 164.4
+          },
+          {
+            "sku": "GL-2104",
+            "description": "Peeled garlic 5 lb jar",
+            "qty": 5,
+            "unit_price": 19.95,
+            "amount": 99.75
+          }
+        ],
+        "subtotal": 767.65,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 767.65,
+        "total_true": 767.65,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": "PO-1046",
+        "legible": true
+      }
+    },
+    {
+      "id": 25,
+      "file": "25_bluewave_screenshot_png.png",
+      "kind": "screenshot_png",
+      "quality": [
+        "crisp image",
+        "no text layer"
+      ],
+      "category": "happy_path",
+      "title": "Invoice sent as a PNG screenshot",
+      "scenario": "Vendor exported the invoice from their portal as an image.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": []
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": []
+        }
+      },
+      "vendor": "Bluewave IT Services",
+      "vendor_id": "V005",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Bluewave IT Services",
+        "vendor_id": "V005",
+        "vendor_tax_id_printed": "83-0912455",
+        "invoice_number": "BW-P-1182",
+        "invoice_date": "2026-09-25",
+        "due_date": "2026-10-10",
+        "po_number_printed": "PO-1122",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "882014550",
+        "remit_bank_routing": "071000999",
+        "line_items": [
+          {
+            "sku": "WIFI-S",
+            "description": "Wi-Fi site survey - Logan Square",
+            "qty": 1,
+            "unit_price": 450.0,
+            "amount": 450.0
+          },
+          {
+            "sku": "AP-INST",
+            "description": "Wireless access point install",
+            "qty": 3,
+            "unit_price": 210.0,
+            "amount": 630.0
+          }
+        ],
+        "subtotal": 1080.0,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 1080.0,
+        "total_true": 1080.0,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 26,
+      "file": "26_northgate_po_overrun.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "edge_matching",
+      "title": "EC1: split PO overrun",
+      "scenario": "PO-1043 $50,000, $38,000 already billed. This $15,000 invoice alone looks fine but takes the PO to $53,000 (6% over). Suggest paying the $12,000 remaining and requesting a $3,000 credit note.",
+      "expected": {
+        "alone": {
+          "decision": "HOLD",
+          "reasons": [
+            "PO_OVERRUN"
+          ]
+        },
+        "in_batch": {
+          "decision": "HOLD",
+          "reasons": [
+            "PO_OVERRUN"
+          ]
+        }
+      },
+      "vendor": "Northgate Kitchen Equipment Rentals",
+      "vendor_id": "V004",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Northgate Kitchen Equipment Rentals",
+        "vendor_id": "V004",
+        "vendor_tax_id_printed": "46-1187320",
+        "invoice_number": "NG-0305",
+        "invoice_date": "2026-10-06",
+        "due_date": "2026-11-05",
+        "po_number_printed": "PO-1043",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "4410276650",
+        "remit_bank_routing": "071921891",
+        "line_items": [
+          {
+            "sku": "RNT-WIF",
+            "description": "Walk-in freezer rental - Q4 2026 (prepaid)",
+            "qty": 1,
+            "unit_price": 11400.0,
+            "amount": 11400.0
+          },
+          {
+            "sku": "DEL",
+            "description": "Delivery, install & removal",
+            "qty": 1,
+            "unit_price": 3600.0,
+            "amount": 3600.0
+          }
+        ],
+        "subtotal": 15000.0,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 15000.0,
+        "total_true": 15000.0,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 27,
+      "file": "27_northgate_split_second_in_batch.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "edge_matching",
+      "title": "Batch race trap: second invoice on the same PO",
+      "scenario": "Alone: $38,000 + $6,000 fits the $50,000 PO. In a batch after file 04 ($9,000) it would reach $53,000. If both were decided in parallel, both would see $12,000 left and both would pay.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": []
+        },
+        "in_batch": {
+          "decision": "HOLD",
+          "reasons": [
+            "PO_OVERRUN"
+          ]
+        }
+      },
+      "vendor": "Northgate Kitchen Equipment Rentals",
+      "vendor_id": "V004",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Northgate Kitchen Equipment Rentals",
+        "vendor_id": "V004",
+        "vendor_tax_id_printed": "46-1187320",
+        "invoice_number": "NG-0304",
+        "invoice_date": "2026-10-03",
+        "due_date": "2026-11-02",
+        "po_number_printed": "PO-1043",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "4410276650",
+        "remit_bank_routing": "071921891",
+        "line_items": [
+          {
+            "sku": "RNT-BLC",
+            "description": "Blast chiller rental - October 2026",
+            "qty": 1,
+            "unit_price": 3800.0,
+            "amount": 3800.0
+          },
+          {
+            "sku": "RNT-ICE",
+            "description": "Ice machine rental - October 2026",
+            "qty": 1,
+            "unit_price": 2200.0,
+            "amount": 2200.0
+          }
+        ],
+        "subtotal": 6000.0,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 6000.0,
+        "total_true": 6000.0,
+        "service_period": "October 2026",
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 28,
+      "file": "28_packright_photo_no_po_tax_inclusive.pdf",
+      "kind": "photo_pdf",
+      "quality": [
+        "phone photo",
+        "skewed",
+        "no PO printed",
+        "tax-inclusive prices"
+      ],
+      "category": "edge_matching",
+      "title": "EC4: messy photo, no PO, tax-inclusive - still payable",
+      "scenario": "No PO number; unit prices include 10.25% tax. Must infer PO-1123 from vendor + line items, back out the tax to compare with PO prices, then approve with notes.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": [
+            "PO_INFERRED",
+            "TAX_INCLUSIVE_PRICES"
+          ]
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": [
+            "PO_INFERRED",
+            "TAX_INCLUSIVE_PRICES"
+          ]
+        }
+      },
+      "vendor": "PackRight Packaging LLC",
+      "vendor_id": "V002",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "PackRight Packaging LLC",
+        "vendor_id": "V002",
+        "vendor_tax_id_printed": "27-3390514",
+        "invoice_number": "PR-104936",
+        "invoice_date": "2026-09-30",
+        "due_date": "2026-10-30",
+        "po_number_printed": null,
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "5520147736",
+        "remit_bank_routing": "071904779",
+        "line_items": [
+          {
+            "sku": "KB-08",
+            "description": "Kraft fold-top takeout box #8 (200/cs)",
+            "qty": 8,
+            "unit_price": 51.6,
+            "amount": 412.8
+          },
+          {
+            "sku": "CUP-16",
+            "description": "16 oz PET cold cup (1000/cs)",
+            "qty": 3,
+            "unit_price": 97.46,
+            "amount": 292.38
+          },
+          {
+            "sku": "LID-16",
+            "description": "Flat lid for 16 oz cup (1000/cs)",
+            "qty": 3,
+            "unit_price": 45.48,
+            "amount": 136.44
+          },
+          {
+            "sku": "CLAM-9",
+            "description": "Molded fiber clamshell 9x9 (200/cs)",
+            "qty": 5,
+            "unit_price": 64.28,
+            "amount": 321.4
+          }
+        ],
+        "subtotal": 1163.02,
+        "tax": 108.13,
+        "prices_include_tax": true,
+        "total_printed": 1163.02,
+        "total_true": 1163.02,
+        "service_period": null,
+        "tax_rate_printed": 0.1025,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 29,
+      "file": "29_packright_po_typo.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "edge_matching",
+      "title": "PO number mistyped (letter O for zero)",
+      "scenario": "Printed PO 'PO-l124' does not exist. Lookup fails, line-item inference finds PO-1124; approve with a warning.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": [
+            "PO_INFERRED"
+          ]
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": [
+            "PO_INFERRED"
+          ]
+        }
+      },
+      "vendor": "PackRight Packaging LLC",
+      "vendor_id": "V002",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "PackRight Packaging LLC",
+        "vendor_id": "V002",
+        "vendor_tax_id_printed": "27-3390514",
+        "invoice_number": "PR-104911",
+        "invoice_date": "2026-09-28",
+        "due_date": "2026-10-28",
+        "po_number_printed": "PO-l124",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "5520147736",
+        "remit_bank_routing": "071904779",
+        "line_items": [
+          {
+            "sku": "BAG-12",
+            "description": "Paper SOS bag #12 (500/bdl)",
+            "qty": 2,
+            "unit_price": 36.15,
+            "amount": 72.3
+          },
+          {
+            "sku": "CUP-16",
+            "description": "16 oz PET cold cup (1000/cs)",
+            "qty": 3,
+            "unit_price": 88.4,
+            "amount": 265.2
+          },
+          {
+            "sku": "NAP-D",
+            "description": "Dinner napkin 2-ply kraft (3000/cs)",
+            "qty": 5,
+            "unit_price": 52.6,
+            "amount": 263.0
+          }
+        ],
+        "subtotal": 600.5,
+        "tax": 61.55,
+        "prices_include_tax": false,
+        "total_printed": 662.05,
+        "total_true": 662.05,
+        "service_period": null,
+        "tax_rate_printed": 0.1025,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 30,
+      "file": "30_sparkle_closed_po.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "edge_matching",
+      "title": "Invoice against a closed PO",
+      "scenario": "References PO-1039 (August, closed). Buyer must issue a new PO or reopen.",
+      "expected": {
+        "alone": {
+          "decision": "HOLD",
+          "reasons": [
+            "PO_INVALID"
+          ]
+        },
+        "in_batch": {
+          "decision": "HOLD",
+          "reasons": [
+            "PO_INVALID"
+          ]
+        }
+      },
+      "vendor": "Sparkle Commercial Cleaning Inc.",
+      "vendor_id": "V003",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Sparkle Commercial Cleaning Inc.",
+        "vendor_id": "V003",
+        "vendor_tax_id_printed": "81-2204613",
+        "invoice_number": "SCC-2026-0421",
+        "invoice_date": "2026-09-30",
+        "due_date": "2026-10-30",
+        "po_number_printed": "PO-1039",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "7730018842",
+        "remit_bank_routing": "071923903",
+        "line_items": [
+          {
+            "sku": "SVC-N",
+            "description": "Nightly janitorial service - September 2026",
+            "qty": 1,
+            "unit_price": 1850.0,
+            "amount": 1850.0
+          }
+        ],
+        "subtotal": 1850.0,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 1850.0,
+        "total_true": 1850.0,
+        "service_period": "September 2026",
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 31,
+      "file": "31_pest_wrong_vendor_po.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "edge_matching",
+      "title": "PO belongs to a different vendor",
+      "scenario": "Prints PO-1046, which is GreenLeaf's produce PO. Never pay against another vendor's PO.",
+      "expected": {
+        "alone": {
+          "decision": "HOLD",
+          "reasons": [
+            "PO_INVALID"
+          ]
+        },
+        "in_batch": {
+          "decision": "HOLD",
+          "reasons": [
+            "PO_INVALID"
+          ]
+        }
+      },
+      "vendor": "Prairie Pest Control",
+      "vendor_id": "V011",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Prairie Pest Control",
+        "vendor_id": "V011",
+        "vendor_tax_id_printed": "20-8834716",
+        "invoice_number": "PPC-3419",
+        "invoice_date": "2026-10-01",
+        "due_date": "2026-10-31",
+        "po_number_printed": "PO-1046",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "3381109924",
+        "remit_bank_routing": "071901604",
+        "line_items": [
+          {
+            "sku": "PC-DR",
+            "description": "Drain fly treatment",
+            "qty": 3,
+            "unit_price": 120.0,
+            "amount": 360.0
+          }
+        ],
+        "subtotal": 360.0,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 360.0,
+        "total_true": 360.0,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 32,
+      "file": "32_greenleaf_ambiguous_po.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "edge_matching",
+      "title": "Two identical open POs, no PO or ship-to printed",
+      "scenario": "Standing weekly order: PO-1125 (Wicker Park) and PO-1126 (Logan Square) have identical lines. With no PO and no ship-to, the PO cannot be determined; show both candidates to the AP clerk.",
+      "expected": {
+        "alone": {
+          "decision": "HOLD",
+          "reasons": [
+            "PO_NOT_IDENTIFIED"
+          ]
+        },
+        "in_batch": {
+          "decision": "HOLD",
+          "reasons": [
+            "PO_NOT_IDENTIFIED"
+          ]
+        }
+      },
+      "vendor": "GreenLeaf Produce Co.",
+      "vendor_id": "V001",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "GreenLeaf Produce Co.",
+        "vendor_id": "V001",
+        "vendor_tax_id_printed": "36-4418207",
+        "invoice_number": "INV-GL-2235",
+        "invoice_date": "2026-10-05",
+        "due_date": "2026-10-20",
+        "po_number_printed": null,
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "300458817",
+        "remit_bank_routing": "071925334",
+        "line_items": [
+          {
+            "sku": "GL-1102",
+            "description": "Roma tomatoes, 25 lb case",
+            "qty": 6,
+            "unit_price": 31.5,
+            "amount": 189.0
+          },
+          {
+            "sku": "GL-1205",
+            "description": "Yellow onions, 50 lb sack",
+            "qty": 4,
+            "unit_price": 27.4,
+            "amount": 109.6
+          },
+          {
+            "sku": "GL-1905",
+            "description": "Limes 200ct",
+            "qty": 3,
+            "unit_price": 41.1,
+            "amount": 123.3
+          },
+          {
+            "sku": "GL-2150",
+            "description": "English cucumbers 12ct",
+            "qty": 4,
+            "unit_price": 22.4,
+            "amount": 89.6
+          }
+        ],
+        "subtotal": 511.5,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 511.5,
+        "total_true": 511.5,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 33,
+      "file": "33_packright_price_within_tolerance.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "edge_matching",
+      "title": "Unit price +1.5% (inside 2% tolerance)",
+      "scenario": "Paper bags billed at $36.69 vs PO $36.15. Inside tolerance: approve, note the variance.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": [
+            "PRICE_VARIANCE_WITHIN_TOLERANCE"
+          ]
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": [
+            "PRICE_VARIANCE_WITHIN_TOLERANCE"
+          ]
+        }
+      },
+      "vendor": "PackRight Packaging LLC",
+      "vendor_id": "V002",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "PackRight Packaging LLC",
+        "vendor_id": "V002",
+        "vendor_tax_id_printed": "27-3390514",
+        "invoice_number": "PR-104925",
+        "invoice_date": "2026-10-01",
+        "due_date": "2026-10-31",
+        "po_number_printed": "PO-1127",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "5520147736",
+        "remit_bank_routing": "071904779",
+        "line_items": [
+          {
+            "sku": "NAP-D",
+            "description": "Dinner napkin 2-ply kraft (3000/cs)",
+            "qty": 6,
+            "unit_price": 52.6,
+            "amount": 315.6
+          },
+          {
+            "sku": "BAG-12",
+            "description": "Paper SOS bag #12 (500/bdl)",
+            "qty": 10,
+            "unit_price": 36.69,
+            "amount": 366.9
+          },
+          {
+            "sku": "STR-W",
+            "description": "Wrapped paper straws (3200/cs)",
+            "qty": 4,
+            "unit_price": 63.9,
+            "amount": 255.6
+          }
+        ],
+        "subtotal": 938.1,
+        "tax": 96.16,
+        "prices_include_tax": false,
+        "total_printed": 1034.26,
+        "total_true": 1034.26,
+        "service_period": null,
+        "tax_rate_printed": 0.1025,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 34,
+      "file": "34_packright_price_over_tolerance.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "edge_matching",
+      "title": "Unit price +6% (outside tolerance)",
+      "scenario": "Cold cups billed at $93.70 vs PO $88.40. Hold for the buyer; suggest a credit note for the difference.",
+      "expected": {
+        "alone": {
+          "decision": "HOLD",
+          "reasons": [
+            "PRICE_VARIANCE"
+          ]
+        },
+        "in_batch": {
+          "decision": "HOLD",
+          "reasons": [
+            "PRICE_VARIANCE"
+          ]
+        }
+      },
+      "vendor": "PackRight Packaging LLC",
+      "vendor_id": "V002",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "PackRight Packaging LLC",
+        "vendor_id": "V002",
+        "vendor_tax_id_printed": "27-3390514",
+        "invoice_number": "PR-104931",
+        "invoice_date": "2026-10-02",
+        "due_date": "2026-11-01",
+        "po_number_printed": "PO-1128",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "5520147736",
+        "remit_bank_routing": "071904779",
+        "line_items": [
+          {
+            "sku": "CUP-16",
+            "description": "16 oz PET cold cup (1000/cs)",
+            "qty": 4,
+            "unit_price": 93.7,
+            "amount": 374.8
+          },
+          {
+            "sku": "FOIL-18",
+            "description": "Aluminum foil roll 18in x 500ft",
+            "qty": 6,
+            "unit_price": 32.7,
+            "amount": 196.2
+          },
+          {
+            "sku": "TISS-12",
+            "description": "Deli tissue sheets 12x12 (5000/cs)",
+            "qty": 8,
+            "unit_price": 27.8,
+            "amount": 222.4
+          }
+        ],
+        "subtotal": 793.4,
+        "tax": 81.32,
+        "prices_include_tax": false,
+        "total_printed": 874.72,
+        "total_true": 874.72,
+        "service_period": null,
+        "tax_rate_printed": 0.1025,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 35,
+      "file": "35_packright_billed_more_than_received.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "edge_matching",
+      "title": "Billed 100, only 80 received",
+      "scenario": "Goods receipt shows 80 cutlery kits received; invoice bills 100. Suggest paying for 80.",
+      "expected": {
+        "alone": {
+          "decision": "HOLD",
+          "reasons": [
+            "QTY_NOT_RECEIVED"
+          ]
+        },
+        "in_batch": {
+          "decision": "HOLD",
+          "reasons": [
+            "QTY_NOT_RECEIVED"
+          ]
+        }
+      },
+      "vendor": "PackRight Packaging LLC",
+      "vendor_id": "V002",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "PackRight Packaging LLC",
+        "vendor_id": "V002",
+        "vendor_tax_id_printed": "27-3390514",
+        "invoice_number": "PR-104940",
+        "invoice_date": "2026-10-02",
+        "due_date": "2026-11-01",
+        "po_number_printed": "PO-1129",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "5520147736",
+        "remit_bank_routing": "071904779",
+        "line_items": [
+          {
+            "sku": "CUT-K",
+            "description": "Compostable cutlery kit (250/cs)",
+            "qty": 100,
+            "unit_price": 44.6,
+            "amount": 4460.0
+          },
+          {
+            "sku": "SOUP-12",
+            "description": "Paper soup cup 12 oz w/ lid (500/cs)",
+            "qty": 12,
+            "unit_price": 71.2,
+            "amount": 854.4
+          }
+        ],
+        "subtotal": 5314.4,
+        "tax": 544.73,
+        "prices_include_tax": false,
+        "total_printed": 5859.13,
+        "total_true": 5859.13,
+        "service_period": null,
+        "tax_rate_printed": 0.1025,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 36,
+      "file": "36_beverage_small_keg_deposit.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "edge_matching",
+      "title": "Small charge not on the PO ($30 keg deposit)",
+      "scenario": "Unplanned $30 line is under the $50 tolerance: approve, flag it.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": [
+            "UNMATCHED_LINE_WITHIN_TOLERANCE"
+          ]
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": [
+            "UNMATCHED_LINE_WITHIN_TOLERANCE"
+          ]
+        }
+      },
+      "vendor": "Great Lakes Beverage Distributors",
+      "vendor_id": "V009",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Great Lakes Beverage Distributors",
+        "vendor_id": "V009",
+        "vendor_tax_id_printed": "36-4790031",
+        "invoice_number": "GLBD-90410",
+        "invoice_date": "2026-10-02",
+        "due_date": "2026-11-01",
+        "po_number_printed": "PO-1130",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "1530077742",
+        "remit_bank_routing": "071904999",
+        "line_items": [
+          {
+            "sku": "CS-COLA",
+            "description": "Cola 24 x 12 oz glass",
+            "qty": 4,
+            "unit_price": 31.2,
+            "amount": 124.8
+          },
+          {
+            "sku": "WN-PG",
+            "description": "Pinot grigio 12 x 750 ml",
+            "qty": 5,
+            "unit_price": 118.8,
+            "amount": 594.0
+          },
+          {
+            "sku": "CS-TON",
+            "description": "Tonic water 24 x 200 ml",
+            "qty": 5,
+            "unit_price": 26.4,
+            "amount": 132.0
+          },
+          {
+            "sku": "DEP-KEG",
+            "description": "Keg deposit (refundable)",
+            "qty": 2,
+            "unit_price": 15.0,
+            "amount": 30.0
+          }
+        ],
+        "subtotal": 880.8,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 880.8,
+        "total_true": 880.8,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 37,
+      "file": "37_beverage_unplanned_fuel_surcharge.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "edge_matching",
+      "title": "$185 fuel surcharge not on the PO",
+      "scenario": "Unplanned charge above tolerance. Hold for buyer: accept it or ask the vendor to remove it.",
+      "expected": {
+        "alone": {
+          "decision": "HOLD",
+          "reasons": [
+            "UNMATCHED_LINE"
+          ]
+        },
+        "in_batch": {
+          "decision": "HOLD",
+          "reasons": [
+            "UNMATCHED_LINE"
+          ]
+        }
+      },
+      "vendor": "Great Lakes Beverage Distributors",
+      "vendor_id": "V009",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Great Lakes Beverage Distributors",
+        "vendor_id": "V009",
+        "vendor_tax_id_printed": "36-4790031",
+        "invoice_number": "GLBD-90415",
+        "invoice_date": "2026-10-03",
+        "due_date": "2026-11-02",
+        "po_number_printed": "PO-1131",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "1530077742",
+        "remit_bank_routing": "071904999",
+        "line_items": [
+          {
+            "sku": "KEG-IPA",
+            "description": "House IPA 1/2 bbl keg",
+            "qty": 7,
+            "unit_price": 189.0,
+            "amount": 1323.0
+          },
+          {
+            "sku": "SP-VOD",
+            "description": "Vodka 6 x 1 L",
+            "qty": 2,
+            "unit_price": 132.0,
+            "amount": 264.0
+          },
+          {
+            "sku": "WN-PG",
+            "description": "Pinot grigio 12 x 750 ml",
+            "qty": 8,
+            "unit_price": 118.8,
+            "amount": 950.4
+          },
+          {
+            "sku": "WN-CS",
+            "description": "Cabernet sauvignon 12 x 750 ml",
+            "qty": 7,
+            "unit_price": 164.4,
+            "amount": 1150.8
+          },
+          {
+            "sku": "FSC",
+            "description": "Fuel & delivery surcharge",
+            "qty": 1,
+            "unit_price": 185.0,
+            "amount": 185.0
+          }
+        ],
+        "subtotal": 3873.2,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 3873.2,
+        "total_true": 3873.2,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 38,
+      "file": "38_lakeshore_substituted_item.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "edge_matching",
+      "title": "Substituted item at a higher grade/price",
+      "scenario": "Ordered Choice tenderloin at $18.95/lb; vendor substituted Prime at $27.40/lb. Item does not match the PO line; needs buyer approval.",
+      "expected": {
+        "alone": {
+          "decision": "HOLD",
+          "reasons": [
+            "UNMATCHED_LINE"
+          ]
+        },
+        "in_batch": {
+          "decision": "HOLD",
+          "reasons": [
+            "UNMATCHED_LINE"
+          ]
+        }
+      },
+      "vendor": "Lakeshore Meats & Provisions",
+      "vendor_id": "V007",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Lakeshore Meats & Provisions",
+        "vendor_id": "V007",
+        "vendor_tax_id_printed": "36-2981144",
+        "invoice_number": "LM 558402",
+        "invoice_date": "2026-10-03",
+        "due_date": "2026-10-24",
+        "po_number_printed": "PO-1132",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "2209814451",
+        "remit_bank_routing": "086300999",
+        "line_items": [
+          {
+            "sku": "10443",
+            "description": "Beef tenderloin PSMO, PRIME (sub)",
+            "qty": 20,
+            "unit_price": 27.4,
+            "amount": 548.0
+          },
+          {
+            "sku": "40102",
+            "description": "Lamb rack frenched 8-bone",
+            "qty": 12,
+            "unit_price": 21.3,
+            "amount": 255.6
+          },
+          {
+            "sku": "70300",
+            "description": "Salmon fillet, skin-on",
+            "qty": 25,
+            "unit_price": 11.85,
+            "amount": 296.25
+          }
+        ],
+        "subtotal": 1099.85,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 1099.85,
+        "total_true": 1099.85,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 39,
+      "file": "39_bluewave_bundled_project_line.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "edge_matching",
+      "title": "One bundled line vs an itemised PO",
+      "scenario": "PO has 3 itemised lines ($4,810); invoice bills one lump sum of $4,810. Line-level match is impossible, total matches exactly: approve with a 'bundled' note.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": [
+            "BUNDLED_LINES"
+          ]
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": [
+            "BUNDLED_LINES"
+          ]
+        }
+      },
+      "vendor": "Bluewave IT Services",
+      "vendor_id": "V005",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Bluewave IT Services",
+        "vendor_id": "V005",
+        "vendor_tax_id_printed": "83-0912455",
+        "invoice_number": "BW-P-1190",
+        "invoice_date": "2026-10-01",
+        "due_date": "2026-10-16",
+        "po_number_printed": "PO-1133",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "882014550",
+        "remit_bank_routing": "071000999",
+        "line_items": [
+          {
+            "sku": "PRJ",
+            "description": "POS rollout project - Evanston, complete per SOW #BW-114",
+            "qty": 1,
+            "unit_price": 4810.0,
+            "amount": 4810.0
+          }
+        ],
+        "subtotal": 4810.0,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 4810.0,
+        "total_true": 4810.0,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 40,
+      "file": "40_greenleaf_exact_duplicate.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "edge_duplicate",
+      "title": "Exact duplicate of a paid invoice",
+      "scenario": "INV-GL-2207 was paid on 2026-09-30 and is re-sent unchanged.",
+      "expected": {
+        "alone": {
+          "decision": "REJECT",
+          "reasons": [
+            "DUPLICATE",
+            "PO_OVERRUN"
+          ]
+        },
+        "in_batch": {
+          "decision": "REJECT",
+          "reasons": [
+            "DUPLICATE",
+            "PO_OVERRUN"
+          ]
+        }
+      },
+      "vendor": "GreenLeaf Produce Co.",
+      "vendor_id": "V001",
+      "similar_to": "INV-GL-2207",
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "GreenLeaf Produce Co.",
+        "vendor_id": "V001",
+        "vendor_tax_id_printed": "36-4418207",
+        "invoice_number": "INV-GL-2207",
+        "invoice_date": "2026-09-22",
+        "due_date": "2026-10-07",
+        "po_number_printed": "PO-1040",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "300458817",
+        "remit_bank_routing": "071925334",
+        "line_items": [
+          {
+            "sku": "GL-1102",
+            "description": "Roma tomatoes, 25 lb case",
+            "qty": 12,
+            "unit_price": 31.5,
+            "amount": 378.0
+          },
+          {
+            "sku": "GL-1140",
+            "description": "Romaine hearts 3ct x 12",
+            "qty": 8,
+            "unit_price": 38.75,
+            "amount": 310.0
+          },
+          {
+            "sku": "GL-1311",
+            "description": "Hass avocados 48ct",
+            "qty": 6,
+            "unit_price": 62.0,
+            "amount": 372.0
+          },
+          {
+            "sku": "GL-1420",
+            "description": "Lemons 165ct",
+            "qty": 3,
+            "unit_price": 44.2,
+            "amount": 132.6
+          },
+          {
+            "sku": "GL-1502",
+            "description": "Cilantro 30 bunch",
+            "qty": 2,
+            "unit_price": 24.9,
+            "amount": 49.8
+          }
+        ],
+        "subtotal": 1242.4,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 1242.4,
+        "total_true": 1242.4,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 41,
+      "file": "41_greenleaf_duplicate_reformatted_number.pdf",
+      "kind": "scanned_pdf",
+      "quality": [
+        "grayscale"
+      ],
+      "category": "edge_duplicate",
+      "title": "Same invoice number, different formatting",
+      "scenario": "'INV GL 02207' normalises to the same number as 'INV-GL-2207' (case, separators, leading zeros).",
+      "expected": {
+        "alone": {
+          "decision": "REJECT",
+          "reasons": [
+            "DUPLICATE",
+            "PO_OVERRUN"
+          ]
+        },
+        "in_batch": {
+          "decision": "REJECT",
+          "reasons": [
+            "DUPLICATE",
+            "PO_OVERRUN"
+          ]
+        }
+      },
+      "vendor": "GreenLeaf Produce Co.",
+      "vendor_id": "V001",
+      "similar_to": "INV-GL-2207",
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "GreenLeaf Produce Co.",
+        "vendor_id": "V001",
+        "vendor_tax_id_printed": "36-4418207",
+        "invoice_number": "INV GL 02207",
+        "invoice_date": "2026-09-22",
+        "due_date": "2026-10-07",
+        "po_number_printed": "PO-1040",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "300458817",
+        "remit_bank_routing": "071925334",
+        "line_items": [
+          {
+            "sku": "GL-1102",
+            "description": "Roma tomatoes, 25 lb case",
+            "qty": 12,
+            "unit_price": 31.5,
+            "amount": 378.0
+          },
+          {
+            "sku": "GL-1140",
+            "description": "Romaine hearts 3ct x 12",
+            "qty": 8,
+            "unit_price": 38.75,
+            "amount": 310.0
+          },
+          {
+            "sku": "GL-1311",
+            "description": "Hass avocados 48ct",
+            "qty": 6,
+            "unit_price": 62.0,
+            "amount": 372.0
+          },
+          {
+            "sku": "GL-1420",
+            "description": "Lemons 165ct",
+            "qty": 3,
+            "unit_price": 44.2,
+            "amount": 132.6
+          },
+          {
+            "sku": "GL-1502",
+            "description": "Cilantro 30 bunch",
+            "qty": 2,
+            "unit_price": 24.9,
+            "amount": 49.8
+          }
+        ],
+        "subtotal": 1242.4,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 1242.4,
+        "total_true": 1242.4,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 42,
+      "file": "42_greenleaf_disguised_duplicate_rescan.pdf",
+      "kind": "scanned_pdf",
+      "quality": [
+        "phone-scanner app",
+        "grayscale"
+      ],
+      "category": "edge_duplicate",
+      "title": "EC2: duplicate in disguise (new number, rescanned)",
+      "scenario": "Same lines and total as paid INV-GL-2207, 9 days later, under a new number. File hash and number differ; only a content fingerprint catches it. HOLD, not reject: a human confirms.",
+      "expected": {
+        "alone": {
+          "decision": "HOLD",
+          "reasons": [
+            "PROBABLE_DUPLICATE",
+            "PO_OVERRUN"
+          ]
+        },
+        "in_batch": {
+          "decision": "HOLD",
+          "reasons": [
+            "PROBABLE_DUPLICATE",
+            "PO_OVERRUN"
+          ]
+        }
+      },
+      "vendor": "GreenLeaf Produce Co.",
+      "vendor_id": "V001",
+      "similar_to": "INV-GL-2207",
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "GreenLeaf Produce Co.",
+        "vendor_id": "V001",
+        "vendor_tax_id_printed": "36-4418207",
+        "invoice_number": "INV-GL-2231",
+        "invoice_date": "2026-10-01",
+        "due_date": "2026-10-16",
+        "po_number_printed": "PO-1040",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "300458817",
+        "remit_bank_routing": "071925334",
+        "line_items": [
+          {
+            "sku": "GL-1102",
+            "description": "Roma tomatoes, 25 lb case",
+            "qty": 12,
+            "unit_price": 31.5,
+            "amount": 378.0
+          },
+          {
+            "sku": "GL-1140",
+            "description": "Romaine hearts 3ct x 12",
+            "qty": 8,
+            "unit_price": 38.75,
+            "amount": 310.0
+          },
+          {
+            "sku": "GL-1311",
+            "description": "Hass avocados 48ct",
+            "qty": 6,
+            "unit_price": 62.0,
+            "amount": 372.0
+          },
+          {
+            "sku": "GL-1420",
+            "description": "Lemons 165ct",
+            "qty": 3,
+            "unit_price": 44.2,
+            "amount": 132.6
+          },
+          {
+            "sku": "GL-1502",
+            "description": "Cilantro 30 bunch",
+            "qty": 2,
+            "unit_price": 24.9,
+            "amount": 49.8
+          }
+        ],
+        "subtotal": 1242.4,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 1242.4,
+        "total_true": 1242.4,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 43,
+      "file": "43_packright_batch_original.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "happy_path",
+      "title": "Original of an in-batch duplicate pair",
+      "scenario": "Normal invoice. File 44 is a copy of it.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": []
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": []
+        }
+      },
+      "vendor": "PackRight Packaging LLC",
+      "vendor_id": "V002",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "PackRight Packaging LLC",
+        "vendor_id": "V002",
+        "vendor_tax_id_printed": "27-3390514",
+        "invoice_number": "PR-104990",
+        "invoice_date": "2026-10-04",
+        "due_date": "2026-11-03",
+        "po_number_printed": "PO-1134",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "5520147736",
+        "remit_bank_routing": "071904779",
+        "line_items": [
+          {
+            "sku": "CUP-16",
+            "description": "16 oz PET cold cup (1000/cs)",
+            "qty": 4,
+            "unit_price": 88.4,
+            "amount": 353.6
+          },
+          {
+            "sku": "FOIL-18",
+            "description": "Aluminum foil roll 18in x 500ft",
+            "qty": 8,
+            "unit_price": 32.7,
+            "amount": 261.6
+          },
+          {
+            "sku": "NAP-D",
+            "description": "Dinner napkin 2-ply kraft (3000/cs)",
+            "qty": 7,
+            "unit_price": 52.6,
+            "amount": 368.2
+          },
+          {
+            "sku": "CLAM-9",
+            "description": "Molded fiber clamshell 9x9 (200/cs)",
+            "qty": 3,
+            "unit_price": 58.3,
+            "amount": 174.9
+          }
+        ],
+        "subtotal": 1158.3,
+        "tax": 118.73,
+        "prices_include_tax": false,
+        "total_printed": 1277.03,
+        "total_true": 1277.03,
+        "service_period": null,
+        "tax_rate_printed": 0.1025,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 44,
+      "file": "44_packright_batch_duplicate_scan.pdf",
+      "kind": "scanned_pdf",
+      "quality": [
+        "grayscale"
+      ],
+      "category": "edge_duplicate",
+      "title": "Same invoice arriving twice in one batch",
+      "scenario": "A scan of file 43 (same number). Alone it is payable; in the same batch it must be rejected because file 43 was decided first.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": []
+        },
+        "in_batch": {
+          "decision": "REJECT",
+          "reasons": [
+            "DUPLICATE"
+          ]
+        }
+      },
+      "vendor": "PackRight Packaging LLC",
+      "vendor_id": "V002",
+      "similar_to": "PR-104990",
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "PackRight Packaging LLC",
+        "vendor_id": "V002",
+        "vendor_tax_id_printed": "27-3390514",
+        "invoice_number": "PR-104990",
+        "invoice_date": "2026-10-04",
+        "due_date": "2026-11-03",
+        "po_number_printed": "PO-1134",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "5520147736",
+        "remit_bank_routing": "071904779",
+        "line_items": [
+          {
+            "sku": "CUP-16",
+            "description": "16 oz PET cold cup (1000/cs)",
+            "qty": 4,
+            "unit_price": 88.4,
+            "amount": 353.6
+          },
+          {
+            "sku": "FOIL-18",
+            "description": "Aluminum foil roll 18in x 500ft",
+            "qty": 8,
+            "unit_price": 32.7,
+            "amount": 261.6
+          },
+          {
+            "sku": "NAP-D",
+            "description": "Dinner napkin 2-ply kraft (3000/cs)",
+            "qty": 7,
+            "unit_price": 52.6,
+            "amount": 368.2
+          },
+          {
+            "sku": "CLAM-9",
+            "description": "Molded fiber clamshell 9x9 (200/cs)",
+            "qty": 3,
+            "unit_price": 58.3,
+            "amount": 174.9
+          }
+        ],
+        "subtotal": 1158.3,
+        "tax": 118.73,
+        "prices_include_tax": false,
+        "total_printed": 1277.03,
+        "total_true": 1277.03,
+        "service_period": null,
+        "tax_rate_printed": 0.1025,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 45,
+      "file": "45_dairy_paid_stamp_not_paid.pdf",
+      "kind": "scanned_pdf",
+      "quality": [
+        "PAID stamp",
+        "grayscale"
+      ],
+      "category": "edge_duplicate",
+      "title": "'PAID' stamp on an unpaid invoice",
+      "scenario": "Someone stamped PAID (driver's copy). The ledger, not the stamp, decides: not in the ledger, so payable; note the stamp.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": [
+            "STAMP_IGNORED"
+          ]
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": [
+            "STAMP_IGNORED"
+          ]
+        }
+      },
+      "vendor": "Midwest Dairy Cooperative",
+      "vendor_id": "V008",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Midwest Dairy Cooperative",
+        "vendor_id": "V008",
+        "vendor_tax_id_printed": null,
+        "invoice_number": "77955",
+        "invoice_date": "2026-10-04",
+        "due_date": "2026-10-18",
+        "po_number_printed": "PO-1135",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "6630192207",
+        "remit_bank_routing": "075900999",
+        "line_items": [
+          {
+            "sku": "MOZ-5",
+            "description": "Fresh mozzarella 5 lb",
+            "qty": 4,
+            "unit_price": 27.4,
+            "amount": 109.6
+          },
+          {
+            "sku": "EGG-15",
+            "description": "Large eggs 15 dz",
+            "qty": 4,
+            "unit_price": 46.5,
+            "amount": 186.0
+          },
+          {
+            "sku": "SC-5",
+            "description": "Sour cream 5 lb",
+            "qty": 4,
+            "unit_price": 11.3,
+            "amount": 45.2
+          },
+          {
+            "sku": "WM-G",
+            "description": "Whole milk 1 gal",
+            "qty": 2,
+            "unit_price": 4.15,
+            "amount": 8.3
+          }
+        ],
+        "subtotal": 349.1,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 349.1,
+        "total_true": 349.1,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [
+          "PAID"
+        ],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 46,
+      "file": "46_sparkle_bank_details_changed.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "edge_fraud",
+      "title": "EC3: bank details changed",
+      "scenario": "Perfect invoice (approved vendor, valid PO, services delivered) but the remit-to account differs from the vendor master. Classic payment-diversion fraud: verify by phone using the contact on file.",
+      "expected": {
+        "alone": {
+          "decision": "HOLD",
+          "reasons": [
+            "BANK_DETAILS_CHANGED"
+          ]
+        },
+        "in_batch": {
+          "decision": "HOLD",
+          "reasons": [
+            "BANK_DETAILS_CHANGED"
+          ]
+        }
+      },
+      "vendor": "Sparkle Commercial Cleaning Inc.",
+      "vendor_id": "V003",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Sparkle Commercial Cleaning Inc.",
+        "vendor_id": "V003",
+        "vendor_tax_id_printed": "81-2204613",
+        "invoice_number": "SCC-2026-0425",
+        "invoice_date": "2026-09-30",
+        "due_date": "2026-10-30",
+        "po_number_printed": "PO-1136",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "9917002456",
+        "remit_bank_routing": "271070999",
+        "line_items": [
+          {
+            "sku": "SVC-N",
+            "description": "Nightly janitorial service - September 2026",
+            "qty": 1,
+            "unit_price": 1850.0,
+            "amount": 1850.0
+          },
+          {
+            "sku": "SVC-GT",
+            "description": "Grease trap pump-out",
+            "qty": 1,
+            "unit_price": 295.0,
+            "amount": 295.0
+          }
+        ],
+        "subtotal": 2145.0,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 2145.0,
+        "total_true": 2145.0,
+        "service_period": "September 2026",
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 47,
+      "file": "47_packright_lookalike_vendor.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "edge_fraud",
+      "title": "Look-alike vendor (spoofed PackRight)",
+      "scenario": "Name matches PackRight but tax ID has two digits swapped, email domain is different, bank differs. Real PO number copied from an earlier invoice.",
+      "expected": {
+        "alone": {
+          "decision": "HOLD",
+          "reasons": [
+            "BANK_DETAILS_CHANGED",
+            "TAX_ID_MISMATCH"
+          ]
+        },
+        "in_batch": {
+          "decision": "HOLD",
+          "reasons": [
+            "BANK_DETAILS_CHANGED",
+            "TAX_ID_MISMATCH"
+          ]
+        }
+      },
+      "vendor": "PackRight Packaging LLC",
+      "vendor_id": "V002",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "PackRight Packaging LLC",
+        "vendor_id": "V002",
+        "vendor_tax_id_printed": "27-3390541",
+        "invoice_number": "PR-104951",
+        "invoice_date": "2026-10-03",
+        "due_date": "2026-11-02",
+        "po_number_printed": "PO-1137",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "70014839921",
+        "remit_bank_routing": "041215999",
+        "line_items": [
+          {
+            "sku": "LID-16",
+            "description": "Flat lid for 16 oz cup (1000/cs)",
+            "qty": 7,
+            "unit_price": 41.25,
+            "amount": 288.75
+          },
+          {
+            "sku": "TISS-12",
+            "description": "Deli tissue sheets 12x12 (5000/cs)",
+            "qty": 9,
+            "unit_price": 27.8,
+            "amount": 250.2
+          },
+          {
+            "sku": "CLAM-9",
+            "description": "Molded fiber clamshell 9x9 (200/cs)",
+            "qty": 7,
+            "unit_price": 58.3,
+            "amount": 408.1
+          },
+          {
+            "sku": "SOUP-12",
+            "description": "Paper soup cup 12 oz w/ lid (500/cs)",
+            "qty": 6,
+            "unit_price": 71.2,
+            "amount": 427.2
+          }
+        ],
+        "subtotal": 1374.25,
+        "tax": 140.86,
+        "prices_include_tax": false,
+        "total_printed": 1515.11,
+        "total_true": 1515.11,
+        "service_period": null,
+        "tax_rate_printed": 0.1025,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 48,
+      "file": "48_rapidlinen_blocked_vendor.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "edge_fraud",
+      "title": "Blocked vendor",
+      "scenario": "Rapid Linen was blocked on 2026-08-31 (contract terminated). Any new invoice is rejected.",
+      "expected": {
+        "alone": {
+          "decision": "REJECT",
+          "reasons": [
+            "VENDOR_BLOCKED"
+          ]
+        },
+        "in_batch": {
+          "decision": "REJECT",
+          "reasons": [
+            "VENDOR_BLOCKED"
+          ]
+        }
+      },
+      "vendor": "Rapid Linen Supply",
+      "vendor_id": "V006",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Rapid Linen Supply",
+        "vendor_id": "V006",
+        "vendor_tax_id_printed": "36-3005871",
+        "invoice_number": "RLS-88214",
+        "invoice_date": "2026-09-30",
+        "due_date": "2026-10-30",
+        "po_number_printed": null,
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "1100293348",
+        "remit_bank_routing": "071900111",
+        "line_items": [
+          {
+            "sku": "LN-NAP",
+            "description": "Napkin rental 20x20 white",
+            "qty": 60,
+            "unit_price": 3.4,
+            "amount": 204.0
+          },
+          {
+            "sku": "LN-APR",
+            "description": "Bib apron rental",
+            "qty": 120,
+            "unit_price": 0.85,
+            "amount": 102.0
+          }
+        ],
+        "subtotal": 306.0,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 306.0,
+        "total_true": 306.0,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 49,
+      "file": "49_harborview_unknown_vendor.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "edge_fraud",
+      "title": "Vendor not in the vendor master",
+      "scenario": "Florist the GM booked directly. Not onboarded: hold and draft an onboarding request (W-9, bank letter).",
+      "expected": {
+        "alone": {
+          "decision": "HOLD",
+          "reasons": [
+            "VENDOR_NOT_FOUND"
+          ]
+        },
+        "in_batch": {
+          "decision": "HOLD",
+          "reasons": [
+            "VENDOR_NOT_FOUND"
+          ]
+        }
+      },
+      "vendor": "Harborview Florals",
+      "vendor_id": null,
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Harborview Florals",
+        "vendor_id": null,
+        "vendor_tax_id_printed": "88-1029374",
+        "invoice_number": "HF-1024",
+        "invoice_date": "2026-10-02",
+        "due_date": "2026-10-02",
+        "po_number_printed": null,
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "7734100982",
+        "remit_bank_routing": "071000999",
+        "line_items": [
+          {
+            "sku": "FL-CP",
+            "description": "Table centerpiece, seasonal",
+            "qty": 18,
+            "unit_price": 38.0,
+            "amount": 684.0
+          },
+          {
+            "sku": "FL-ENT",
+            "description": "Entrance arrangement",
+            "qty": 1,
+            "unit_price": 165.0,
+            "amount": 165.0
+          },
+          {
+            "sku": "FL-DEL",
+            "description": "Delivery",
+            "qty": 1,
+            "unit_price": 25.0,
+            "amount": 25.0
+          }
+        ],
+        "subtotal": 874.0,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 874.0,
+        "total_true": 874.0,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 50,
+      "file": "50_maritime_cad_currency.pdf",
+      "kind": "digital_pdf",
+      "quality": [
+        "DD/MM/YYYY date"
+      ],
+      "category": "edge_document",
+      "title": "Invoice in Canadian dollars",
+      "scenario": "Approved vendor, valid PO, but billed in CAD (C$). Date printed 04/10/2026 means 4 October. Multi-currency is out of scope: hold for AP to confirm the FX treatment.",
+      "expected": {
+        "alone": {
+          "decision": "HOLD",
+          "reasons": [
+            "CURRENCY_NOT_SUPPORTED"
+          ]
+        },
+        "in_batch": {
+          "decision": "HOLD",
+          "reasons": [
+            "CURRENCY_NOT_SUPPORTED"
+          ]
+        }
+      },
+      "vendor": "Maritime Seafood Exporters Ltd.",
+      "vendor_id": "V012",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Maritime Seafood Exporters Ltd.",
+        "vendor_id": "V012",
+        "vendor_tax_id_printed": "BN 81442 7730 RT0001",
+        "invoice_number": "MSE-24-118",
+        "invoice_date": "2026-10-04",
+        "due_date": "2026-11-03",
+        "po_number_printed": "PO-1138",
+        "currency": "CAD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "1044728",
+        "remit_bank_routing": "00003-003",
+        "line_items": [
+          {
+            "sku": "MS-LOB",
+            "description": "Live lobster 1.25 lb",
+            "qty": 40,
+            "unit_price": 19.8,
+            "amount": 792.0
+          },
+          {
+            "sku": "MS-SCL",
+            "description": "Digby scallops U10",
+            "qty": 15,
+            "unit_price": 31.5,
+            "amount": 472.5
+          },
+          {
+            "sku": "MS-OYS",
+            "description": "Malpeque oysters 100ct",
+            "qty": 2,
+            "unit_price": 112.0,
+            "amount": 224.0
+          }
+        ],
+        "subtotal": 1488.5,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 1488.5,
+        "total_true": 1488.5,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 51,
+      "file": "51_sparkle_missing_invoice_number.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "edge_document",
+      "title": "No invoice number",
+      "scenario": "Without an invoice number the duplicate check is unsafe. Hold and ask the vendor to reissue.",
+      "expected": {
+        "alone": {
+          "decision": "HOLD",
+          "reasons": [
+            "MISSING_INVOICE_NUMBER"
+          ]
+        },
+        "in_batch": {
+          "decision": "HOLD",
+          "reasons": [
+            "MISSING_INVOICE_NUMBER"
+          ]
+        }
+      },
+      "vendor": "Sparkle Commercial Cleaning Inc.",
+      "vendor_id": "V003",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Sparkle Commercial Cleaning Inc.",
+        "vendor_id": "V003",
+        "vendor_tax_id_printed": "81-2204613",
+        "invoice_number": null,
+        "invoice_date": "2026-09-30",
+        "due_date": "2026-10-30",
+        "po_number_printed": "PO-1139",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "7730018842",
+        "remit_bank_routing": "071923903",
+        "line_items": [
+          {
+            "sku": "SVC-N",
+            "description": "Nightly janitorial service - September 2026",
+            "qty": 1,
+            "unit_price": 1850.0,
+            "amount": 1850.0
+          },
+          {
+            "sku": "SVC-WIN",
+            "description": "Exterior window cleaning",
+            "qty": 1,
+            "unit_price": 180.0,
+            "amount": 180.0
+          }
+        ],
+        "subtotal": 2030.0,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 2030.0,
+        "total_true": 2030.0,
+        "service_period": "September 2026",
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 52,
+      "file": "52_pest_missing_date.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "edge_document",
+      "title": "No invoice date",
+      "scenario": "Date missing; use the received date and flag it. Everything else matches.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": [
+            "DATE_DEFAULTED"
+          ]
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": [
+            "DATE_DEFAULTED"
+          ]
+        }
+      },
+      "vendor": "Prairie Pest Control",
+      "vendor_id": "V011",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Prairie Pest Control",
+        "vendor_id": "V011",
+        "vendor_tax_id_printed": "20-8834716",
+        "invoice_number": "PPC-3425",
+        "invoice_date": null,
+        "due_date": null,
+        "po_number_printed": "PO-1140",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "3381109924",
+        "remit_bank_routing": "071901604",
+        "line_items": [
+          {
+            "sku": "PC-MO",
+            "description": "Monthly pest control service - Evanston",
+            "qty": 1,
+            "unit_price": 145.0,
+            "amount": 145.0
+          },
+          {
+            "sku": "PC-INS",
+            "description": "Follow-up inspection",
+            "qty": 1,
+            "unit_price": 95.0,
+            "amount": 95.0
+          }
+        ],
+        "subtotal": 240.0,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 240.0,
+        "total_true": 240.0,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 53,
+      "file": "53_bluewave_missing_total.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "edge_document",
+      "title": "No total printed",
+      "scenario": "Only line items and subtotal are printed. Total is computed from the lines and flagged.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": [
+            "TOTAL_COMPUTED"
+          ]
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": [
+            "TOTAL_COMPUTED"
+          ]
+        }
+      },
+      "vendor": "Bluewave IT Services",
+      "vendor_id": "V005",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Bluewave IT Services",
+        "vendor_id": "V005",
+        "vendor_tax_id_printed": "83-0912455",
+        "invoice_number": "BW-P-1194",
+        "invoice_date": "2026-10-02",
+        "due_date": "2026-10-17",
+        "po_number_printed": "PO-1141",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "882014550",
+        "remit_bank_routing": "071000999",
+        "line_items": [
+          {
+            "sku": "LAP-SET",
+            "description": "Laptop setup & imaging",
+            "qty": 8,
+            "unit_price": 120.0,
+            "amount": 960.0
+          },
+          {
+            "sku": "M365",
+            "description": "Microsoft 365 Business licences (new)",
+            "qty": 8,
+            "unit_price": 12.5,
+            "amount": 100.0
+          }
+        ],
+        "subtotal": 1060.0,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": null,
+        "total_true": 1060.0,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 54,
+      "file": "54_greenleaf_lines_dont_add_up.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "edge_document",
+      "title": "Lines do not add up to the printed total",
+      "scenario": "Printed total is $90.00 more than the sum of the lines. Hold and ask the vendor for a corrected invoice.",
+      "expected": {
+        "alone": {
+          "decision": "HOLD",
+          "reasons": [
+            "ARITHMETIC_MISMATCH"
+          ]
+        },
+        "in_batch": {
+          "decision": "HOLD",
+          "reasons": [
+            "ARITHMETIC_MISMATCH"
+          ]
+        }
+      },
+      "vendor": "GreenLeaf Produce Co.",
+      "vendor_id": "V001",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "GreenLeaf Produce Co.",
+        "vendor_id": "V001",
+        "vendor_tax_id_printed": "36-4418207",
+        "invoice_number": "INV-GL-2237",
+        "invoice_date": "2026-10-05",
+        "due_date": "2026-10-20",
+        "po_number_printed": "PO-1142",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "300458817",
+        "remit_bank_routing": "071925334",
+        "line_items": [
+          {
+            "sku": "GL-2011",
+            "description": "Micro greens mix 2 lb",
+            "qty": 3,
+            "unit_price": 48.0,
+            "amount": 144.0
+          },
+          {
+            "sku": "GL-1502",
+            "description": "Cilantro 30 bunch",
+            "qty": 1,
+            "unit_price": 24.9,
+            "amount": 24.9
+          },
+          {
+            "sku": "GL-1205",
+            "description": "Yellow onions, 50 lb sack",
+            "qty": 1,
+            "unit_price": 27.4,
+            "amount": 27.4
+          },
+          {
+            "sku": "GL-1820",
+            "description": "Red bell peppers 11 lb",
+            "qty": 12,
+            "unit_price": 34.25,
+            "amount": 411.0
+          },
+          {
+            "sku": "GL-2203",
+            "description": "Jalapenos 10 lb",
+            "qty": 11,
+            "unit_price": 18.7,
+            "amount": 205.7
+          }
+        ],
+        "subtotal": 813.0,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 903.0,
+        "total_true": 813.0,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 55,
+      "file": "55_packright_tax_overcharged.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "edge_document",
+      "title": "Tax line does not match the stated rate",
+      "scenario": "Says 'Sales Tax (10.25%)' but the tax amount is 12.5% of the subtotal.",
+      "expected": {
+        "alone": {
+          "decision": "HOLD",
+          "reasons": [
+            "TAX_MISMATCH"
+          ]
+        },
+        "in_batch": {
+          "decision": "HOLD",
+          "reasons": [
+            "TAX_MISMATCH"
+          ]
+        }
+      },
+      "vendor": "PackRight Packaging LLC",
+      "vendor_id": "V002",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "PackRight Packaging LLC",
+        "vendor_id": "V002",
+        "vendor_tax_id_printed": "27-3390514",
+        "invoice_number": "PR-104958",
+        "invoice_date": "2026-10-04",
+        "due_date": "2026-11-03",
+        "po_number_printed": "PO-1143",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "5520147736",
+        "remit_bank_routing": "071904779",
+        "line_items": [
+          {
+            "sku": "CUP-16",
+            "description": "16 oz PET cold cup (1000/cs)",
+            "qty": 6,
+            "unit_price": 88.4,
+            "amount": 530.4
+          },
+          {
+            "sku": "STR-W",
+            "description": "Wrapped paper straws (3200/cs)",
+            "qty": 4,
+            "unit_price": 63.9,
+            "amount": 255.6
+          },
+          {
+            "sku": "LID-16",
+            "description": "Flat lid for 16 oz cup (1000/cs)",
+            "qty": 4,
+            "unit_price": 41.25,
+            "amount": 165.0
+          }
+        ],
+        "subtotal": 951.0,
+        "tax": 118.88,
+        "prices_include_tax": false,
+        "total_printed": 1069.88,
+        "total_true": 1069.88,
+        "service_period": null,
+        "tax_rate_printed": 0.1025,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 56,
+      "file": "56_beverage_future_dated.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "edge_document",
+      "title": "Invoice dated in the future",
+      "scenario": "Dated 15 Dec 2026. Either a typo or pre-billing; hold for AP to confirm before scheduling payment.",
+      "expected": {
+        "alone": {
+          "decision": "HOLD",
+          "reasons": [
+            "INVALID_DATE"
+          ]
+        },
+        "in_batch": {
+          "decision": "HOLD",
+          "reasons": [
+            "INVALID_DATE"
+          ]
+        }
+      },
+      "vendor": "Great Lakes Beverage Distributors",
+      "vendor_id": "V009",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Great Lakes Beverage Distributors",
+        "vendor_id": "V009",
+        "vendor_tax_id_printed": "36-4790031",
+        "invoice_number": "GLBD-90433",
+        "invoice_date": "2026-12-15",
+        "due_date": "2027-01-14",
+        "po_number_printed": "PO-1144",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "1530077742",
+        "remit_bank_routing": "071904999",
+        "line_items": [
+          {
+            "sku": "KEG-IPA",
+            "description": "House IPA 1/2 bbl keg",
+            "qty": 4,
+            "unit_price": 189.0,
+            "amount": 756.0
+          },
+          {
+            "sku": "CS-GB",
+            "description": "Ginger beer 24 x 12 oz",
+            "qty": 6,
+            "unit_price": 33.9,
+            "amount": 203.4
+          },
+          {
+            "sku": "CS-COLA",
+            "description": "Cola 24 x 12 oz glass",
+            "qty": 3,
+            "unit_price": 31.2,
+            "amount": 93.6
+          }
+        ],
+        "subtotal": 1053.0,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 1053.0,
+        "total_true": 1053.0,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 57,
+      "file": "57_lakeshore_billed_to_other_company.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "edge_document",
+      "title": "Invoice addressed to another company",
+      "scenario": "Bill-to is 'Copperhead Grill LLC' (a different customer of the same vendor) with their PO. Not our liability: reject and tell the vendor.",
+      "expected": {
+        "alone": {
+          "decision": "REJECT",
+          "reasons": [
+            "NOT_ADDRESSED_TO_US"
+          ]
+        },
+        "in_batch": {
+          "decision": "REJECT",
+          "reasons": [
+            "NOT_ADDRESSED_TO_US"
+          ]
+        }
+      },
+      "vendor": "Lakeshore Meats & Provisions",
+      "vendor_id": "V007",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Lakeshore Meats & Provisions",
+        "vendor_id": "V007",
+        "vendor_tax_id_printed": "36-2981144",
+        "invoice_number": "LM 558990",
+        "invoice_date": "2026-10-03",
+        "due_date": "2026-10-24",
+        "po_number_printed": "CG-8812",
+        "currency": "USD",
+        "bill_to_name": "Copperhead Grill LLC",
+        "remit_bank_account": "2209814451",
+        "remit_bank_routing": "086300999",
+        "line_items": [
+          {
+            "sku": "10457",
+            "description": "Beef short rib boneless, Choice",
+            "qty": 30,
+            "unit_price": 12.4,
+            "amount": 372.0
+          },
+          {
+            "sku": "50091",
+            "description": "Italian sausage links 10 lb",
+            "qty": 4,
+            "unit_price": 42.75,
+            "amount": 171.0
+          }
+        ],
+        "subtotal": 543.0,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 543.0,
+        "total_true": 543.0,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 58,
+      "file": "58_packright_credit_memo.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "non_invoice",
+      "title": "Credit memo",
+      "scenario": "Negative amounts against paid invoice PR-104512. Not payable: route to AP to apply the credit.",
+      "expected": {
+        "alone": {
+          "decision": "HOLD",
+          "reasons": [
+            "CREDIT_NOTE"
+          ]
+        },
+        "in_batch": {
+          "decision": "HOLD",
+          "reasons": [
+            "CREDIT_NOTE"
+          ]
+        }
+      },
+      "vendor": "PackRight Packaging LLC",
+      "vendor_id": "V002",
+      "similar_to": null,
+      "truth": {
+        "document_type": "credit_note",
+        "vendor_name_printed": "PackRight Packaging LLC",
+        "vendor_id": "V002",
+        "vendor_tax_id_printed": "27-3390514",
+        "invoice_number": "CM-2207",
+        "invoice_date": "2026-10-02",
+        "due_date": "2026-11-01",
+        "po_number_printed": "PO-1041",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "5520147736",
+        "remit_bank_routing": "071904779",
+        "line_items": [
+          {
+            "sku": "LID-16",
+            "description": "Return credit: flat lids damaged in transit (ref PR-104512)",
+            "qty": 5,
+            "unit_price": -41.25,
+            "amount": -206.25
+          },
+          {
+            "sku": "RSTK",
+            "description": "Restocking fee waived",
+            "qty": 1,
+            "unit_price": 0.0,
+            "amount": 0.0
+          }
+        ],
+        "subtotal": -206.25,
+        "tax": -21.14,
+        "prices_include_tax": false,
+        "total_printed": -227.39,
+        "total_true": -227.39,
+        "service_period": null,
+        "tax_rate_printed": 0.1025,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 59,
+      "file": "59_northgate_quotation.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "non_invoice",
+      "title": "Quote sent to the AP inbox",
+      "scenario": "A quotation, not an invoice. Nothing to pay.",
+      "expected": {
+        "alone": {
+          "decision": "REJECT",
+          "reasons": [
+            "NOT_AN_INVOICE"
+          ]
+        },
+        "in_batch": {
+          "decision": "REJECT",
+          "reasons": [
+            "NOT_AN_INVOICE"
+          ]
+        }
+      },
+      "vendor": "Northgate Kitchen Equipment Rentals",
+      "vendor_id": "V004",
+      "similar_to": null,
+      "truth": {
+        "document_type": "quote",
+        "vendor_name_printed": "Northgate Kitchen Equipment Rentals",
+        "vendor_id": "V004",
+        "vendor_tax_id_printed": "46-1187320",
+        "invoice_number": "Q-2026-118",
+        "invoice_date": "2026-10-01",
+        "due_date": "2026-10-31",
+        "po_number_printed": null,
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "4410276650",
+        "remit_bank_routing": "071921891",
+        "line_items": [
+          {
+            "sku": "BLC-40",
+            "description": "Blast chiller 40 lb capacity, purchase",
+            "qty": 1,
+            "unit_price": 14900.0,
+            "amount": 14900.0
+          }
+        ],
+        "subtotal": 14900.0,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 14900.0,
+        "total_true": 14900.0,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 60,
+      "file": "60_greenleaf_statement_of_account.pdf",
+      "kind": "digital_pdf",
+      "quality": [],
+      "category": "non_invoice",
+      "title": "Statement of account",
+      "scenario": "Lists invoices and payments. Used for reconciliation, never paid from.",
+      "expected": {
+        "alone": {
+          "decision": "REJECT",
+          "reasons": [
+            "NOT_AN_INVOICE"
+          ]
+        },
+        "in_batch": {
+          "decision": "REJECT",
+          "reasons": [
+            "NOT_AN_INVOICE"
+          ]
+        }
+      },
+      "vendor": "GreenLeaf Produce Co.",
+      "vendor_id": "V001",
+      "similar_to": null,
+      "truth": {
+        "document_type": "statement",
+        "vendor_name_printed": "GreenLeaf Produce Co.",
+        "vendor_id": "V001",
+        "vendor_tax_id_printed": "36-4418207",
+        "invoice_number": "STMT-0930",
+        "invoice_date": "2026-09-30",
+        "due_date": "2026-10-15",
+        "po_number_printed": null,
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "300458817",
+        "remit_bank_routing": "071925334",
+        "line_items": [],
+        "subtotal": 0.0,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 1734.6,
+        "total_true": 1734.6,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 61,
+      "file": "61_two_invoices_one_pdf.pdf",
+      "kind": "digital_pdf",
+      "quality": [
+        "2 documents in 1 file"
+      ],
+      "category": "non_invoice",
+      "title": "Two different vendors' invoices merged into one PDF",
+      "scenario": "Someone combined attachments. Hold: split into separate documents before processing.",
+      "expected": {
+        "alone": {
+          "decision": "HOLD",
+          "reasons": [
+            "MULTIPLE_DOCUMENTS"
+          ]
+        },
+        "in_batch": {
+          "decision": "HOLD",
+          "reasons": [
+            "MULTIPLE_DOCUMENTS"
+          ]
+        }
+      },
+      "vendor": "GreenLeaf Produce Co.",
+      "vendor_id": "V001",
+      "similar_to": null,
+      "truth": [
+        {
+          "document_type": "invoice",
+          "vendor_name_printed": "GreenLeaf Produce Co.",
+          "vendor_id": "V001",
+          "vendor_tax_id_printed": "36-4418207",
+          "invoice_number": "INV-GL-2240",
+          "invoice_date": "2026-10-06",
+          "due_date": "2026-10-21",
+          "po_number_printed": "PO-1145",
+          "currency": "USD",
+          "bill_to_name": "Copperleaf Restaurant Group",
+          "remit_bank_account": "300458817",
+          "remit_bank_routing": "071925334",
+          "line_items": [
+            {
+              "sku": "GL-2150",
+              "description": "English cucumbers 12ct",
+              "qty": 5,
+              "unit_price": 22.4,
+              "amount": 112.0
+            },
+            {
+              "sku": "GL-1905",
+              "description": "Limes 200ct",
+              "qty": 9,
+              "unit_price": 41.1,
+              "amount": 369.9
+            },
+            {
+              "sku": "GL-1502",
+              "description": "Cilantro 30 bunch",
+              "qty": 7,
+              "unit_price": 24.9,
+              "amount": 174.3
+            }
+          ],
+          "subtotal": 656.2,
+          "tax": 0.0,
+          "prices_include_tax": false,
+          "total_printed": 656.2,
+          "total_true": 656.2,
+          "service_period": null,
+          "tax_rate_printed": null,
+          "document_count": 2,
+          "stamps": [],
+          "po_number_handwritten": null,
+          "legible": true
+        },
+        {
+          "document_type": "invoice",
+          "vendor_name_printed": "PackRight Packaging LLC",
+          "vendor_id": "V002",
+          "vendor_tax_id_printed": "27-3390514",
+          "invoice_number": "PR-105003",
+          "invoice_date": "2026-10-06",
+          "due_date": "2026-11-05",
+          "po_number_printed": "PO-1146",
+          "currency": "USD",
+          "bill_to_name": "Copperleaf Restaurant Group",
+          "remit_bank_account": "5520147736",
+          "remit_bank_routing": "071904779",
+          "line_items": [
+            {
+              "sku": "LID-16",
+              "description": "Flat lid for 16 oz cup (1000/cs)",
+              "qty": 4,
+              "unit_price": 41.25,
+              "amount": 165.0
+            },
+            {
+              "sku": "KB-08",
+              "description": "Kraft fold-top takeout box #8 (200/cs)",
+              "qty": 5,
+              "unit_price": 46.8,
+              "amount": 234.0
+            }
+          ],
+          "subtotal": 399.0,
+          "tax": 40.9,
+          "prices_include_tax": false,
+          "total_printed": 439.9,
+          "total_true": 439.9,
+          "service_period": null,
+          "tax_rate_printed": 0.1025,
+          "document_count": 2,
+          "stamps": [],
+          "po_number_handwritten": null,
+          "legible": true
+        }
+      ]
+    },
+    {
+      "id": 62,
+      "file": "62_dairy_blurry_unreadable.jpg",
+      "kind": "photo_jpg",
+      "quality": [
+        "severe motion blur",
+        "low resolution"
+      ],
+      "category": "unreadable",
+      "title": "Too blurry to read reliably",
+      "scenario": "Amounts cannot be read with confidence. Must NOT guess: hold and request a clearer copy.",
+      "expected": {
+        "alone": {
+          "decision": "HOLD",
+          "reasons": [
+            "LOW_CONFIDENCE_EXTRACTION"
+          ]
+        },
+        "in_batch": {
+          "decision": "HOLD",
+          "reasons": [
+            "LOW_CONFIDENCE_EXTRACTION"
+          ]
+        }
+      },
+      "vendor": "Midwest Dairy Cooperative",
+      "vendor_id": "V008",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Midwest Dairy Cooperative",
+        "vendor_id": "V008",
+        "vendor_tax_id_printed": null,
+        "invoice_number": "77988",
+        "invoice_date": "2026-10-05",
+        "due_date": "2026-10-19",
+        "po_number_printed": "PO-1147",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "6630192207",
+        "remit_bank_routing": "075900999",
+        "line_items": [
+          {
+            "sku": "MOZ-5",
+            "description": "Fresh mozzarella 5 lb",
+            "qty": 10,
+            "unit_price": 27.4,
+            "amount": 274.0
+          },
+          {
+            "sku": "SC-5",
+            "description": "Sour cream 5 lb",
+            "qty": 4,
+            "unit_price": 11.3,
+            "amount": 45.2
+          },
+          {
+            "sku": "YOG-32",
+            "description": "Greek yogurt plain 32 oz",
+            "qty": 10,
+            "unit_price": 6.85,
+            "amount": 68.5
+          },
+          {
+            "sku": "HC-Q",
+            "description": "Heavy cream 40% qt",
+            "qty": 10,
+            "unit_price": 5.6,
+            "amount": 56.0
+          }
+        ],
+        "subtotal": 443.7,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 443.7,
+        "total_true": 443.7,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": false
+      }
+    },
+    {
+      "id": 63,
+      "file": "63_handyman_handwritten_math_error.pdf",
+      "kind": "handwritten_photo",
+      "quality": [
+        "handwritten (technician, different hand)",
+        "phone photo"
+      ],
+      "category": "edge_document",
+      "title": "Handwritten invoice with an addition error",
+      "scenario": "Lines add to $576.00 but the handwritten total says $676.00. Could be a misread or a real error: hold.",
+      "expected": {
+        "alone": {
+          "decision": "HOLD",
+          "reasons": [
+            "ARITHMETIC_MISMATCH"
+          ]
+        },
+        "in_batch": {
+          "decision": "HOLD",
+          "reasons": [
+            "ARITHMETIC_MISMATCH"
+          ]
+        }
+      },
+      "vendor": "Tony's Handyman & Repair",
+      "vendor_id": "V010",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Tony's Handyman & Repair",
+        "vendor_id": "V010",
+        "vendor_tax_id_printed": null,
+        "invoice_number": "0152",
+        "invoice_date": "2026-10-04",
+        "due_date": "2026-10-04",
+        "po_number_printed": "PO-1148",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "6011842239",
+        "remit_bank_routing": "071000999",
+        "line_items": [
+          {
+            "sku": "LAB",
+            "description": "Labor - ice machine repair",
+            "qty": 4,
+            "unit_price": 95.0,
+            "amount": 380.0
+          },
+          {
+            "sku": "PRT-V",
+            "description": "Water inlet valve",
+            "qty": 1,
+            "unit_price": 142.0,
+            "amount": 142.0
+          },
+          {
+            "sku": "PRT-F",
+            "description": "Filter cartridge",
+            "qty": 1,
+            "unit_price": 54.0,
+            "amount": 54.0
+          }
+        ],
+        "subtotal": 576.0,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 676.0,
+        "total_true": 576.0,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 64,
+      "file": "64_sparkle_password_protected.pdf",
+      "kind": "encrypted_pdf",
+      "quality": [
+        "password required to open"
+      ],
+      "category": "unreadable",
+      "title": "Password-protected PDF",
+      "scenario": "Cannot be opened without a password. Hold; ask vendor for an unprotected copy.",
+      "expected": {
+        "alone": {
+          "decision": "HOLD",
+          "reasons": [
+            "UNREADABLE_FILE"
+          ]
+        },
+        "in_batch": {
+          "decision": "HOLD",
+          "reasons": [
+            "UNREADABLE_FILE"
+          ]
+        }
+      },
+      "vendor": "Sparkle Commercial Cleaning Inc.",
+      "vendor_id": "V003",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Sparkle Commercial Cleaning Inc.",
+        "vendor_id": "V003",
+        "vendor_tax_id_printed": "81-2204613",
+        "invoice_number": "SCC-2026-0431",
+        "invoice_date": "2026-09-30",
+        "due_date": "2026-10-30",
+        "po_number_printed": "PO-1149",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "7730018842",
+        "remit_bank_routing": "071923903",
+        "line_items": [
+          {
+            "sku": "SVC-N",
+            "description": "Nightly janitorial service - September 2026",
+            "qty": 1,
+            "unit_price": 1850.0,
+            "amount": 1850.0
+          },
+          {
+            "sku": "SVC-UP",
+            "description": "Upholstery steam clean, booths",
+            "qty": 1,
+            "unit_price": 360.0,
+            "amount": 360.0
+          }
+        ],
+        "subtotal": 2210.0,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 2210.0,
+        "total_true": 2210.0,
+        "service_period": "September 2026",
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 65,
+      "file": "65_corrupted_download.pdf",
+      "kind": "corrupted_pdf",
+      "quality": [
+        "truncated file"
+      ],
+      "category": "unreadable",
+      "title": "Corrupted / truncated PDF",
+      "scenario": "Download cut off half-way. Cannot be parsed; hold for AP to get a fresh copy.",
+      "expected": {
+        "alone": {
+          "decision": "HOLD",
+          "reasons": [
+            "UNREADABLE_FILE"
+          ]
+        },
+        "in_batch": {
+          "decision": "HOLD",
+          "reasons": [
+            "UNREADABLE_FILE"
+          ]
+        }
+      },
+      "vendor": "GreenLeaf Produce Co.",
+      "vendor_id": "V001",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "GreenLeaf Produce Co.",
+        "vendor_id": "V001",
+        "vendor_tax_id_printed": "36-4418207",
+        "invoice_number": "INV-GL-2241",
+        "invoice_date": "2026-10-06",
+        "due_date": "2026-10-21",
+        "po_number_printed": null,
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "300458817",
+        "remit_bank_routing": "071925334",
+        "line_items": [
+          {
+            "sku": "GL-1102",
+            "description": "Roma tomatoes, 25 lb case",
+            "qty": 1,
+            "unit_price": 31.5,
+            "amount": 31.5
+          },
+          {
+            "sku": "GL-1733",
+            "description": "Baby spinach 4 lb",
+            "qty": 3,
+            "unit_price": 21.6,
+            "amount": 64.8
+          },
+          {
+            "sku": "GL-1205",
+            "description": "Yellow onions, 50 lb sack",
+            "qty": 3,
+            "unit_price": 27.4,
+            "amount": 82.2
+          },
+          {
+            "sku": "GL-1905",
+            "description": "Limes 200ct",
+            "qty": 3,
+            "unit_price": 41.1,
+            "amount": 123.3
+          }
+        ],
+        "subtotal": 301.8,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 301.8,
+        "total_true": 301.8,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 66,
+      "file": "66_handyman_crumpled_photo.pdf",
+      "kind": "handwritten_photo",
+      "quality": [
+        "handwritten",
+        "crumpled paper",
+        "phone photo",
+        "shadow"
+      ],
+      "category": "happy_path",
+      "title": "Crumpled handwritten invoice photographed on a counter",
+      "scenario": "Messiest payable input: crumpled carbon copy, photographed with a shadow. Still legible and correct.",
+      "expected": {
+        "alone": {
+          "decision": "APPROVE",
+          "reasons": []
+        },
+        "in_batch": {
+          "decision": "APPROVE",
+          "reasons": []
+        }
+      },
+      "vendor": "Tony's Handyman & Repair",
+      "vendor_id": "V010",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Tony's Handyman & Repair",
+        "vendor_id": "V010",
+        "vendor_tax_id_printed": null,
+        "invoice_number": "0155",
+        "invoice_date": "2026-10-06",
+        "due_date": "2026-10-06",
+        "po_number_printed": "PO-1150",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "6011842239",
+        "remit_bank_routing": "071000999",
+        "line_items": [
+          {
+            "sku": "LAB",
+            "description": "Labor - hood fan belt",
+            "qty": 2,
+            "unit_price": 95.0,
+            "amount": 190.0
+          },
+          {
+            "sku": "PRT-B",
+            "description": "Fan belt A-48",
+            "qty": 2,
+            "unit_price": 38.5,
+            "amount": 77.0
+          },
+          {
+            "sku": "PRT-P",
+            "description": "Pulley set screw kit",
+            "qty": 1,
+            "unit_price": 22.0,
+            "amount": 22.0
+          }
+        ],
+        "subtotal": 289.0,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 289.0,
+        "total_true": 289.0,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    },
+    {
+      "id": 67,
+      "file": "67_sparkle_bank_details_changed_scan.pdf",
+      "kind": "scanned_pdf",
+      "quality": [
+        "200dpi",
+        "grayscale",
+        "skew 0.7deg"
+      ],
+      "category": "edge_fraud",
+      "title": "Bank details changed, scanned copy",
+      "scenario": "Same payment-diversion pattern as file 46 on a different invoice, but scanned: there is no text layer to check the account against, so a second AI read confirms the account before the hold stands.",
+      "expected": {
+        "alone": {
+          "decision": "HOLD",
+          "reasons": [
+            "BANK_DETAILS_CHANGED"
+          ]
+        },
+        "in_batch": {
+          "decision": "HOLD",
+          "reasons": [
+            "BANK_DETAILS_CHANGED"
+          ]
+        }
+      },
+      "vendor": "Sparkle Commercial Cleaning Inc.",
+      "vendor_id": "V003",
+      "similar_to": null,
+      "truth": {
+        "document_type": "invoice",
+        "vendor_name_printed": "Sparkle Commercial Cleaning Inc.",
+        "vendor_id": "V003",
+        "vendor_tax_id_printed": "81-2204613",
+        "invoice_number": "SCC-2026-0436",
+        "invoice_date": "2026-10-02",
+        "due_date": "2026-11-01",
+        "po_number_printed": "PO-1151",
+        "currency": "USD",
+        "bill_to_name": "Copperleaf Restaurant Group",
+        "remit_bank_account": "9917002456",
+        "remit_bank_routing": "271070999",
+        "line_items": [
+          {
+            "sku": "SVC-HD",
+            "description": "Kitchen hood degrease (quarterly)",
+            "qty": 1,
+            "unit_price": 640.0,
+            "amount": 640.0
+          },
+          {
+            "sku": "SVC-UP",
+            "description": "Upholstery steam clean, booths",
+            "qty": 1,
+            "unit_price": 360.0,
+            "amount": 360.0
+          }
+        ],
+        "subtotal": 1000.0,
+        "tax": 0.0,
+        "prices_include_tax": false,
+        "total_printed": 1000.0,
+        "total_true": 1000.0,
+        "service_period": null,
+        "tax_rate_printed": null,
+        "document_count": 1,
+        "stamps": [],
+        "po_number_handwritten": null,
+        "legible": true
+      }
+    }
+  ]
+}

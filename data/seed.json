@@ -1,0 +1,4131 @@
+{
+  "company": {
+    "name": "Copperleaf Restaurant Group",
+    "bill_to_names": [
+      "Copperleaf Restaurant Group",
+      "Copperleaf Restaurant Grp",
+      "Copperleaf"
+    ],
+    "locations": {
+      "FUL": [
+        "Copperleaf Fulton Market",
+        "1210 W Fulton Market",
+        "Chicago, IL 60607"
+      ],
+      "WKP": [
+        "Copperleaf Wicker Park",
+        "1544 N Milwaukee Ave",
+        "Chicago, IL 60622"
+      ],
+      "EVN": [
+        "Copperleaf Evanston",
+        "812 Church St",
+        "Evanston, IL 60201"
+      ],
+      "LSQ": [
+        "Copperleaf Logan Square",
+        "2630 N Kedzie Ave",
+        "Chicago, IL 60647"
+      ],
+      "OKP": [
+        "Copperleaf Oak Park",
+        "1035 Lake St",
+        "Oak Park, IL 60301"
+      ]
+    },
+    "base_currency": "USD",
+    "tax_rate": 0.1025,
+    "as_of": "2026-10-09"
+  },
+  "policy": {
+    "price_tolerance_pct": 2.0,
+    "total_tolerance_pct": 1.0,
+    "total_tolerance_abs": 50.0,
+    "duplicate_window_days": 30,
+    "fuzzy_dup_amount_pct": 0.5,
+    "fuzzy_dup_line_similarity": 0.8,
+    "po_infer_min_score": 0.75,
+    "po_infer_margin": 0.1,
+    "clerk_minutes_per_invoice": 12
+  },
+  "vendors": [
+    {
+      "id": "V001",
+      "name": "GreenLeaf Produce Co.",
+      "aliases": [
+        "Greenleaf Produce Company",
+        "GreenLeaf Produce"
+      ],
+      "tax_id": "36-4418207",
+      "address": [
+        "2400 S Blue Island Ave",
+        "Chicago, IL 60608"
+      ],
+      "phone": "(312) 555-0141",
+      "email": "billing@greenleafproduce.com",
+      "bank": {
+        "bank": "Wintrust Bank",
+        "routing": "071925334",
+        "account": "300458817"
+      },
+      "status": "approved",
+      "block_reason": null,
+      "category": "goods",
+      "taxable": false,
+      "payment_terms": "Net 15"
+    },
+    {
+      "id": "V002",
+      "name": "PackRight Packaging LLC",
+      "aliases": [
+        "PackRight Packaging",
+        "Pack Right Packaging LLC"
+      ],
+      "tax_id": "27-3390514",
+      "address": [
+        "7850 W 47th St",
+        "Lyons, IL 60534"
+      ],
+      "phone": "(708) 555-0177",
+      "email": "ar@packrightpkg.com",
+      "bank": {
+        "bank": "BMO Bank N.A.",
+        "routing": "071904779",
+        "account": "5520147736"
+      },
+      "status": "approved",
+      "block_reason": null,
+      "category": "goods",
+      "taxable": true,
+      "payment_terms": "Net 30"
+    },
+    {
+      "id": "V003",
+      "name": "Sparkle Commercial Cleaning Inc.",
+      "aliases": [
+        "Sparkle Commercial Cleaning",
+        "Sparkle Cleaning"
+      ],
+      "tax_id": "81-2204613",
+      "address": [
+        "611 W Roosevelt Rd, Unit 3",
+        "Chicago, IL 60607"
+      ],
+      "phone": "(312) 555-0118",
+      "email": "accounts@sparklecc.com",
+      "bank": {
+        "bank": "Fifth Third Bank",
+        "routing": "071923903",
+        "account": "7730018842"
+      },
+      "status": "approved",
+      "block_reason": null,
+      "category": "services",
+      "taxable": false,
+      "payment_terms": "Net 30"
+    },
+    {
+      "id": "V004",
+      "name": "Northgate Kitchen Equipment Rentals",
+      "aliases": [
+        "Northgate Equipment Rentals",
+        "Northgate KER"
+      ],
+      "tax_id": "46-1187320",
+      "address": [
+        "3300 N Elston Ave",
+        "Chicago, IL 60618"
+      ],
+      "phone": "(773) 555-0190",
+      "email": "invoices@northgate-ker.com",
+      "bank": {
+        "bank": "PNC Bank",
+        "routing": "071921891",
+        "account": "4410276650"
+      },
+      "status": "approved",
+      "block_reason": null,
+      "category": "services",
+      "taxable": false,
+      "payment_terms": "Net 30"
+    },
+    {
+      "id": "V005",
+      "name": "Bluewave IT Services",
+      "aliases": [
+        "Bluewave IT",
+        "BlueWave IT Services LLC"
+      ],
+      "tax_id": "83-0912455",
+      "address": [
+        "180 N LaSalle St, Floor 12",
+        "Chicago, IL 60601"
+      ],
+      "phone": "(312) 555-0163",
+      "email": "billing@bluewaveit.com",
+      "bank": {
+        "bank": "JPMorgan Chase Bank",
+        "routing": "071000999",
+        "account": "882014550"
+      },
+      "status": "approved",
+      "block_reason": null,
+      "category": "services",
+      "taxable": false,
+      "payment_terms": "Net 15"
+    },
+    {
+      "id": "V006",
+      "name": "Rapid Linen Supply",
+      "aliases": [
+        "Rapid Linen"
+      ],
+      "tax_id": "36-3005871",
+      "address": [
+        "940 W Cermak Rd",
+        "Chicago, IL 60608"
+      ],
+      "phone": "(312) 555-0102",
+      "email": "ar@rapidlinen.com",
+      "bank": {
+        "bank": "Byline Bank",
+        "routing": "071900111",
+        "account": "1100293348"
+      },
+      "status": "blocked",
+      "block_reason": "Contract terminated 2026-08-31 after repeated billing disputes",
+      "category": "services",
+      "taxable": false,
+      "payment_terms": "Net 30"
+    },
+    {
+      "id": "V007",
+      "name": "Lakeshore Meats & Provisions",
+      "aliases": [
+        "Lakeshore Meats",
+        "Lakeshore Meat & Provision Co"
+      ],
+      "tax_id": "36-2981144",
+      "address": [
+        "1155 W Randolph St",
+        "Chicago, IL 60607"
+      ],
+      "phone": "(312) 555-0129",
+      "email": "ar@lakeshoremeats.com",
+      "bank": {
+        "bank": "Old National Bank",
+        "routing": "086300999",
+        "account": "2209814451"
+      },
+      "status": "approved",
+      "block_reason": null,
+      "category": "goods",
+      "taxable": false,
+      "payment_terms": "Net 21"
+    },
+    {
+      "id": "V008",
+      "name": "Midwest Dairy Cooperative",
+      "aliases": [
+        "Midwest Dairy Co-op",
+        "Midwest Dairy"
+      ],
+      "tax_id": "39-0447812",
+      "address": [
+        "N2190 County Rd K",
+        "Elkhorn, WI 53121"
+      ],
+      "phone": "(262) 555-0155",
+      "email": "routes@midwestdairy.coop",
+      "bank": {
+        "bank": "Associated Bank",
+        "routing": "075900999",
+        "account": "6630192207"
+      },
+      "status": "approved",
+      "block_reason": null,
+      "category": "goods",
+      "taxable": false,
+      "payment_terms": "Net 14"
+    },
+    {
+      "id": "V009",
+      "name": "Great Lakes Beverage Distributors",
+      "aliases": [
+        "Great Lakes Beverage",
+        "GLBD"
+      ],
+      "tax_id": "36-4790031",
+      "address": [
+        "4501 W 47th St",
+        "Chicago, IL 60632"
+      ],
+      "phone": "(773) 555-0136",
+      "email": "credit@glbd.com",
+      "bank": {
+        "bank": "U.S. Bank",
+        "routing": "071904999",
+        "account": "1530077742"
+      },
+      "status": "approved",
+      "block_reason": null,
+      "category": "goods",
+      "taxable": false,
+      "payment_terms": "Net 30"
+    },
+    {
+      "id": "V010",
+      "name": "Tony's Handyman & Repair",
+      "aliases": [
+        "Tonys Handyman",
+        "Tony's Repair"
+      ],
+      "tax_id": "47-5512908",
+      "address": [
+        "2217 W Belmont Ave",
+        "Chicago, IL 60618"
+      ],
+      "phone": "(773) 555-0184",
+      "email": "tonysrepair@mailbox.com",
+      "bank": {
+        "bank": "Chase",
+        "routing": "071000999",
+        "account": "6011842239"
+      },
+      "status": "approved",
+      "block_reason": null,
+      "category": "services",
+      "taxable": false,
+      "payment_terms": "Due on receipt"
+    },
+    {
+      "id": "V011",
+      "name": "Prairie Pest Control",
+      "aliases": [
+        "Prairie Pest",
+        "Prairie Pest Control LLC"
+      ],
+      "tax_id": "20-8834716",
+      "address": [
+        "5150 S Pulaski Rd",
+        "Chicago, IL 60632"
+      ],
+      "phone": "(773) 555-0122",
+      "email": "office@prairiepest.com",
+      "bank": {
+        "bank": "First Midwest Bank",
+        "routing": "071901604",
+        "account": "3381109924"
+      },
+      "status": "approved",
+      "block_reason": null,
+      "category": "services",
+      "taxable": false,
+      "payment_terms": "Net 30"
+    },
+    {
+      "id": "V012",
+      "name": "Maritime Seafood Exporters Ltd.",
+      "aliases": [
+        "Maritime Seafood Exporters",
+        "Maritime Seafood"
+      ],
+      "tax_id": "BN 81442 7730 RT0001",
+      "address": [
+        "88 Lower Water St",
+        "Halifax, NS B3J 1S5, Canada"
+      ],
+      "phone": "+1 (902) 555-0147",
+      "email": "ar@maritimeseafood.ca",
+      "bank": {
+        "bank": "Royal Bank of Canada",
+        "routing": "00003-003",
+        "account": "1044728"
+      },
+      "status": "approved",
+      "block_reason": null,
+      "category": "goods",
+      "taxable": false,
+      "payment_terms": "Net 30"
+    }
+  ],
+  "purchase_orders": [
+    {
+      "po_number": "PO-1040",
+      "vendor_id": "V001",
+      "location": "FUL",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-10",
+      "lines": [
+        {
+          "sku": "GL-1102",
+          "desc": "Roma tomatoes, 25 lb case",
+          "unit": "cs",
+          "qty": 12,
+          "unit_price": 31.5
+        },
+        {
+          "sku": "GL-1140",
+          "desc": "Romaine hearts 3ct x 12",
+          "unit": "cs",
+          "qty": 8,
+          "unit_price": 38.75
+        },
+        {
+          "sku": "GL-1311",
+          "desc": "Hass avocados 48ct",
+          "unit": "cs",
+          "qty": 6,
+          "unit_price": 62.0
+        },
+        {
+          "sku": "GL-1420",
+          "desc": "Lemons 165ct",
+          "unit": "cs",
+          "qty": 3,
+          "unit_price": 44.2
+        },
+        {
+          "sku": "GL-1502",
+          "desc": "Cilantro 30 bunch",
+          "unit": "cs",
+          "qty": 2,
+          "unit_price": 24.9
+        }
+      ],
+      "total": 1242.4,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1043",
+      "vendor_id": "V004",
+      "location": "FUL",
+      "status": "open",
+      "type": "blanket",
+      "created": "2026-07-20",
+      "lines": [
+        {
+          "sku": "RNT-BLK",
+          "desc": "Kitchen equipment rental - FY26 blanket",
+          "unit": "lot",
+          "qty": 1,
+          "unit_price": 50000.0
+        }
+      ],
+      "total": 50000.0,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1044",
+      "vendor_id": "V005",
+      "location": "FUL",
+      "status": "open",
+      "type": "blanket",
+      "created": "2026-01-05",
+      "lines": [
+        {
+          "sku": "RET-FY26",
+          "desc": "Managed services retainer FY2026 (12 mo)",
+          "unit": "lot",
+          "qty": 1,
+          "unit_price": 43200.0
+        }
+      ],
+      "total": 43200.0,
+      "opening_billed": 28800.0
+    },
+    {
+      "po_number": "PO-1041",
+      "vendor_id": "V002",
+      "location": "WKP",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-08-28",
+      "lines": [
+        {
+          "sku": "LID-16",
+          "desc": "Flat lid for 16 oz cup (1000/cs)",
+          "unit": "cs",
+          "qty": 6,
+          "unit_price": 41.25
+        },
+        {
+          "sku": "GLV-L",
+          "desc": "Nitrile gloves black, size L (1000/cs)",
+          "unit": "cs",
+          "qty": 3,
+          "unit_price": 74.9
+        }
+      ],
+      "total": 472.2,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1039",
+      "vendor_id": "V003",
+      "location": "FUL",
+      "status": "closed",
+      "type": "standard",
+      "created": "2026-07-25",
+      "lines": [
+        {
+          "sku": "SVC-N",
+          "desc": "Nightly janitorial service - August 2026",
+          "unit": "mo",
+          "qty": 1,
+          "unit_price": 1850.0
+        }
+      ],
+      "total": 1850.0,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1046",
+      "vendor_id": "V001",
+      "location": "EVN",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-26",
+      "lines": [
+        {
+          "sku": "GL-1610",
+          "desc": "Russet potatoes 50 lb",
+          "unit": "bag",
+          "qty": 10,
+          "unit_price": 29.8
+        },
+        {
+          "sku": "GL-1820",
+          "desc": "Red bell peppers 11 lb",
+          "unit": "cs",
+          "qty": 6,
+          "unit_price": 34.25
+        },
+        {
+          "sku": "GL-1905",
+          "desc": "Limes 200ct",
+          "unit": "cs",
+          "qty": 4,
+          "unit_price": 41.1
+        },
+        {
+          "sku": "GL-2104",
+          "desc": "Peeled garlic 5 lb jar",
+          "unit": "ea",
+          "qty": 5,
+          "unit_price": 19.95
+        }
+      ],
+      "total": 767.65,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1101",
+      "vendor_id": "V001",
+      "location": "WKP",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-20",
+      "lines": [
+        {
+          "sku": "GL-1502",
+          "desc": "Cilantro 30 bunch",
+          "unit": "cs",
+          "qty": 9,
+          "unit_price": 24.9
+        },
+        {
+          "sku": "GL-1205",
+          "desc": "Yellow onions, 50 lb sack",
+          "unit": "bag",
+          "qty": 2,
+          "unit_price": 27.4
+        },
+        {
+          "sku": "GL-1610",
+          "desc": "Russet potatoes 50 lb",
+          "unit": "bag",
+          "qty": 6,
+          "unit_price": 29.8
+        },
+        {
+          "sku": "GL-2011",
+          "desc": "Micro greens mix 2 lb",
+          "unit": "cs",
+          "qty": 10,
+          "unit_price": 48.0
+        },
+        {
+          "sku": "GL-1102",
+          "desc": "Roma tomatoes, 25 lb case",
+          "unit": "cs",
+          "qty": 1,
+          "unit_price": 31.5
+        },
+        {
+          "sku": "GL-1140",
+          "desc": "Romaine hearts 3ct x 12",
+          "unit": "cs",
+          "qty": 9,
+          "unit_price": 38.75
+        }
+      ],
+      "total": 1317.95,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1102",
+      "vendor_id": "V002",
+      "location": "LSQ",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-15",
+      "lines": [
+        {
+          "sku": "NAP-D",
+          "desc": "Dinner napkin 2-ply kraft (3000/cs)",
+          "unit": "cs",
+          "qty": 3,
+          "unit_price": 52.6
+        },
+        {
+          "sku": "KB-08",
+          "desc": "Kraft fold-top takeout box #8 (200/cs)",
+          "unit": "cs",
+          "qty": 5,
+          "unit_price": 46.8
+        },
+        {
+          "sku": "CUP-16",
+          "desc": "16 oz PET cold cup (1000/cs)",
+          "unit": "cs",
+          "qty": 3,
+          "unit_price": 88.4
+        },
+        {
+          "sku": "FOIL-18",
+          "desc": "Aluminum foil roll 18in x 500ft",
+          "unit": "ea",
+          "qty": 10,
+          "unit_price": 32.7
+        },
+        {
+          "sku": "STR-W",
+          "desc": "Wrapped paper straws (3200/cs)",
+          "unit": "cs",
+          "qty": 8,
+          "unit_price": 63.9
+        }
+      ],
+      "total": 1495.2,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1103",
+      "vendor_id": "V003",
+      "location": "WKP",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-08-30",
+      "lines": [
+        {
+          "sku": "SVC-N",
+          "desc": "Nightly janitorial service - September 2026",
+          "unit": "mo",
+          "qty": 1,
+          "unit_price": 1850.0
+        },
+        {
+          "sku": "SVC-HD",
+          "desc": "Kitchen hood degrease (quarterly)",
+          "unit": "ea",
+          "qty": 1,
+          "unit_price": 640.0
+        }
+      ],
+      "total": 2490.0,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1104",
+      "vendor_id": "V007",
+      "location": "FUL",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-10",
+      "lines": [
+        {
+          "sku": "10442",
+          "desc": "Beef tenderloin PSMO, Choice (dlv 09/14)",
+          "unit": "lb",
+          "qty": 58.8,
+          "unit_price": 18.95
+        },
+        {
+          "sku": "60015",
+          "desc": "Ground beef 80/20 10 lb (dlv 09/14)",
+          "unit": "cs",
+          "qty": 1,
+          "unit_price": 48.9
+        },
+        {
+          "sku": "10457",
+          "desc": "Beef short rib boneless, Choice (dlv 09/14)",
+          "unit": "lb",
+          "qty": 36.9,
+          "unit_price": 12.4
+        },
+        {
+          "sku": "20131",
+          "desc": "Chicken breast airline 8 oz (dlv 09/14)",
+          "unit": "lb",
+          "qty": 14.9,
+          "unit_price": 5.8
+        },
+        {
+          "sku": "10480",
+          "desc": "Ribeye lip-on, Choice (dlv 09/14)",
+          "unit": "lb",
+          "qty": 29.8,
+          "unit_price": 13.75
+        },
+        {
+          "sku": "20160",
+          "desc": "Whole chicken 3.5 lb (dlv 09/14)",
+          "unit": "lb",
+          "qty": 36.1,
+          "unit_price": 2.45
+        },
+        {
+          "sku": "40102",
+          "desc": "Lamb rack frenched 8-bone (dlv 09/14)",
+          "unit": "lb",
+          "qty": 37.7,
+          "unit_price": 21.3
+        },
+        {
+          "sku": "50091",
+          "desc": "Italian sausage links 10 lb (dlv 09/14)",
+          "unit": "cs",
+          "qty": 5,
+          "unit_price": 42.75
+        },
+        {
+          "sku": "20160",
+          "desc": "Whole chicken 3.5 lb (dlv 09/17)",
+          "unit": "lb",
+          "qty": 36.5,
+          "unit_price": 2.45
+        },
+        {
+          "sku": "60022",
+          "desc": "Duck breast, Magret (dlv 09/17)",
+          "unit": "lb",
+          "qty": 11.3,
+          "unit_price": 14.6
+        },
+        {
+          "sku": "20118",
+          "desc": "Chicken thigh boneless skinless (dlv 09/17)",
+          "unit": "lb",
+          "qty": 11.1,
+          "unit_price": 3.65
+        },
+        {
+          "sku": "10457",
+          "desc": "Beef short rib boneless, Choice (dlv 09/17)",
+          "unit": "lb",
+          "qty": 18.7,
+          "unit_price": 12.4
+        },
+        {
+          "sku": "60015",
+          "desc": "Ground beef 80/20 10 lb (dlv 09/17)",
+          "unit": "cs",
+          "qty": 6,
+          "unit_price": 48.9
+        },
+        {
+          "sku": "20131",
+          "desc": "Chicken breast airline 8 oz (dlv 09/17)",
+          "unit": "lb",
+          "qty": 35.6,
+          "unit_price": 5.8
+        },
+        {
+          "sku": "30244",
+          "desc": "Pork shoulder bone-in (dlv 09/17)",
+          "unit": "lb",
+          "qty": 48.4,
+          "unit_price": 2.95
+        },
+        {
+          "sku": "10442",
+          "desc": "Beef tenderloin PSMO, Choice (dlv 09/17)",
+          "unit": "lb",
+          "qty": 32.2,
+          "unit_price": 18.95
+        },
+        {
+          "sku": "50077",
+          "desc": "Bacon thick-cut applewood 15 lb (dlv 09/21)",
+          "unit": "cs",
+          "qty": 3,
+          "unit_price": 68.5
+        },
+        {
+          "sku": "30244",
+          "desc": "Pork shoulder bone-in (dlv 09/21)",
+          "unit": "lb",
+          "qty": 35.3,
+          "unit_price": 2.95
+        },
+        {
+          "sku": "30210",
+          "desc": "Pork belly skin-off (dlv 09/21)",
+          "unit": "lb",
+          "qty": 53.5,
+          "unit_price": 5.25
+        },
+        {
+          "sku": "20131",
+          "desc": "Chicken breast airline 8 oz (dlv 09/21)",
+          "unit": "lb",
+          "qty": 45.9,
+          "unit_price": 5.8
+        },
+        {
+          "sku": "20118",
+          "desc": "Chicken thigh boneless skinless (dlv 09/21)",
+          "unit": "lb",
+          "qty": 23.0,
+          "unit_price": 3.65
+        },
+        {
+          "sku": "60022",
+          "desc": "Duck breast, Magret (dlv 09/21)",
+          "unit": "lb",
+          "qty": 59.0,
+          "unit_price": 14.6
+        },
+        {
+          "sku": "10457",
+          "desc": "Beef short rib boneless, Choice (dlv 09/21)",
+          "unit": "lb",
+          "qty": 14.1,
+          "unit_price": 12.4
+        },
+        {
+          "sku": "70300",
+          "desc": "Salmon fillet, skin-on (dlv 09/21)",
+          "unit": "lb",
+          "qty": 29.7,
+          "unit_price": 11.85
+        },
+        {
+          "sku": "10480",
+          "desc": "Ribeye lip-on, Choice (dlv 09/24)",
+          "unit": "lb",
+          "qty": 37.0,
+          "unit_price": 13.75
+        },
+        {
+          "sku": "30244",
+          "desc": "Pork shoulder bone-in (dlv 09/24)",
+          "unit": "lb",
+          "qty": 49.0,
+          "unit_price": 2.95
+        },
+        {
+          "sku": "20118",
+          "desc": "Chicken thigh boneless skinless (dlv 09/24)",
+          "unit": "lb",
+          "qty": 50.6,
+          "unit_price": 3.65
+        },
+        {
+          "sku": "50077",
+          "desc": "Bacon thick-cut applewood 15 lb (dlv 09/24)",
+          "unit": "cs",
+          "qty": 3,
+          "unit_price": 68.5
+        },
+        {
+          "sku": "40102",
+          "desc": "Lamb rack frenched 8-bone (dlv 09/24)",
+          "unit": "lb",
+          "qty": 44.2,
+          "unit_price": 21.3
+        },
+        {
+          "sku": "10442",
+          "desc": "Beef tenderloin PSMO, Choice (dlv 09/24)",
+          "unit": "lb",
+          "qty": 38.9,
+          "unit_price": 18.95
+        },
+        {
+          "sku": "10457",
+          "desc": "Beef short rib boneless, Choice (dlv 09/24)",
+          "unit": "lb",
+          "qty": 38.2,
+          "unit_price": 12.4
+        },
+        {
+          "sku": "60015",
+          "desc": "Ground beef 80/20 10 lb (dlv 09/24)",
+          "unit": "cs",
+          "qty": 4,
+          "unit_price": 48.9
+        },
+        {
+          "sku": "10457",
+          "desc": "Beef short rib boneless, Choice (dlv 09/28)",
+          "unit": "lb",
+          "qty": 46.0,
+          "unit_price": 12.4
+        },
+        {
+          "sku": "20160",
+          "desc": "Whole chicken 3.5 lb (dlv 09/28)",
+          "unit": "lb",
+          "qty": 24.1,
+          "unit_price": 2.45
+        },
+        {
+          "sku": "30210",
+          "desc": "Pork belly skin-off (dlv 09/28)",
+          "unit": "lb",
+          "qty": 38.1,
+          "unit_price": 5.25
+        },
+        {
+          "sku": "50077",
+          "desc": "Bacon thick-cut applewood 15 lb (dlv 09/28)",
+          "unit": "cs",
+          "qty": 6,
+          "unit_price": 68.5
+        },
+        {
+          "sku": "10480",
+          "desc": "Ribeye lip-on, Choice (dlv 09/28)",
+          "unit": "lb",
+          "qty": 50.7,
+          "unit_price": 13.75
+        },
+        {
+          "sku": "10442",
+          "desc": "Beef tenderloin PSMO, Choice (dlv 09/28)",
+          "unit": "lb",
+          "qty": 22.8,
+          "unit_price": 18.95
+        }
+      ],
+      "total": 13091.65,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1105",
+      "vendor_id": "V008",
+      "location": "OKP",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-28",
+      "lines": [
+        {
+          "sku": "MOZ-5",
+          "desc": "Fresh mozzarella 5 lb",
+          "unit": "ea",
+          "qty": 4,
+          "unit_price": 27.4
+        },
+        {
+          "sku": "PRM-W",
+          "desc": "Parmesan wedge",
+          "unit": "lb",
+          "qty": 11,
+          "unit_price": 15.9
+        },
+        {
+          "sku": "BTR-36",
+          "desc": "Butter unsalted 36 x 1 lb",
+          "unit": "cs",
+          "qty": 3,
+          "unit_price": 142.2
+        },
+        {
+          "sku": "WM-G",
+          "desc": "Whole milk 1 gal",
+          "unit": "gal",
+          "qty": 9,
+          "unit_price": 4.15
+        },
+        {
+          "sku": "EGG-15",
+          "desc": "Large eggs 15 dz",
+          "unit": "cs",
+          "qty": 2,
+          "unit_price": 46.5
+        },
+        {
+          "sku": "HC-Q",
+          "desc": "Heavy cream 40% qt",
+          "unit": "qt",
+          "qty": 5,
+          "unit_price": 5.6
+        }
+      ],
+      "total": 869.45,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1106",
+      "vendor_id": "V009",
+      "location": "LSQ",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-22",
+      "lines": [
+        {
+          "sku": "CS-GB",
+          "desc": "Ginger beer 24 x 12 oz",
+          "unit": "cs",
+          "qty": 8,
+          "unit_price": 33.9
+        },
+        {
+          "sku": "CS-SPK",
+          "desc": "Sparkling water 24 x 500 ml",
+          "unit": "cs",
+          "qty": 2,
+          "unit_price": 21.6
+        },
+        {
+          "sku": "CS-COLA",
+          "desc": "Cola 24 x 12 oz glass",
+          "unit": "cs",
+          "qty": 3,
+          "unit_price": 31.2
+        },
+        {
+          "sku": "SP-VOD",
+          "desc": "Vodka 6 x 1 L",
+          "unit": "cs",
+          "qty": 8,
+          "unit_price": 132.0
+        },
+        {
+          "sku": "WN-CS",
+          "desc": "Cabernet sauvignon 12 x 750 ml",
+          "unit": "cs",
+          "qty": 7,
+          "unit_price": 164.4
+        }
+      ],
+      "total": 2614.8,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1107",
+      "vendor_id": "V011",
+      "location": "FUL",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-01",
+      "lines": [
+        {
+          "sku": "PC-MO",
+          "desc": "Monthly pest control service - Fulton Market",
+          "unit": "mo",
+          "qty": 1,
+          "unit_price": 145.0
+        },
+        {
+          "sku": "PC-FL",
+          "desc": "Fly light unit service",
+          "unit": "ea",
+          "qty": 2,
+          "unit_price": 65.0
+        }
+      ],
+      "total": 275.0,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1108",
+      "vendor_id": "V001",
+      "location": "LSQ",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-18",
+      "lines": [
+        {
+          "sku": "GL-1820",
+          "desc": "Red bell peppers 11 lb",
+          "unit": "cs",
+          "qty": 5,
+          "unit_price": 34.25
+        },
+        {
+          "sku": "GL-1420",
+          "desc": "Lemons 165ct",
+          "unit": "cs",
+          "qty": 12,
+          "unit_price": 44.2
+        },
+        {
+          "sku": "GL-1205",
+          "desc": "Yellow onions, 50 lb sack",
+          "unit": "bag",
+          "qty": 7,
+          "unit_price": 27.4
+        },
+        {
+          "sku": "GL-1610",
+          "desc": "Russet potatoes 50 lb",
+          "unit": "bag",
+          "qty": 6,
+          "unit_price": 29.8
+        },
+        {
+          "sku": "GL-2203",
+          "desc": "Jalapenos 10 lb",
+          "unit": "cs",
+          "qty": 11,
+          "unit_price": 18.7
+        }
+      ],
+      "total": 1277.95,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1109",
+      "vendor_id": "V002",
+      "location": "EVN",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-16",
+      "lines": [
+        {
+          "sku": "PCUP-2",
+          "desc": "Portion cup 2 oz w/ lid, each",
+          "unit": "ea",
+          "qty": 2400,
+          "unit_price": 0.4167
+        },
+        {
+          "sku": "TISS-12",
+          "desc": "Deli tissue sheets 12x12 (5000/cs)",
+          "unit": "cs",
+          "qty": 4,
+          "unit_price": 27.8
+        }
+      ],
+      "total": 1111.28,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1110",
+      "vendor_id": "V007",
+      "location": "WKP",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-25",
+      "lines": [
+        {
+          "sku": "10442",
+          "desc": "Beef tenderloin PSMO, Choice",
+          "unit": "lb",
+          "qty": 40,
+          "unit_price": 18.95
+        },
+        {
+          "sku": "20118",
+          "desc": "Chicken thigh boneless skinless",
+          "unit": "lb",
+          "qty": 60,
+          "unit_price": 3.65
+        },
+        {
+          "sku": "30210",
+          "desc": "Pork belly skin-off",
+          "unit": "lb",
+          "qty": 30,
+          "unit_price": 5.25
+        }
+      ],
+      "total": 1134.5,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1111",
+      "vendor_id": "V009",
+      "location": "OKP",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-23",
+      "lines": [
+        {
+          "sku": "WN-CS",
+          "desc": "Cabernet sauvignon 12 x 750 ml",
+          "unit": "cs",
+          "qty": 4,
+          "unit_price": 164.4
+        },
+        {
+          "sku": "CS-COLA",
+          "desc": "Cola 24 x 12 oz glass",
+          "unit": "cs",
+          "qty": 4,
+          "unit_price": 31.2
+        },
+        {
+          "sku": "CS-SPK",
+          "desc": "Sparkling water 24 x 500 ml",
+          "unit": "cs",
+          "qty": 5,
+          "unit_price": 21.6
+        },
+        {
+          "sku": "KEG-IPA",
+          "desc": "House IPA 1/2 bbl keg",
+          "unit": "keg",
+          "qty": 5,
+          "unit_price": 189.0
+        }
+      ],
+      "total": 1835.4,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1112",
+      "vendor_id": "V001",
+      "location": "OKP",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-24",
+      "lines": [
+        {
+          "sku": "GL-1102",
+          "desc": "Roma tomatoes, 25 lb case",
+          "unit": "cs",
+          "qty": 5,
+          "unit_price": 31.5
+        },
+        {
+          "sku": "GL-1733",
+          "desc": "Baby spinach 4 lb",
+          "unit": "cs",
+          "qty": 1,
+          "unit_price": 21.6
+        },
+        {
+          "sku": "GL-1905",
+          "desc": "Limes 200ct",
+          "unit": "cs",
+          "qty": 3,
+          "unit_price": 41.1
+        },
+        {
+          "sku": "GL-1205",
+          "desc": "Yellow onions, 50 lb sack",
+          "unit": "bag",
+          "qty": 7,
+          "unit_price": 27.4
+        },
+        {
+          "sku": "GL-1420",
+          "desc": "Lemons 165ct",
+          "unit": "cs",
+          "qty": 9,
+          "unit_price": 44.2
+        }
+      ],
+      "total": 892.0,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1113",
+      "vendor_id": "V002",
+      "location": "FUL",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-19",
+      "lines": [
+        {
+          "sku": "BAG-12",
+          "desc": "Paper SOS bag #12 (500/bdl)",
+          "unit": "bdl",
+          "qty": 4,
+          "unit_price": 36.15
+        },
+        {
+          "sku": "TISS-12",
+          "desc": "Deli tissue sheets 12x12 (5000/cs)",
+          "unit": "cs",
+          "qty": 2,
+          "unit_price": 27.8
+        },
+        {
+          "sku": "CUT-K",
+          "desc": "Compostable cutlery kit (250/cs)",
+          "unit": "cs",
+          "qty": 9,
+          "unit_price": 44.6
+        },
+        {
+          "sku": "SOUP-12",
+          "desc": "Paper soup cup 12 oz w/ lid (500/cs)",
+          "unit": "cs",
+          "qty": 8,
+          "unit_price": 71.2
+        }
+      ],
+      "total": 1171.2,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1114",
+      "vendor_id": "V003",
+      "location": "LSQ",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-08-29",
+      "lines": [
+        {
+          "sku": "SVC-N",
+          "desc": "Nightly janitorial service - September 2026",
+          "unit": "mo",
+          "qty": 1,
+          "unit_price": 1850.0
+        },
+        {
+          "sku": "SVC-FW",
+          "desc": "Floor strip & wax, dining room",
+          "unit": "ea",
+          "qty": 1,
+          "unit_price": 425.0
+        }
+      ],
+      "total": 2275.0,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1115",
+      "vendor_id": "V008",
+      "location": "EVN",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-29",
+      "lines": [
+        {
+          "sku": "MOZ-5",
+          "desc": "Fresh mozzarella 5 lb",
+          "unit": "ea",
+          "qty": 12,
+          "unit_price": 27.4
+        },
+        {
+          "sku": "EGG-15",
+          "desc": "Large eggs 15 dz",
+          "unit": "cs",
+          "qty": 8,
+          "unit_price": 46.5
+        },
+        {
+          "sku": "SC-5",
+          "desc": "Sour cream 5 lb",
+          "unit": "ea",
+          "qty": 2,
+          "unit_price": 11.3
+        },
+        {
+          "sku": "WM-G",
+          "desc": "Whole milk 1 gal",
+          "unit": "gal",
+          "qty": 5,
+          "unit_price": 4.15
+        },
+        {
+          "sku": "PRM-W",
+          "desc": "Parmesan wedge",
+          "unit": "lb",
+          "qty": 3,
+          "unit_price": 15.9
+        }
+      ],
+      "total": 791.85,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1116",
+      "vendor_id": "V011",
+      "location": "WKP",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-02",
+      "lines": [
+        {
+          "sku": "PC-MO",
+          "desc": "Monthly pest control service - Wicker Park",
+          "unit": "mo",
+          "qty": 1,
+          "unit_price": 145.0
+        },
+        {
+          "sku": "PC-RS",
+          "desc": "Rodent bait station replacement",
+          "unit": "ea",
+          "qty": 4,
+          "unit_price": 18.5
+        }
+      ],
+      "total": 219.0,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1117",
+      "vendor_id": "V009",
+      "location": "WKP",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-25",
+      "lines": [
+        {
+          "sku": "CS-COLA",
+          "desc": "Cola 24 x 12 oz glass",
+          "unit": "cs",
+          "qty": 3,
+          "unit_price": 31.2
+        },
+        {
+          "sku": "SP-VOD",
+          "desc": "Vodka 6 x 1 L",
+          "unit": "cs",
+          "qty": 5,
+          "unit_price": 132.0
+        },
+        {
+          "sku": "CS-SPK",
+          "desc": "Sparkling water 24 x 500 ml",
+          "unit": "cs",
+          "qty": 1,
+          "unit_price": 21.6
+        },
+        {
+          "sku": "KEG-IPA",
+          "desc": "House IPA 1/2 bbl keg",
+          "unit": "keg",
+          "qty": 1,
+          "unit_price": 189.0
+        }
+      ],
+      "total": 964.2,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1118",
+      "vendor_id": "V007",
+      "location": "LSQ",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-12",
+      "lines": [
+        {
+          "sku": "10442",
+          "desc": "Beef tenderloin PSMO, Choice (dlv 09/15)",
+          "unit": "lb",
+          "qty": 40.1,
+          "unit_price": 18.95
+        },
+        {
+          "sku": "60015",
+          "desc": "Ground beef 80/20 10 lb (dlv 09/15)",
+          "unit": "cs",
+          "qty": 5,
+          "unit_price": 48.9
+        },
+        {
+          "sku": "20118",
+          "desc": "Chicken thigh boneless skinless (dlv 09/15)",
+          "unit": "lb",
+          "qty": 20.7,
+          "unit_price": 3.65
+        },
+        {
+          "sku": "50091",
+          "desc": "Italian sausage links 10 lb (dlv 09/15)",
+          "unit": "cs",
+          "qty": 3,
+          "unit_price": 42.75
+        },
+        {
+          "sku": "10457",
+          "desc": "Beef short rib boneless, Choice (dlv 09/15)",
+          "unit": "lb",
+          "qty": 43.3,
+          "unit_price": 12.4
+        },
+        {
+          "sku": "30244",
+          "desc": "Pork shoulder bone-in (dlv 09/15)",
+          "unit": "lb",
+          "qty": 29.5,
+          "unit_price": 2.95
+        },
+        {
+          "sku": "20160",
+          "desc": "Whole chicken 3.5 lb (dlv 09/15)",
+          "unit": "lb",
+          "qty": 24.5,
+          "unit_price": 2.45
+        },
+        {
+          "sku": "50077",
+          "desc": "Bacon thick-cut applewood 15 lb (dlv 09/15)",
+          "unit": "cs",
+          "qty": 1,
+          "unit_price": 68.5
+        },
+        {
+          "sku": "20160",
+          "desc": "Whole chicken 3.5 lb (dlv 09/19)",
+          "unit": "lb",
+          "qty": 10.0,
+          "unit_price": 2.45
+        },
+        {
+          "sku": "50077",
+          "desc": "Bacon thick-cut applewood 15 lb (dlv 09/19)",
+          "unit": "cs",
+          "qty": 3,
+          "unit_price": 68.5
+        },
+        {
+          "sku": "10480",
+          "desc": "Ribeye lip-on, Choice (dlv 09/19)",
+          "unit": "lb",
+          "qty": 34.9,
+          "unit_price": 13.75
+        },
+        {
+          "sku": "70300",
+          "desc": "Salmon fillet, skin-on (dlv 09/19)",
+          "unit": "lb",
+          "qty": 24.7,
+          "unit_price": 11.85
+        },
+        {
+          "sku": "60022",
+          "desc": "Duck breast, Magret (dlv 09/19)",
+          "unit": "lb",
+          "qty": 33.0,
+          "unit_price": 14.6
+        },
+        {
+          "sku": "30210",
+          "desc": "Pork belly skin-off (dlv 09/19)",
+          "unit": "lb",
+          "qty": 26.1,
+          "unit_price": 5.25
+        },
+        {
+          "sku": "10457",
+          "desc": "Beef short rib boneless, Choice (dlv 09/19)",
+          "unit": "lb",
+          "qty": 14.0,
+          "unit_price": 12.4
+        },
+        {
+          "sku": "60015",
+          "desc": "Ground beef 80/20 10 lb (dlv 09/19)",
+          "unit": "cs",
+          "qty": 5,
+          "unit_price": 48.9
+        },
+        {
+          "sku": "30244",
+          "desc": "Pork shoulder bone-in (dlv 09/22)",
+          "unit": "lb",
+          "qty": 39.7,
+          "unit_price": 2.95
+        },
+        {
+          "sku": "20118",
+          "desc": "Chicken thigh boneless skinless (dlv 09/22)",
+          "unit": "lb",
+          "qty": 33.2,
+          "unit_price": 3.65
+        },
+        {
+          "sku": "70300",
+          "desc": "Salmon fillet, skin-on (dlv 09/22)",
+          "unit": "lb",
+          "qty": 16.2,
+          "unit_price": 11.85
+        },
+        {
+          "sku": "50091",
+          "desc": "Italian sausage links 10 lb (dlv 09/22)",
+          "unit": "cs",
+          "qty": 3,
+          "unit_price": 42.75
+        },
+        {
+          "sku": "10442",
+          "desc": "Beef tenderloin PSMO, Choice (dlv 09/22)",
+          "unit": "lb",
+          "qty": 41.4,
+          "unit_price": 18.95
+        },
+        {
+          "sku": "60022",
+          "desc": "Duck breast, Magret (dlv 09/22)",
+          "unit": "lb",
+          "qty": 19.9,
+          "unit_price": 14.6
+        },
+        {
+          "sku": "30210",
+          "desc": "Pork belly skin-off (dlv 09/22)",
+          "unit": "lb",
+          "qty": 14.7,
+          "unit_price": 5.25
+        },
+        {
+          "sku": "20160",
+          "desc": "Whole chicken 3.5 lb (dlv 09/22)",
+          "unit": "lb",
+          "qty": 27.1,
+          "unit_price": 2.45
+        },
+        {
+          "sku": "50091",
+          "desc": "Italian sausage links 10 lb (dlv 09/26)",
+          "unit": "cs",
+          "qty": 4,
+          "unit_price": 42.75
+        },
+        {
+          "sku": "30244",
+          "desc": "Pork shoulder bone-in (dlv 09/26)",
+          "unit": "lb",
+          "qty": 34.9,
+          "unit_price": 2.95
+        },
+        {
+          "sku": "60022",
+          "desc": "Duck breast, Magret (dlv 09/26)",
+          "unit": "lb",
+          "qty": 14.8,
+          "unit_price": 14.6
+        },
+        {
+          "sku": "20131",
+          "desc": "Chicken breast airline 8 oz (dlv 09/26)",
+          "unit": "lb",
+          "qty": 26.2,
+          "unit_price": 5.8
+        },
+        {
+          "sku": "60015",
+          "desc": "Ground beef 80/20 10 lb (dlv 09/26)",
+          "unit": "cs",
+          "qty": 3,
+          "unit_price": 48.9
+        },
+        {
+          "sku": "70300",
+          "desc": "Salmon fillet, skin-on (dlv 09/26)",
+          "unit": "lb",
+          "qty": 34.5,
+          "unit_price": 11.85
+        },
+        {
+          "sku": "20160",
+          "desc": "Whole chicken 3.5 lb (dlv 09/26)",
+          "unit": "lb",
+          "qty": 44.6,
+          "unit_price": 2.45
+        },
+        {
+          "sku": "40102",
+          "desc": "Lamb rack frenched 8-bone (dlv 09/26)",
+          "unit": "lb",
+          "qty": 36.8,
+          "unit_price": 21.3
+        }
+      ],
+      "total": 7867.95,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1119",
+      "vendor_id": "V010",
+      "location": "FUL",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-27",
+      "lines": [
+        {
+          "sku": "LAB",
+          "desc": "Labor - walk-in door hinge",
+          "unit": "hr",
+          "qty": 3,
+          "unit_price": 95.0
+        },
+        {
+          "sku": "PRT-H",
+          "desc": "Hinge kit, heavy duty",
+          "unit": "ea",
+          "qty": 1,
+          "unit_price": 186.0
+        },
+        {
+          "sku": "PRT-G",
+          "desc": "Door gasket 30x78",
+          "unit": "ea",
+          "qty": 1,
+          "unit_price": 169.0
+        }
+      ],
+      "total": 640.0,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1120",
+      "vendor_id": "V001",
+      "location": "FUL",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-25",
+      "lines": [
+        {
+          "sku": "GL-1733",
+          "desc": "Baby spinach 4 lb",
+          "unit": "cs",
+          "qty": 6,
+          "unit_price": 21.6
+        },
+        {
+          "sku": "GL-1420",
+          "desc": "Lemons 165ct",
+          "unit": "cs",
+          "qty": 8,
+          "unit_price": 44.2
+        },
+        {
+          "sku": "GL-1311",
+          "desc": "Hass avocados 48ct",
+          "unit": "cs",
+          "qty": 12,
+          "unit_price": 62.0
+        },
+        {
+          "sku": "GL-1905",
+          "desc": "Limes 200ct",
+          "unit": "cs",
+          "qty": 6,
+          "unit_price": 41.1
+        }
+      ],
+      "total": 1473.8,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1121",
+      "vendor_id": "V004",
+      "location": "EVN",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-20",
+      "lines": [
+        {
+          "sku": "RNT-FRY",
+          "desc": "Countertop fryer rental (catering event)",
+          "unit": "ea",
+          "qty": 2,
+          "unit_price": 380.0
+        },
+        {
+          "sku": "DEL",
+          "desc": "Delivery & pickup",
+          "unit": "ea",
+          "qty": 1,
+          "unit_price": 90.0
+        }
+      ],
+      "total": 850.0,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1122",
+      "vendor_id": "V005",
+      "location": "LSQ",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-18",
+      "lines": [
+        {
+          "sku": "WIFI-S",
+          "desc": "Wi-Fi site survey - Logan Square",
+          "unit": "ea",
+          "qty": 1,
+          "unit_price": 450.0
+        },
+        {
+          "sku": "AP-INST",
+          "desc": "Wireless access point install",
+          "unit": "ea",
+          "qty": 3,
+          "unit_price": 210.0
+        }
+      ],
+      "total": 1080.0,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1123",
+      "vendor_id": "V002",
+      "location": "OKP",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-21",
+      "lines": [
+        {
+          "sku": "KB-08",
+          "desc": "Kraft fold-top takeout box #8 (200/cs)",
+          "unit": "cs",
+          "qty": 8,
+          "unit_price": 46.8
+        },
+        {
+          "sku": "CUP-16",
+          "desc": "16 oz PET cold cup (1000/cs)",
+          "unit": "cs",
+          "qty": 3,
+          "unit_price": 88.4
+        },
+        {
+          "sku": "LID-16",
+          "desc": "Flat lid for 16 oz cup (1000/cs)",
+          "unit": "cs",
+          "qty": 3,
+          "unit_price": 41.25
+        },
+        {
+          "sku": "CLAM-9",
+          "desc": "Molded fiber clamshell 9x9 (200/cs)",
+          "unit": "cs",
+          "qty": 5,
+          "unit_price": 58.3
+        }
+      ],
+      "total": 1054.85,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1124",
+      "vendor_id": "V002",
+      "location": "WKP",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-20",
+      "lines": [
+        {
+          "sku": "BAG-12",
+          "desc": "Paper SOS bag #12 (500/bdl)",
+          "unit": "bdl",
+          "qty": 2,
+          "unit_price": 36.15
+        },
+        {
+          "sku": "CUP-16",
+          "desc": "16 oz PET cold cup (1000/cs)",
+          "unit": "cs",
+          "qty": 3,
+          "unit_price": 88.4
+        },
+        {
+          "sku": "NAP-D",
+          "desc": "Dinner napkin 2-ply kraft (3000/cs)",
+          "unit": "cs",
+          "qty": 5,
+          "unit_price": 52.6
+        }
+      ],
+      "total": 600.5,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1125",
+      "vendor_id": "V001",
+      "location": "WKP",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-29",
+      "lines": [
+        {
+          "sku": "GL-1102",
+          "desc": "Roma tomatoes, 25 lb case",
+          "unit": "cs",
+          "qty": 6,
+          "unit_price": 31.5
+        },
+        {
+          "sku": "GL-1205",
+          "desc": "Yellow onions, 50 lb sack",
+          "unit": "bag",
+          "qty": 4,
+          "unit_price": 27.4
+        },
+        {
+          "sku": "GL-1905",
+          "desc": "Limes 200ct",
+          "unit": "cs",
+          "qty": 3,
+          "unit_price": 41.1
+        },
+        {
+          "sku": "GL-2150",
+          "desc": "English cucumbers 12ct",
+          "unit": "cs",
+          "qty": 4,
+          "unit_price": 22.4
+        }
+      ],
+      "total": 511.5,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1126",
+      "vendor_id": "V001",
+      "location": "LSQ",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-29",
+      "lines": [
+        {
+          "sku": "GL-1102",
+          "desc": "Roma tomatoes, 25 lb case",
+          "unit": "cs",
+          "qty": 6,
+          "unit_price": 31.5
+        },
+        {
+          "sku": "GL-1205",
+          "desc": "Yellow onions, 50 lb sack",
+          "unit": "bag",
+          "qty": 4,
+          "unit_price": 27.4
+        },
+        {
+          "sku": "GL-1905",
+          "desc": "Limes 200ct",
+          "unit": "cs",
+          "qty": 3,
+          "unit_price": 41.1
+        },
+        {
+          "sku": "GL-2150",
+          "desc": "English cucumbers 12ct",
+          "unit": "cs",
+          "qty": 4,
+          "unit_price": 22.4
+        }
+      ],
+      "total": 511.5,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1127",
+      "vendor_id": "V002",
+      "location": "FUL",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-22",
+      "lines": [
+        {
+          "sku": "NAP-D",
+          "desc": "Dinner napkin 2-ply kraft (3000/cs)",
+          "unit": "cs",
+          "qty": 6,
+          "unit_price": 52.6
+        },
+        {
+          "sku": "BAG-12",
+          "desc": "Paper SOS bag #12 (500/bdl)",
+          "unit": "bdl",
+          "qty": 10,
+          "unit_price": 36.15
+        },
+        {
+          "sku": "STR-W",
+          "desc": "Wrapped paper straws (3200/cs)",
+          "unit": "cs",
+          "qty": 4,
+          "unit_price": 63.9
+        }
+      ],
+      "total": 932.7,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1128",
+      "vendor_id": "V002",
+      "location": "EVN",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-23",
+      "lines": [
+        {
+          "sku": "CUP-16",
+          "desc": "16 oz PET cold cup (1000/cs)",
+          "unit": "cs",
+          "qty": 4,
+          "unit_price": 88.4
+        },
+        {
+          "sku": "FOIL-18",
+          "desc": "Aluminum foil roll 18in x 500ft",
+          "unit": "ea",
+          "qty": 6,
+          "unit_price": 32.7
+        },
+        {
+          "sku": "TISS-12",
+          "desc": "Deli tissue sheets 12x12 (5000/cs)",
+          "unit": "cs",
+          "qty": 8,
+          "unit_price": 27.8
+        }
+      ],
+      "total": 772.2,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1129",
+      "vendor_id": "V002",
+      "location": "WKP",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-24",
+      "lines": [
+        {
+          "sku": "CUT-K",
+          "desc": "Compostable cutlery kit (250/cs)",
+          "unit": "kit",
+          "qty": 100,
+          "unit_price": 44.6
+        },
+        {
+          "sku": "SOUP-12",
+          "desc": "Paper soup cup 12 oz w/ lid (500/cs)",
+          "unit": "cs",
+          "qty": 12,
+          "unit_price": 71.2
+        }
+      ],
+      "total": 5314.4,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1130",
+      "vendor_id": "V009",
+      "location": "FUL",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-27",
+      "lines": [
+        {
+          "sku": "CS-COLA",
+          "desc": "Cola 24 x 12 oz glass",
+          "unit": "cs",
+          "qty": 4,
+          "unit_price": 31.2
+        },
+        {
+          "sku": "WN-PG",
+          "desc": "Pinot grigio 12 x 750 ml",
+          "unit": "cs",
+          "qty": 5,
+          "unit_price": 118.8
+        },
+        {
+          "sku": "CS-TON",
+          "desc": "Tonic water 24 x 200 ml",
+          "unit": "cs",
+          "qty": 5,
+          "unit_price": 26.4
+        }
+      ],
+      "total": 850.8,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1131",
+      "vendor_id": "V009",
+      "location": "EVN",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-27",
+      "lines": [
+        {
+          "sku": "KEG-IPA",
+          "desc": "House IPA 1/2 bbl keg",
+          "unit": "keg",
+          "qty": 7,
+          "unit_price": 189.0
+        },
+        {
+          "sku": "SP-VOD",
+          "desc": "Vodka 6 x 1 L",
+          "unit": "cs",
+          "qty": 2,
+          "unit_price": 132.0
+        },
+        {
+          "sku": "WN-PG",
+          "desc": "Pinot grigio 12 x 750 ml",
+          "unit": "cs",
+          "qty": 8,
+          "unit_price": 118.8
+        },
+        {
+          "sku": "WN-CS",
+          "desc": "Cabernet sauvignon 12 x 750 ml",
+          "unit": "cs",
+          "qty": 7,
+          "unit_price": 164.4
+        }
+      ],
+      "total": 3688.2,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1132",
+      "vendor_id": "V007",
+      "location": "OKP",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-26",
+      "lines": [
+        {
+          "sku": "10442",
+          "desc": "Beef tenderloin PSMO, Choice",
+          "unit": "lb",
+          "qty": 20,
+          "unit_price": 18.95
+        },
+        {
+          "sku": "40102",
+          "desc": "Lamb rack frenched 8-bone",
+          "unit": "lb",
+          "qty": 12,
+          "unit_price": 21.3
+        },
+        {
+          "sku": "70300",
+          "desc": "Salmon fillet, skin-on",
+          "unit": "lb",
+          "qty": 25,
+          "unit_price": 11.85
+        }
+      ],
+      "total": 930.85,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1133",
+      "vendor_id": "V005",
+      "location": "EVN",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-08",
+      "lines": [
+        {
+          "sku": "POS-INST",
+          "desc": "POS terminal installation",
+          "unit": "ea",
+          "qty": 6,
+          "unit_price": 385.0
+        },
+        {
+          "sku": "NET-CAB",
+          "desc": "Network cabling drop",
+          "unit": "ea",
+          "qty": 12,
+          "unit_price": 145.0
+        },
+        {
+          "sku": "TRN",
+          "desc": "Staff POS training session",
+          "unit": "hr",
+          "qty": 8,
+          "unit_price": 95.0
+        }
+      ],
+      "total": 4810.0,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1134",
+      "vendor_id": "V002",
+      "location": "LSQ",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-25",
+      "lines": [
+        {
+          "sku": "CUP-16",
+          "desc": "16 oz PET cold cup (1000/cs)",
+          "unit": "cs",
+          "qty": 4,
+          "unit_price": 88.4
+        },
+        {
+          "sku": "FOIL-18",
+          "desc": "Aluminum foil roll 18in x 500ft",
+          "unit": "ea",
+          "qty": 8,
+          "unit_price": 32.7
+        },
+        {
+          "sku": "NAP-D",
+          "desc": "Dinner napkin 2-ply kraft (3000/cs)",
+          "unit": "cs",
+          "qty": 7,
+          "unit_price": 52.6
+        },
+        {
+          "sku": "CLAM-9",
+          "desc": "Molded fiber clamshell 9x9 (200/cs)",
+          "unit": "cs",
+          "qty": 3,
+          "unit_price": 58.3
+        }
+      ],
+      "total": 1158.3,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1135",
+      "vendor_id": "V008",
+      "location": "WKP",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-30",
+      "lines": [
+        {
+          "sku": "MOZ-5",
+          "desc": "Fresh mozzarella 5 lb",
+          "unit": "ea",
+          "qty": 4,
+          "unit_price": 27.4
+        },
+        {
+          "sku": "EGG-15",
+          "desc": "Large eggs 15 dz",
+          "unit": "cs",
+          "qty": 4,
+          "unit_price": 46.5
+        },
+        {
+          "sku": "SC-5",
+          "desc": "Sour cream 5 lb",
+          "unit": "ea",
+          "qty": 4,
+          "unit_price": 11.3
+        },
+        {
+          "sku": "WM-G",
+          "desc": "Whole milk 1 gal",
+          "unit": "gal",
+          "qty": 2,
+          "unit_price": 4.15
+        }
+      ],
+      "total": 349.1,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1136",
+      "vendor_id": "V003",
+      "location": "EVN",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-08-30",
+      "lines": [
+        {
+          "sku": "SVC-N",
+          "desc": "Nightly janitorial service - September 2026",
+          "unit": "mo",
+          "qty": 1,
+          "unit_price": 1850.0
+        },
+        {
+          "sku": "SVC-GT",
+          "desc": "Grease trap pump-out",
+          "unit": "ea",
+          "qty": 1,
+          "unit_price": 295.0
+        }
+      ],
+      "total": 2145.0,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1137",
+      "vendor_id": "V002",
+      "location": "FUL",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-26",
+      "lines": [
+        {
+          "sku": "LID-16",
+          "desc": "Flat lid for 16 oz cup (1000/cs)",
+          "unit": "cs",
+          "qty": 7,
+          "unit_price": 41.25
+        },
+        {
+          "sku": "TISS-12",
+          "desc": "Deli tissue sheets 12x12 (5000/cs)",
+          "unit": "cs",
+          "qty": 9,
+          "unit_price": 27.8
+        },
+        {
+          "sku": "CLAM-9",
+          "desc": "Molded fiber clamshell 9x9 (200/cs)",
+          "unit": "cs",
+          "qty": 7,
+          "unit_price": 58.3
+        },
+        {
+          "sku": "SOUP-12",
+          "desc": "Paper soup cup 12 oz w/ lid (500/cs)",
+          "unit": "cs",
+          "qty": 6,
+          "unit_price": 71.2
+        }
+      ],
+      "total": 1374.25,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1138",
+      "vendor_id": "V012",
+      "location": "FUL",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-25",
+      "lines": [
+        {
+          "sku": "MS-LOB",
+          "desc": "Live lobster 1.25 lb",
+          "unit": "lb",
+          "qty": 40,
+          "unit_price": 19.8
+        },
+        {
+          "sku": "MS-SCL",
+          "desc": "Digby scallops U10",
+          "unit": "lb",
+          "qty": 15,
+          "unit_price": 31.5
+        },
+        {
+          "sku": "MS-OYS",
+          "desc": "Malpeque oysters 100ct",
+          "unit": "cs",
+          "qty": 2,
+          "unit_price": 112.0
+        }
+      ],
+      "total": 1488.5,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1139",
+      "vendor_id": "V003",
+      "location": "OKP",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-08-31",
+      "lines": [
+        {
+          "sku": "SVC-N",
+          "desc": "Nightly janitorial service - September 2026",
+          "unit": "mo",
+          "qty": 1,
+          "unit_price": 1850.0
+        },
+        {
+          "sku": "SVC-WIN",
+          "desc": "Exterior window cleaning",
+          "unit": "ea",
+          "qty": 1,
+          "unit_price": 180.0
+        }
+      ],
+      "total": 2030.0,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1140",
+      "vendor_id": "V011",
+      "location": "EVN",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-03",
+      "lines": [
+        {
+          "sku": "PC-MO",
+          "desc": "Monthly pest control service - Evanston",
+          "unit": "mo",
+          "qty": 1,
+          "unit_price": 145.0
+        },
+        {
+          "sku": "PC-INS",
+          "desc": "Follow-up inspection",
+          "unit": "ea",
+          "qty": 1,
+          "unit_price": 95.0
+        }
+      ],
+      "total": 240.0,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1141",
+      "vendor_id": "V005",
+      "location": "FUL",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-22",
+      "lines": [
+        {
+          "sku": "LAP-SET",
+          "desc": "Laptop setup & imaging",
+          "unit": "ea",
+          "qty": 8,
+          "unit_price": 120.0
+        },
+        {
+          "sku": "M365",
+          "desc": "Microsoft 365 Business licences (new)",
+          "unit": "user",
+          "qty": 8,
+          "unit_price": 12.5
+        }
+      ],
+      "total": 1060.0,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1142",
+      "vendor_id": "V001",
+      "location": "WKP",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-27",
+      "lines": [
+        {
+          "sku": "GL-2011",
+          "desc": "Micro greens mix 2 lb",
+          "unit": "cs",
+          "qty": 3,
+          "unit_price": 48.0
+        },
+        {
+          "sku": "GL-1502",
+          "desc": "Cilantro 30 bunch",
+          "unit": "cs",
+          "qty": 1,
+          "unit_price": 24.9
+        },
+        {
+          "sku": "GL-1205",
+          "desc": "Yellow onions, 50 lb sack",
+          "unit": "bag",
+          "qty": 1,
+          "unit_price": 27.4
+        },
+        {
+          "sku": "GL-1820",
+          "desc": "Red bell peppers 11 lb",
+          "unit": "cs",
+          "qty": 12,
+          "unit_price": 34.25
+        },
+        {
+          "sku": "GL-2203",
+          "desc": "Jalapenos 10 lb",
+          "unit": "cs",
+          "qty": 11,
+          "unit_price": 18.7
+        }
+      ],
+      "total": 813.0,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1143",
+      "vendor_id": "V002",
+      "location": "OKP",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-28",
+      "lines": [
+        {
+          "sku": "CUP-16",
+          "desc": "16 oz PET cold cup (1000/cs)",
+          "unit": "cs",
+          "qty": 6,
+          "unit_price": 88.4
+        },
+        {
+          "sku": "STR-W",
+          "desc": "Wrapped paper straws (3200/cs)",
+          "unit": "cs",
+          "qty": 4,
+          "unit_price": 63.9
+        },
+        {
+          "sku": "LID-16",
+          "desc": "Flat lid for 16 oz cup (1000/cs)",
+          "unit": "cs",
+          "qty": 4,
+          "unit_price": 41.25
+        }
+      ],
+      "total": 951.0,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1144",
+      "vendor_id": "V009",
+      "location": "LSQ",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-29",
+      "lines": [
+        {
+          "sku": "KEG-IPA",
+          "desc": "House IPA 1/2 bbl keg",
+          "unit": "keg",
+          "qty": 4,
+          "unit_price": 189.0
+        },
+        {
+          "sku": "CS-GB",
+          "desc": "Ginger beer 24 x 12 oz",
+          "unit": "cs",
+          "qty": 6,
+          "unit_price": 33.9
+        },
+        {
+          "sku": "CS-COLA",
+          "desc": "Cola 24 x 12 oz glass",
+          "unit": "cs",
+          "qty": 3,
+          "unit_price": 31.2
+        }
+      ],
+      "total": 1053.0,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1145",
+      "vendor_id": "V001",
+      "location": "OKP",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-28",
+      "lines": [
+        {
+          "sku": "GL-2150",
+          "desc": "English cucumbers 12ct",
+          "unit": "cs",
+          "qty": 5,
+          "unit_price": 22.4
+        },
+        {
+          "sku": "GL-1905",
+          "desc": "Limes 200ct",
+          "unit": "cs",
+          "qty": 9,
+          "unit_price": 41.1
+        },
+        {
+          "sku": "GL-1502",
+          "desc": "Cilantro 30 bunch",
+          "unit": "cs",
+          "qty": 7,
+          "unit_price": 24.9
+        }
+      ],
+      "total": 656.2,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1146",
+      "vendor_id": "V002",
+      "location": "OKP",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-28",
+      "lines": [
+        {
+          "sku": "LID-16",
+          "desc": "Flat lid for 16 oz cup (1000/cs)",
+          "unit": "cs",
+          "qty": 4,
+          "unit_price": 41.25
+        },
+        {
+          "sku": "KB-08",
+          "desc": "Kraft fold-top takeout box #8 (200/cs)",
+          "unit": "cs",
+          "qty": 5,
+          "unit_price": 46.8
+        }
+      ],
+      "total": 399.0,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1147",
+      "vendor_id": "V008",
+      "location": "LSQ",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-10-01",
+      "lines": [
+        {
+          "sku": "MOZ-5",
+          "desc": "Fresh mozzarella 5 lb",
+          "unit": "ea",
+          "qty": 10,
+          "unit_price": 27.4
+        },
+        {
+          "sku": "SC-5",
+          "desc": "Sour cream 5 lb",
+          "unit": "ea",
+          "qty": 4,
+          "unit_price": 11.3
+        },
+        {
+          "sku": "YOG-32",
+          "desc": "Greek yogurt plain 32 oz",
+          "unit": "ea",
+          "qty": 10,
+          "unit_price": 6.85
+        },
+        {
+          "sku": "HC-Q",
+          "desc": "Heavy cream 40% qt",
+          "unit": "qt",
+          "qty": 10,
+          "unit_price": 5.6
+        }
+      ],
+      "total": 443.7,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1148",
+      "vendor_id": "V010",
+      "location": "WKP",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-29",
+      "lines": [
+        {
+          "sku": "LAB",
+          "desc": "Labor - ice machine repair",
+          "unit": "hr",
+          "qty": 4,
+          "unit_price": 95.0
+        },
+        {
+          "sku": "PRT-V",
+          "desc": "Water inlet valve",
+          "unit": "ea",
+          "qty": 1,
+          "unit_price": 142.0
+        },
+        {
+          "sku": "PRT-F",
+          "desc": "Filter cartridge",
+          "unit": "ea",
+          "qty": 1,
+          "unit_price": 54.0
+        }
+      ],
+      "total": 576.0,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1149",
+      "vendor_id": "V003",
+      "location": "FUL",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-08-31",
+      "lines": [
+        {
+          "sku": "SVC-N",
+          "desc": "Nightly janitorial service - September 2026",
+          "unit": "mo",
+          "qty": 1,
+          "unit_price": 1850.0
+        },
+        {
+          "sku": "SVC-UP",
+          "desc": "Upholstery steam clean, booths",
+          "unit": "ea",
+          "qty": 1,
+          "unit_price": 360.0
+        }
+      ],
+      "total": 2210.0,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1150",
+      "vendor_id": "V010",
+      "location": "EVN",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-10-01",
+      "lines": [
+        {
+          "sku": "LAB",
+          "desc": "Labor - hood fan belt",
+          "unit": "hr",
+          "qty": 2,
+          "unit_price": 95.0
+        },
+        {
+          "sku": "PRT-B",
+          "desc": "Fan belt A-48",
+          "unit": "ea",
+          "qty": 2,
+          "unit_price": 38.5
+        },
+        {
+          "sku": "PRT-P",
+          "desc": "Pulley set screw kit",
+          "unit": "ea",
+          "qty": 1,
+          "unit_price": 22.0
+        }
+      ],
+      "total": 289.0,
+      "opening_billed": 0.0
+    },
+    {
+      "po_number": "PO-1151",
+      "vendor_id": "V003",
+      "location": "LSQ",
+      "status": "open",
+      "type": "standard",
+      "created": "2026-09-15",
+      "lines": [
+        {
+          "sku": "SVC-HD",
+          "desc": "Kitchen hood degrease (quarterly)",
+          "unit": "ea",
+          "qty": 1,
+          "unit_price": 640.0
+        },
+        {
+          "sku": "SVC-UP",
+          "desc": "Upholstery steam clean, booths",
+          "unit": "ea",
+          "qty": 1,
+          "unit_price": 360.0
+        }
+      ],
+      "total": 1000.0,
+      "opening_billed": 0.0
+    }
+  ],
+  "goods_receipts": [
+    {
+      "po_number": "PO-1040",
+      "sku": "GL-1102",
+      "qty_received": 12,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1040",
+      "sku": "GL-1140",
+      "qty_received": 8,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1040",
+      "sku": "GL-1311",
+      "qty_received": 6,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1040",
+      "sku": "GL-1420",
+      "qty_received": 3,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1040",
+      "sku": "GL-1502",
+      "qty_received": 2,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1041",
+      "sku": "LID-16",
+      "qty_received": 6,
+      "received_date": "2026-09-02"
+    },
+    {
+      "po_number": "PO-1041",
+      "sku": "GLV-L",
+      "qty_received": 3,
+      "received_date": "2026-09-02"
+    },
+    {
+      "po_number": "PO-1046",
+      "sku": "GL-1610",
+      "qty_received": 10,
+      "received_date": "2026-10-01"
+    },
+    {
+      "po_number": "PO-1046",
+      "sku": "GL-1820",
+      "qty_received": 6,
+      "received_date": "2026-10-01"
+    },
+    {
+      "po_number": "PO-1046",
+      "sku": "GL-1905",
+      "qty_received": 4,
+      "received_date": "2026-10-01"
+    },
+    {
+      "po_number": "PO-1046",
+      "sku": "GL-2104",
+      "qty_received": 5,
+      "received_date": "2026-10-01"
+    },
+    {
+      "po_number": "PO-1101",
+      "sku": "GL-1502",
+      "qty_received": 9,
+      "received_date": "2026-09-25"
+    },
+    {
+      "po_number": "PO-1101",
+      "sku": "GL-1205",
+      "qty_received": 2,
+      "received_date": "2026-09-25"
+    },
+    {
+      "po_number": "PO-1101",
+      "sku": "GL-1610",
+      "qty_received": 6,
+      "received_date": "2026-09-25"
+    },
+    {
+      "po_number": "PO-1101",
+      "sku": "GL-2011",
+      "qty_received": 10,
+      "received_date": "2026-09-25"
+    },
+    {
+      "po_number": "PO-1101",
+      "sku": "GL-1102",
+      "qty_received": 1,
+      "received_date": "2026-09-25"
+    },
+    {
+      "po_number": "PO-1101",
+      "sku": "GL-1140",
+      "qty_received": 9,
+      "received_date": "2026-09-25"
+    },
+    {
+      "po_number": "PO-1102",
+      "sku": "NAP-D",
+      "qty_received": 3,
+      "received_date": "2026-09-20"
+    },
+    {
+      "po_number": "PO-1102",
+      "sku": "KB-08",
+      "qty_received": 5,
+      "received_date": "2026-09-20"
+    },
+    {
+      "po_number": "PO-1102",
+      "sku": "CUP-16",
+      "qty_received": 3,
+      "received_date": "2026-09-20"
+    },
+    {
+      "po_number": "PO-1102",
+      "sku": "FOIL-18",
+      "qty_received": 10,
+      "received_date": "2026-09-20"
+    },
+    {
+      "po_number": "PO-1102",
+      "sku": "STR-W",
+      "qty_received": 8,
+      "received_date": "2026-09-20"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "10442",
+      "qty_received": 58.8,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "60015",
+      "qty_received": 1,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "10457",
+      "qty_received": 36.9,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "20131",
+      "qty_received": 14.9,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "10480",
+      "qty_received": 29.8,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "20160",
+      "qty_received": 36.1,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "40102",
+      "qty_received": 37.7,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "50091",
+      "qty_received": 5,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "20160",
+      "qty_received": 36.5,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "60022",
+      "qty_received": 11.3,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "20118",
+      "qty_received": 11.1,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "10457",
+      "qty_received": 18.7,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "60015",
+      "qty_received": 6,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "20131",
+      "qty_received": 35.6,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "30244",
+      "qty_received": 48.4,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "10442",
+      "qty_received": 32.2,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "50077",
+      "qty_received": 3,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "30244",
+      "qty_received": 35.3,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "30210",
+      "qty_received": 53.5,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "20131",
+      "qty_received": 45.9,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "20118",
+      "qty_received": 23.0,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "60022",
+      "qty_received": 59.0,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "10457",
+      "qty_received": 14.1,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "70300",
+      "qty_received": 29.7,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "10480",
+      "qty_received": 37.0,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "30244",
+      "qty_received": 49.0,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "20118",
+      "qty_received": 50.6,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "50077",
+      "qty_received": 3,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "40102",
+      "qty_received": 44.2,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "10442",
+      "qty_received": 38.9,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "10457",
+      "qty_received": 38.2,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "60015",
+      "qty_received": 4,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "10457",
+      "qty_received": 46.0,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "20160",
+      "qty_received": 24.1,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "30210",
+      "qty_received": 38.1,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "50077",
+      "qty_received": 6,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "10480",
+      "qty_received": 50.7,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1104",
+      "sku": "10442",
+      "qty_received": 22.8,
+      "received_date": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1105",
+      "sku": "MOZ-5",
+      "qty_received": 4,
+      "received_date": "2026-10-03"
+    },
+    {
+      "po_number": "PO-1105",
+      "sku": "PRM-W",
+      "qty_received": 11,
+      "received_date": "2026-10-03"
+    },
+    {
+      "po_number": "PO-1105",
+      "sku": "BTR-36",
+      "qty_received": 3,
+      "received_date": "2026-10-03"
+    },
+    {
+      "po_number": "PO-1105",
+      "sku": "WM-G",
+      "qty_received": 9,
+      "received_date": "2026-10-03"
+    },
+    {
+      "po_number": "PO-1105",
+      "sku": "EGG-15",
+      "qty_received": 2,
+      "received_date": "2026-10-03"
+    },
+    {
+      "po_number": "PO-1105",
+      "sku": "HC-Q",
+      "qty_received": 5,
+      "received_date": "2026-10-03"
+    },
+    {
+      "po_number": "PO-1106",
+      "sku": "CS-GB",
+      "qty_received": 8,
+      "received_date": "2026-09-27"
+    },
+    {
+      "po_number": "PO-1106",
+      "sku": "CS-SPK",
+      "qty_received": 2,
+      "received_date": "2026-09-27"
+    },
+    {
+      "po_number": "PO-1106",
+      "sku": "CS-COLA",
+      "qty_received": 3,
+      "received_date": "2026-09-27"
+    },
+    {
+      "po_number": "PO-1106",
+      "sku": "SP-VOD",
+      "qty_received": 8,
+      "received_date": "2026-09-27"
+    },
+    {
+      "po_number": "PO-1106",
+      "sku": "WN-CS",
+      "qty_received": 7,
+      "received_date": "2026-09-27"
+    },
+    {
+      "po_number": "PO-1108",
+      "sku": "GL-1820",
+      "qty_received": 5,
+      "received_date": "2026-09-23"
+    },
+    {
+      "po_number": "PO-1108",
+      "sku": "GL-1420",
+      "qty_received": 12,
+      "received_date": "2026-09-23"
+    },
+    {
+      "po_number": "PO-1108",
+      "sku": "GL-1205",
+      "qty_received": 7,
+      "received_date": "2026-09-23"
+    },
+    {
+      "po_number": "PO-1108",
+      "sku": "GL-1610",
+      "qty_received": 6,
+      "received_date": "2026-09-23"
+    },
+    {
+      "po_number": "PO-1108",
+      "sku": "GL-2203",
+      "qty_received": 11,
+      "received_date": "2026-09-23"
+    },
+    {
+      "po_number": "PO-1109",
+      "sku": "PCUP-2",
+      "qty_received": 2400,
+      "received_date": "2026-09-21"
+    },
+    {
+      "po_number": "PO-1109",
+      "sku": "TISS-12",
+      "qty_received": 4,
+      "received_date": "2026-09-21"
+    },
+    {
+      "po_number": "PO-1110",
+      "sku": "10442",
+      "qty_received": 30,
+      "received_date": "2026-09-30"
+    },
+    {
+      "po_number": "PO-1110",
+      "sku": "20118",
+      "qty_received": 60,
+      "received_date": "2026-09-30"
+    },
+    {
+      "po_number": "PO-1110",
+      "sku": "30210",
+      "qty_received": 18,
+      "received_date": "2026-09-30"
+    },
+    {
+      "po_number": "PO-1111",
+      "sku": "WN-CS",
+      "qty_received": 4,
+      "received_date": "2026-09-28"
+    },
+    {
+      "po_number": "PO-1111",
+      "sku": "CS-COLA",
+      "qty_received": 4,
+      "received_date": "2026-09-28"
+    },
+    {
+      "po_number": "PO-1111",
+      "sku": "CS-SPK",
+      "qty_received": 5,
+      "received_date": "2026-09-28"
+    },
+    {
+      "po_number": "PO-1111",
+      "sku": "KEG-IPA",
+      "qty_received": 5,
+      "received_date": "2026-09-28"
+    },
+    {
+      "po_number": "PO-1112",
+      "sku": "GL-1102",
+      "qty_received": 5,
+      "received_date": "2026-09-29"
+    },
+    {
+      "po_number": "PO-1112",
+      "sku": "GL-1733",
+      "qty_received": 1,
+      "received_date": "2026-09-29"
+    },
+    {
+      "po_number": "PO-1112",
+      "sku": "GL-1905",
+      "qty_received": 3,
+      "received_date": "2026-09-29"
+    },
+    {
+      "po_number": "PO-1112",
+      "sku": "GL-1205",
+      "qty_received": 7,
+      "received_date": "2026-09-29"
+    },
+    {
+      "po_number": "PO-1112",
+      "sku": "GL-1420",
+      "qty_received": 9,
+      "received_date": "2026-09-29"
+    },
+    {
+      "po_number": "PO-1113",
+      "sku": "BAG-12",
+      "qty_received": 4,
+      "received_date": "2026-09-24"
+    },
+    {
+      "po_number": "PO-1113",
+      "sku": "TISS-12",
+      "qty_received": 2,
+      "received_date": "2026-09-24"
+    },
+    {
+      "po_number": "PO-1113",
+      "sku": "CUT-K",
+      "qty_received": 9,
+      "received_date": "2026-09-24"
+    },
+    {
+      "po_number": "PO-1113",
+      "sku": "SOUP-12",
+      "qty_received": 8,
+      "received_date": "2026-09-24"
+    },
+    {
+      "po_number": "PO-1115",
+      "sku": "MOZ-5",
+      "qty_received": 12,
+      "received_date": "2026-10-04"
+    },
+    {
+      "po_number": "PO-1115",
+      "sku": "EGG-15",
+      "qty_received": 8,
+      "received_date": "2026-10-04"
+    },
+    {
+      "po_number": "PO-1115",
+      "sku": "SC-5",
+      "qty_received": 2,
+      "received_date": "2026-10-04"
+    },
+    {
+      "po_number": "PO-1115",
+      "sku": "WM-G",
+      "qty_received": 5,
+      "received_date": "2026-10-04"
+    },
+    {
+      "po_number": "PO-1115",
+      "sku": "PRM-W",
+      "qty_received": 3,
+      "received_date": "2026-10-04"
+    },
+    {
+      "po_number": "PO-1117",
+      "sku": "CS-COLA",
+      "qty_received": 3,
+      "received_date": "2026-09-30"
+    },
+    {
+      "po_number": "PO-1117",
+      "sku": "SP-VOD",
+      "qty_received": 5,
+      "received_date": "2026-09-30"
+    },
+    {
+      "po_number": "PO-1117",
+      "sku": "CS-SPK",
+      "qty_received": 1,
+      "received_date": "2026-09-30"
+    },
+    {
+      "po_number": "PO-1117",
+      "sku": "KEG-IPA",
+      "qty_received": 1,
+      "received_date": "2026-09-30"
+    },
+    {
+      "po_number": "PO-1118",
+      "sku": "10442",
+      "qty_received": 40.1,
+      "received_date": "2026-09-17"
+    },
+    {
+      "po_number": "PO-1118",
+      "sku": "60015",
+      "qty_received": 5,
+      "received_date": "2026-09-17"
+    },
+    {
+      "po_number": "PO-1118",
+      "sku": "20118",
+      "qty_received": 20.7,
+      "received_date": "2026-09-17"
+    },
+    {
+      "po_number": "PO-1118",
+      "sku": "50091",
+      "qty_received": 3,
+      "received_date": "2026-09-17"
+    },
+    {
+      "po_number": "PO-1118",
+      "sku": "10457",
+      "qty_received": 43.3,
+      "received_date": "2026-09-17"
+    },
+    {
+      "po_number": "PO-1118",
+      "sku": "30244",
+      "qty_received": 29.5,
+      "received_date": "2026-09-17"
+    },
+    {
+      "po_number": "PO-1118",
+      "sku": "20160",
+      "qty_received": 24.5,
+      "received_date": "2026-09-17"
+    },
+    {
+      "po_number": "PO-1118",
+      "sku": "50077",
+      "qty_received": 1,
+      "received_date": "2026-09-17"
+    },
+    {
+      "po_number": "PO-1118",
+      "sku": "20160",
+      "qty_received": 10.0,
+      "received_date": "2026-09-17"
+    },
+    {
+      "po_number": "PO-1118",
+      "sku": "50077",
+      "qty_received": 3,
+      "received_date": "2026-09-17"
+    },
+    {
+      "po_number": "PO-1118",
+      "sku": "10480",
+      "qty_received": 34.9,
+      "received_date": "2026-09-17"
+    },
+    {
+      "po_number": "PO-1118",
+      "sku": "70300",
+      "qty_received": 24.7,
+      "received_date": "2026-09-17"
+    },
+    {
+      "po_number": "PO-1118",
+      "sku": "60022",
+      "qty_received": 33.0,
+      "received_date": "2026-09-17"
+    },
+    {
+      "po_number": "PO-1118",
+      "sku": "30210",
+      "qty_received": 26.1,
+      "received_date": "2026-09-17"
+    },
+    {
+      "po_number": "PO-1118",
+      "sku": "10457",
+      "qty_received": 14.0,
+      "received_date": "2026-09-17"
+    },
+    {
+      "po_number": "PO-1118",
+      "sku": "60015",
+      "qty_received": 5,
+      "received_date": "2026-09-17"
+    },
+    {
+      "po_number": "PO-1118",
+      "sku": "30244",
+      "qty_received": 39.7,
+      "received_date": "2026-09-17"
+    },
+    {
+      "po_number": "PO-1118",
+      "sku": "20118",
+      "qty_received": 33.2,
+      "received_date": "2026-09-17"
+    },
+    {
+      "po_number": "PO-1118",
+      "sku": "70300",
+      "qty_received": 16.2,
+      "received_date": "2026-09-17"
+    },
+    {
+      "po_number": "PO-1118",
+      "sku": "50091",
+      "qty_received": 3,
+      "received_date": "2026-09-17"
+    },
+    {
+      "po_number": "PO-1118",
+      "sku": "10442",
+      "qty_received": 41.4,
+      "received_date": "2026-09-17"
+    },
+    {
+      "po_number": "PO-1118",
+      "sku": "60022",
+      "qty_received": 19.9,
+      "received_date": "2026-09-17"
+    },
+    {
+      "po_number": "PO-1118",
+      "sku": "30210",
+      "qty_received": 14.7,
+      "received_date": "2026-09-17"
+    },
+    {
+      "po_number": "PO-1118",
+      "sku": "20160",
+      "qty_received": 27.1,
+      "received_date": "2026-09-17"
+    },
+    {
+      "po_number": "PO-1118",
+      "sku": "50091",
+      "qty_received": 4,
+      "received_date": "2026-09-17"
+    },
+    {
+      "po_number": "PO-1118",
+      "sku": "30244",
+      "qty_received": 34.9,
+      "received_date": "2026-09-17"
+    },
+    {
+      "po_number": "PO-1118",
+      "sku": "60022",
+      "qty_received": 14.8,
+      "received_date": "2026-09-17"
+    },
+    {
+      "po_number": "PO-1118",
+      "sku": "20131",
+      "qty_received": 26.2,
+      "received_date": "2026-09-17"
+    },
+    {
+      "po_number": "PO-1118",
+      "sku": "60015",
+      "qty_received": 3,
+      "received_date": "2026-09-17"
+    },
+    {
+      "po_number": "PO-1118",
+      "sku": "70300",
+      "qty_received": 34.5,
+      "received_date": "2026-09-17"
+    },
+    {
+      "po_number": "PO-1118",
+      "sku": "20160",
+      "qty_received": 44.6,
+      "received_date": "2026-09-17"
+    },
+    {
+      "po_number": "PO-1118",
+      "sku": "40102",
+      "qty_received": 36.8,
+      "received_date": "2026-09-17"
+    },
+    {
+      "po_number": "PO-1120",
+      "sku": "GL-1733",
+      "qty_received": 6,
+      "received_date": "2026-09-30"
+    },
+    {
+      "po_number": "PO-1120",
+      "sku": "GL-1420",
+      "qty_received": 8,
+      "received_date": "2026-09-30"
+    },
+    {
+      "po_number": "PO-1120",
+      "sku": "GL-1311",
+      "qty_received": 12,
+      "received_date": "2026-09-30"
+    },
+    {
+      "po_number": "PO-1120",
+      "sku": "GL-1905",
+      "qty_received": 6,
+      "received_date": "2026-09-30"
+    },
+    {
+      "po_number": "PO-1123",
+      "sku": "KB-08",
+      "qty_received": 8,
+      "received_date": "2026-09-26"
+    },
+    {
+      "po_number": "PO-1123",
+      "sku": "CUP-16",
+      "qty_received": 3,
+      "received_date": "2026-09-26"
+    },
+    {
+      "po_number": "PO-1123",
+      "sku": "LID-16",
+      "qty_received": 3,
+      "received_date": "2026-09-26"
+    },
+    {
+      "po_number": "PO-1123",
+      "sku": "CLAM-9",
+      "qty_received": 5,
+      "received_date": "2026-09-26"
+    },
+    {
+      "po_number": "PO-1124",
+      "sku": "BAG-12",
+      "qty_received": 2,
+      "received_date": "2026-09-25"
+    },
+    {
+      "po_number": "PO-1124",
+      "sku": "CUP-16",
+      "qty_received": 3,
+      "received_date": "2026-09-25"
+    },
+    {
+      "po_number": "PO-1124",
+      "sku": "NAP-D",
+      "qty_received": 5,
+      "received_date": "2026-09-25"
+    },
+    {
+      "po_number": "PO-1125",
+      "sku": "GL-1102",
+      "qty_received": 6,
+      "received_date": "2026-10-04"
+    },
+    {
+      "po_number": "PO-1125",
+      "sku": "GL-1205",
+      "qty_received": 4,
+      "received_date": "2026-10-04"
+    },
+    {
+      "po_number": "PO-1125",
+      "sku": "GL-1905",
+      "qty_received": 3,
+      "received_date": "2026-10-04"
+    },
+    {
+      "po_number": "PO-1125",
+      "sku": "GL-2150",
+      "qty_received": 4,
+      "received_date": "2026-10-04"
+    },
+    {
+      "po_number": "PO-1126",
+      "sku": "GL-1102",
+      "qty_received": 6,
+      "received_date": "2026-10-04"
+    },
+    {
+      "po_number": "PO-1126",
+      "sku": "GL-1205",
+      "qty_received": 4,
+      "received_date": "2026-10-04"
+    },
+    {
+      "po_number": "PO-1126",
+      "sku": "GL-1905",
+      "qty_received": 3,
+      "received_date": "2026-10-04"
+    },
+    {
+      "po_number": "PO-1126",
+      "sku": "GL-2150",
+      "qty_received": 4,
+      "received_date": "2026-10-04"
+    },
+    {
+      "po_number": "PO-1127",
+      "sku": "NAP-D",
+      "qty_received": 6,
+      "received_date": "2026-09-27"
+    },
+    {
+      "po_number": "PO-1127",
+      "sku": "BAG-12",
+      "qty_received": 10,
+      "received_date": "2026-09-27"
+    },
+    {
+      "po_number": "PO-1127",
+      "sku": "STR-W",
+      "qty_received": 4,
+      "received_date": "2026-09-27"
+    },
+    {
+      "po_number": "PO-1128",
+      "sku": "CUP-16",
+      "qty_received": 4,
+      "received_date": "2026-09-28"
+    },
+    {
+      "po_number": "PO-1128",
+      "sku": "FOIL-18",
+      "qty_received": 6,
+      "received_date": "2026-09-28"
+    },
+    {
+      "po_number": "PO-1128",
+      "sku": "TISS-12",
+      "qty_received": 8,
+      "received_date": "2026-09-28"
+    },
+    {
+      "po_number": "PO-1129",
+      "sku": "CUT-K",
+      "qty_received": 80,
+      "received_date": "2026-09-29"
+    },
+    {
+      "po_number": "PO-1129",
+      "sku": "SOUP-12",
+      "qty_received": 12,
+      "received_date": "2026-09-29"
+    },
+    {
+      "po_number": "PO-1130",
+      "sku": "CS-COLA",
+      "qty_received": 4,
+      "received_date": "2026-10-02"
+    },
+    {
+      "po_number": "PO-1130",
+      "sku": "WN-PG",
+      "qty_received": 5,
+      "received_date": "2026-10-02"
+    },
+    {
+      "po_number": "PO-1130",
+      "sku": "CS-TON",
+      "qty_received": 5,
+      "received_date": "2026-10-02"
+    },
+    {
+      "po_number": "PO-1131",
+      "sku": "KEG-IPA",
+      "qty_received": 7,
+      "received_date": "2026-10-02"
+    },
+    {
+      "po_number": "PO-1131",
+      "sku": "SP-VOD",
+      "qty_received": 2,
+      "received_date": "2026-10-02"
+    },
+    {
+      "po_number": "PO-1131",
+      "sku": "WN-PG",
+      "qty_received": 8,
+      "received_date": "2026-10-02"
+    },
+    {
+      "po_number": "PO-1131",
+      "sku": "WN-CS",
+      "qty_received": 7,
+      "received_date": "2026-10-02"
+    },
+    {
+      "po_number": "PO-1132",
+      "sku": "10442",
+      "qty_received": 20,
+      "received_date": "2026-10-01"
+    },
+    {
+      "po_number": "PO-1132",
+      "sku": "40102",
+      "qty_received": 12,
+      "received_date": "2026-10-01"
+    },
+    {
+      "po_number": "PO-1132",
+      "sku": "70300",
+      "qty_received": 25,
+      "received_date": "2026-10-01"
+    },
+    {
+      "po_number": "PO-1134",
+      "sku": "CUP-16",
+      "qty_received": 4,
+      "received_date": "2026-09-30"
+    },
+    {
+      "po_number": "PO-1134",
+      "sku": "FOIL-18",
+      "qty_received": 8,
+      "received_date": "2026-09-30"
+    },
+    {
+      "po_number": "PO-1134",
+      "sku": "NAP-D",
+      "qty_received": 7,
+      "received_date": "2026-09-30"
+    },
+    {
+      "po_number": "PO-1134",
+      "sku": "CLAM-9",
+      "qty_received": 3,
+      "received_date": "2026-09-30"
+    },
+    {
+      "po_number": "PO-1135",
+      "sku": "MOZ-5",
+      "qty_received": 4,
+      "received_date": "2026-10-05"
+    },
+    {
+      "po_number": "PO-1135",
+      "sku": "EGG-15",
+      "qty_received": 4,
+      "received_date": "2026-10-05"
+    },
+    {
+      "po_number": "PO-1135",
+      "sku": "SC-5",
+      "qty_received": 4,
+      "received_date": "2026-10-05"
+    },
+    {
+      "po_number": "PO-1135",
+      "sku": "WM-G",
+      "qty_received": 2,
+      "received_date": "2026-10-05"
+    },
+    {
+      "po_number": "PO-1137",
+      "sku": "LID-16",
+      "qty_received": 7,
+      "received_date": "2026-10-01"
+    },
+    {
+      "po_number": "PO-1137",
+      "sku": "TISS-12",
+      "qty_received": 9,
+      "received_date": "2026-10-01"
+    },
+    {
+      "po_number": "PO-1137",
+      "sku": "CLAM-9",
+      "qty_received": 7,
+      "received_date": "2026-10-01"
+    },
+    {
+      "po_number": "PO-1137",
+      "sku": "SOUP-12",
+      "qty_received": 6,
+      "received_date": "2026-10-01"
+    },
+    {
+      "po_number": "PO-1138",
+      "sku": "MS-LOB",
+      "qty_received": 40,
+      "received_date": "2026-09-30"
+    },
+    {
+      "po_number": "PO-1138",
+      "sku": "MS-SCL",
+      "qty_received": 15,
+      "received_date": "2026-09-30"
+    },
+    {
+      "po_number": "PO-1138",
+      "sku": "MS-OYS",
+      "qty_received": 2,
+      "received_date": "2026-09-30"
+    },
+    {
+      "po_number": "PO-1142",
+      "sku": "GL-2011",
+      "qty_received": 3,
+      "received_date": "2026-10-02"
+    },
+    {
+      "po_number": "PO-1142",
+      "sku": "GL-1502",
+      "qty_received": 1,
+      "received_date": "2026-10-02"
+    },
+    {
+      "po_number": "PO-1142",
+      "sku": "GL-1205",
+      "qty_received": 1,
+      "received_date": "2026-10-02"
+    },
+    {
+      "po_number": "PO-1142",
+      "sku": "GL-1820",
+      "qty_received": 12,
+      "received_date": "2026-10-02"
+    },
+    {
+      "po_number": "PO-1142",
+      "sku": "GL-2203",
+      "qty_received": 11,
+      "received_date": "2026-10-02"
+    },
+    {
+      "po_number": "PO-1143",
+      "sku": "CUP-16",
+      "qty_received": 6,
+      "received_date": "2026-10-03"
+    },
+    {
+      "po_number": "PO-1143",
+      "sku": "STR-W",
+      "qty_received": 4,
+      "received_date": "2026-10-03"
+    },
+    {
+      "po_number": "PO-1143",
+      "sku": "LID-16",
+      "qty_received": 4,
+      "received_date": "2026-10-03"
+    },
+    {
+      "po_number": "PO-1144",
+      "sku": "KEG-IPA",
+      "qty_received": 4,
+      "received_date": "2026-10-04"
+    },
+    {
+      "po_number": "PO-1144",
+      "sku": "CS-GB",
+      "qty_received": 6,
+      "received_date": "2026-10-04"
+    },
+    {
+      "po_number": "PO-1144",
+      "sku": "CS-COLA",
+      "qty_received": 3,
+      "received_date": "2026-10-04"
+    },
+    {
+      "po_number": "PO-1145",
+      "sku": "GL-2150",
+      "qty_received": 5,
+      "received_date": "2026-10-03"
+    },
+    {
+      "po_number": "PO-1145",
+      "sku": "GL-1905",
+      "qty_received": 9,
+      "received_date": "2026-10-03"
+    },
+    {
+      "po_number": "PO-1145",
+      "sku": "GL-1502",
+      "qty_received": 7,
+      "received_date": "2026-10-03"
+    },
+    {
+      "po_number": "PO-1146",
+      "sku": "LID-16",
+      "qty_received": 4,
+      "received_date": "2026-10-03"
+    },
+    {
+      "po_number": "PO-1146",
+      "sku": "KB-08",
+      "qty_received": 5,
+      "received_date": "2026-10-03"
+    },
+    {
+      "po_number": "PO-1147",
+      "sku": "MOZ-5",
+      "qty_received": 10,
+      "received_date": "2026-10-06"
+    },
+    {
+      "po_number": "PO-1147",
+      "sku": "SC-5",
+      "qty_received": 4,
+      "received_date": "2026-10-06"
+    },
+    {
+      "po_number": "PO-1147",
+      "sku": "YOG-32",
+      "qty_received": 10,
+      "received_date": "2026-10-06"
+    },
+    {
+      "po_number": "PO-1147",
+      "sku": "HC-Q",
+      "qty_received": 10,
+      "received_date": "2026-10-06"
+    }
+  ],
+  "invoice_ledger": [
+    {
+      "vendor_id": "V001",
+      "invoice_number": "INV-GL-2207",
+      "invoice_date": "2026-09-22",
+      "po_number": "PO-1040",
+      "subtotal": 1242.4,
+      "tax": 0.0,
+      "total": 1242.4,
+      "status": "paid",
+      "service_period": null,
+      "lines": [
+        {
+          "desc": "Roma tomatoes, 25 lb case",
+          "qty": 12,
+          "unit_price": 31.5
+        },
+        {
+          "desc": "Romaine hearts 3ct x 12",
+          "qty": 8,
+          "unit_price": 38.75
+        },
+        {
+          "desc": "Hass avocados 48ct",
+          "qty": 6,
+          "unit_price": 62.0
+        },
+        {
+          "desc": "Lemons 165ct",
+          "qty": 3,
+          "unit_price": 44.2
+        },
+        {
+          "desc": "Cilantro 30 bunch",
+          "qty": 2,
+          "unit_price": 24.9
+        }
+      ]
+    },
+    {
+      "vendor_id": "V004",
+      "invoice_number": "NG-0301",
+      "invoice_date": "2026-08-01",
+      "po_number": "PO-1043",
+      "subtotal": 19000.0,
+      "tax": 0.0,
+      "total": 19000.0,
+      "status": "paid",
+      "service_period": null,
+      "lines": [
+        {
+          "desc": "Kitchen equipment rental package incl. install",
+          "qty": 1,
+          "unit_price": 19000.0
+        }
+      ]
+    },
+    {
+      "vendor_id": "V004",
+      "invoice_number": "NG-0302",
+      "invoice_date": "2026-09-01",
+      "po_number": "PO-1043",
+      "subtotal": 19000.0,
+      "tax": 0.0,
+      "total": 19000.0,
+      "status": "paid",
+      "service_period": null,
+      "lines": [
+        {
+          "desc": "Kitchen equipment rental package incl. install",
+          "qty": 1,
+          "unit_price": 19000.0
+        }
+      ]
+    },
+    {
+      "vendor_id": "V005",
+      "invoice_number": "BW-2026-09",
+      "invoice_date": "2026-09-01",
+      "po_number": "PO-1044",
+      "subtotal": 3600.0,
+      "tax": 0.0,
+      "total": 3600.0,
+      "status": "paid",
+      "service_period": "September 2026",
+      "lines": [
+        {
+          "desc": "Managed IT support retainer - September 2026",
+          "qty": 1,
+          "unit_price": 2400.0
+        },
+        {
+          "desc": "POS support & monitoring - September 2026",
+          "qty": 1,
+          "unit_price": 650.0
+        },
+        {
+          "desc": "Microsoft 365 Business licences",
+          "qty": 44,
+          "unit_price": 12.5
+        }
+      ]
+    },
+    {
+      "vendor_id": "V002",
+      "invoice_number": "PR-104512",
+      "invoice_date": "2026-09-12",
+      "po_number": "PO-1041",
+      "subtotal": 472.2,
+      "tax": 0.0,
+      "total": 472.2,
+      "status": "paid",
+      "service_period": null,
+      "lines": [
+        {
+          "desc": "Flat lid for 16 oz cup (1000/cs)",
+          "qty": 6,
+          "unit_price": 41.25
+        },
+        {
+          "desc": "Nitrile gloves black, size L (1000/cs)",
+          "qty": 3,
+          "unit_price": 74.9
+        }
+      ]
+    }
+  ]
+}
