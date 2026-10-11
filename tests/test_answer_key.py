@@ -1,4 +1,4 @@
-from tests.conftest import MAN_BY_FILE
+from tests.conftest import FIX_DIR, MAN_BY_FILE, ROOT
 
 
 def t(f):
@@ -22,3 +22,15 @@ def test_fixture_67_is_a_scanned_bank_change():
     assert m["kind"] == "scanned_pdf" and m["vendor_id"] == "V003"
     assert m["expected"]["alone"] == m["expected"]["in_batch"] == {"decision": "HOLD", "reasons": ["BANK_DETAILS_CHANGED"]}
     assert t(m["file"])["remit_bank_account"] == "9917002456" and t(m["file"])["po_number_printed"] == "PO-1151"
+
+
+def test_shipped_read_cache_covers_every_readable_test_invoice():
+    # The deployed demo relies on these pre-read results; a regenerated invoice changes its fingerprint and would
+    # silently fall back to a slow live read on the server.
+    import hashlib
+    import json
+    cache = json.loads((ROOT / "data" / "extraction_cache.json").read_text(encoding="utf-8"))
+    unreadable = {"64_sparkle_password_protected.pdf", "65_corrupted_download.pdf"}  # never reach the AI
+    missing = [f.name for f in sorted(FIX_DIR.iterdir())
+               if f.name not in unreadable and hashlib.sha256(f.read_bytes()).hexdigest() not in cache]
+    assert not missing, f"re-export data/extraction_cache.json; stale for {len(missing)} files, e.g. {missing[:3]}"
