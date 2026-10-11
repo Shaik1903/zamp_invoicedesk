@@ -98,7 +98,7 @@ function cachedApi(path, onFresh) {
   return Promise.resolve(CACHE[path]);
 }
 function prefetch() {
-  for (const p of ["/api/fixtures", "/api/assumptions", "/api/reference", "/api/runs"]) {
+  for (const p of ["/api/fixtures", "/api/assumptions", "/api/reference", "/api/runs", "/api/tests/latest"]) {
     if (!(p in CACHE)) api(p).then((d) => { if (!(p in CACHE)) CACHE[p] = d; }).catch(() => {});
   }
 }
@@ -657,10 +657,12 @@ VIEWS.tests = async (el) => {
   };
   const tick = async () => {
     const rep = await api("/api/tests/latest");
+    CACHE["/api/tests/latest"] = rep;
     render(rep);
     if (rep.status === "running") timer = setTimeout(tick, 1500);
   };
   cleanup.push(() => clearTimeout(timer));
+  if (CACHE["/api/tests/latest"]) render(CACHE["/api/tests/latest"]);  // instant, then refreshed by tick()
   $("#runTests").onclick = async () => { try { await api("/api/tests/run", { method: "POST" }); } catch (e) { toast(el, e.message); } tick(); };
   tick();
 };
