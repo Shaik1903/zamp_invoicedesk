@@ -4,11 +4,9 @@
 
 InvoiceDesk is an accounts-payable assistant built for the Zamp AI Solutions Associate case study (PS-1: invoice PDF to AP decision). Drop in one invoice or a whole inbox (digital PDFs, scans, faxes, phone photos, even handwritten carbon copies) and each one comes back **Approved**, **On hold** or **Rejected** in seconds. Every decision shows the reason, who should act, the next step, and the evidence circled on the invoice itself.
 
-| | |
-|---|---|
-| **Live app** | **https://invoicedesk-61918052835.asia-south1.run.app** |
-| **48-second trailer** | _link added after upload_ |
-| **Original proposal** (Day 1, before the build) | [docs/InvoiceDesk_proposal.pdf](docs/InvoiceDesk_proposal.pdf) |
+- **Live app:** https://invoicedesk-61918052835.asia-south1.run.app
+- **48-second trailer:** [docs/InvoiceDesk_trailer.mp4](docs/InvoiceDesk_trailer.mp4)
+- **Original proposal** (Day 1, before the build): [docs/InvoiceDesk_proposal.pdf](docs/InvoiceDesk_proposal.pdf)
 
 ---
 
